@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='utf-8'?>
+<novelWriterXML appVersion="1.6-alpha0" hexVersion="0x010600a0" fileVersion="1.3" timeStamp="2022-01-02 22:35:28">
+  <project>
+    <name>Das dritte Auge des Polypen</name>
+    <title></title>
+    <saveCount>7</saveCount>
+    <autoCount>14</autoCount>
+    <editTime>3757</editTime>
+  </project>
+  <settings>
+    <doBackup>True</doBackup>
+    <language>None</language>
+    <spellCheck>False</spellCheck>
+    <spellLang>None</spellLang>
+    <autoOutline>True</autoOutline>
+    <lastEdited>50b4d13b40332</lastEdited>
+    <lastViewed>None</lastViewed>
+    <lastWordCount>31</lastWordCount>
+    <novelWordCount>19</novelWordCount>
+    <notesWordCount>12</notesWordCount>
+    <autoReplace/>
+    <titleFormat>
+      <title>%title%</title>
+      <chapter>%title%</chapter>
+      <unnumbered>%title%</unnumbered>
+      <scene>* * *</scene>
+      <section></section>
+    </titleFormat>
+    <status>
+      <entry blue="100" green="100" red="100">New</entry>
+      <entry blue="0" green="50" red="200">Note</entry>
+      <entry blue="0" green="150" red="200">Draft</entry>
+      <entry blue="0" green="200" red="50">Finished</entry>
+    </status>
+    <importance>
+      <entry blue="100" green="100" red="100">New</entry>
+      <entry blue="0" green="50" red="200">Minor</entry>
+      <entry blue="0" green="150" red="200">Major</entry>
+      <entry blue="0" green="200" red="50">Main</entry>
+    </importance>
+  </settings>
+  <content count="10">
+    <item handle="97ec11c260007" order="0" parent="None">
+      <name>Novel</name>
+      <type>ROOT</type>
+      <class>NOVEL</class>
+      <status>New</status>
+      <expanded>True</expanded>
+    </item>
+    <item handle="85a8e3a333dfa" order="0" parent="97ec11c260007">
+      <name>Title Page</name>
+      <type>FILE</type>
+      <class>NOVEL</class>
+      <status>New</status>
+      <exported>True</exported>
+      <layout>DOCUMENT</layout>
+      <charCount>27</charCount>
+      <wordCount>5</wordCount>
+      <paraCount>0</paraCount>
+      <cursorPos>0</cursorPos>
+    </item>
+    <item handle="1d19afcc291e4" order="1" parent="97ec11c260007">
+      <name>New Chapter</name>
+      <type>FOLDER</type>
+      <class>NOVEL</class>
+      <status>New</status>
+      <expanded>True</expanded>
+    </item>
+    <item handle="7dccc16ae5f34" order="0" parent="1d19afcc291e4">
+      <name>New Chapter</name>
+      <type>FILE</type>
+      <class>NOVEL</class>
+      <status>New</status>
+      <exported>True</exported>
+      <layout>DOCUMENT</layout>
+      <charCount>11</charCount>
+      <wordCount>2</wordCount>
+      <paraCount>0</paraCount>
+      <cursorPos>0</cursorPos>
+    </item>
+    <item handle="50b4d13b40332" order="1" parent="1d19afcc291e4">
+      <name>New Scene</name>
+      <type>FILE</type>
+      <class>NOVEL</class>
+      <status>New</status>
+      <exported>True</exported>
+      <layout>DOCUMENT</layout>
+      <charCount>60</charCount>
+      <wordCount>12</wordCount>
+      <paraCount>1</paraCount>
+      <cursorPos>174</cursorPos>
+    </item>
+    <item handle="166b91e427fa6" order="1" parent="None">
+      <name>Plot</name>
+      <type>ROOT</type>
+      <class>PLOT</class>
+      <status>New</status>
+      <expanded>True</expanded>
+    </item>
+    <item handle="dc8644941e379" order="0" parent="166b91e427fa6">
+      <name>Auslösendes Ereignis</name>
+      <type>FILE</type>
+      <class>PLOT</class>
+      <status>New</status>
+      <exported>True</exported>
+      <layout>NOTE</layout>
+      <charCount>71</charCount>
+      <wordCount>11</wordCount>
+      <paraCount>1</paraCount>
+      <cursorPos>75</cursorPos>
+    </item>
+    <item handle="75ee490b81fdb" order="2" parent="None">
+      <name>Characters</name>
+      <type>ROOT</type>
+      <class>CHARACTER</class>
+      <status>New</status>
+      <expanded>True</expanded>
+    </item>
+    <item handle="ef79905ef88f2" order="0" parent="75ee490b81fdb">
+      <name>Richter</name>
+      <type>FILE</type>
+      <class>CHARACTER</class>
+      <status>Major</status>
+      <exported>True</exported>
+      <layout>NOTE</layout>
+      <charCount>7</charCount>
+      <wordCount>1</wordCount>
+      <paraCount>0</paraCount>
+      <cursorPos>0</cursorPos>
+    </item>
+    <item handle="2135535937b6e" order="3" parent="None">
+      <name>World</name>
+      <type>ROOT</type>
+      <class>WORLD</class>
+      <status>New</status>
+      <expanded>False</expanded>
+    </item>
+  </content>
+</novelWriterXML>
