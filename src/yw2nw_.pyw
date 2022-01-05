@@ -66,11 +66,11 @@ def run(sourcePath, silentMode=True, installDir=''):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Synchronize Aeon Timeline 2 and yWriter',
+        description='yWriter import and export for novelWriter',
         epilog='')
     parser.add_argument('sourcePath',
                         metavar='Sourcefile',
-                        help='The path of the aeonzip or yw7 file.')
+                        help='The path of the nwx or yw7 file.')
 
     parser.add_argument('--silent',
                         action="store_true",
