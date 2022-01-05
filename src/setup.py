@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Install the aeon2yw script. 
+"""Install the yw2nw script. 
 
 Version @release
 
-Copyright (c) 2021 Peter Triesberger
-For further information see https://github.com/peter88213/aeon2yw
+Copyright (c) 2022 Peter Triesberger
+For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 import os
@@ -13,19 +13,11 @@ from shutil import copyfile
 from pathlib import Path
 from string import Template
 
-try:
-    from tkinter import *
-    from tkinter import messagebox
 
-except ModuleNotFoundError:
-    print('The tkinter module is missing. Please install the tk support package for your python3 version.')
-    sys.exit(1)
-
-
-APPNAME = 'aeon2yw'
+APPNAME = 'yw2nw'
 
 VERSION = ' @release'
-APP = APPNAME + '.pyw'
+APP = APPNAME + '.py'
 INI_FILE = APPNAME + '.ini'
 INI_PATH = '/config/'
 SAMPLE_PATH = 'sample/'
@@ -46,14 +38,8 @@ python3 '$Apppath' %F
 '''
 
 
-root = Tk()
-processInfo = Label(root, text='')
-message = []
-
-
 def output(text):
-    message.append(text)
-    processInfo.config(text=('\n').join(message))
+    print(text)
 
 
 def open_folder(installDir):
@@ -138,27 +124,6 @@ def install(pywriterPath):
     except:
         pass
 
-    # Install the Aeon2 sample template, if needed.
-
-    try:
-        aeon2dir = os.getenv('LOCALAPPDATA').replace('\\', '/') + '/Scribble Code/Aeon Timeline 2/CustomTemplates/'
-        sampleTemplate = 'yWriter.xml'
-
-        if not os.path.isfile(aeon2dir + sampleTemplate):
-            copyfile(SAMPLE_PATH + sampleTemplate, aeon2dir + sampleTemplate)
-            output('Copying "' + sampleTemplate + '"')
-
-        else:
-            if messagebox.askyesno('Aeon Timeline 2 "yWriter" template', 'Update "' + aeon2dir + sampleTemplate + '"?'):
-                copyfile(SAMPLE_PATH + sampleTemplate, aeon2dir + sampleTemplate)
-                output('Updating "' + sampleTemplate + '"')
-
-            else:
-                output('Keeping "' + sampleTemplate + '"')
-
-    except:
-        pass
-
     # Display a success message.
 
     mapping = {'Appname': APPNAME, 'Apppath': installDir + '/' + APP}
@@ -173,17 +138,6 @@ def install(pywriterPath):
 
 if __name__ == '__main__':
 
-    # Open a tk window.
-
-    root.geometry("800x600")
-    root.title('Install ' + APPNAME + VERSION)
-    header = Label(root, text='')
-    header.pack(padx=5, pady=5)
-
-    # Prepare the messaging area.
-
-    processInfo.pack(padx=5, pady=5)
-
     # Run the installation.
 
     pywriterPath = str(Path.home()).replace('\\', '/') + '/.pywriter/'
@@ -191,10 +145,5 @@ if __name__ == '__main__':
 
     # Show options: open installation folders or quit.
 
-    root.openButton = Button(text="Open installation folder", command=lambda: open_folder(pywriterPath + APPNAME))
-    root.openButton.config(height=1, width=30)
-    root.openButton.pack(padx=5, pady=5)
-    root.quitButton = Button(text="Quit", command=quit)
-    root.quitButton.config(height=1, width=30)
-    root.quitButton.pack(padx=5, pady=5)
-    root.mainloop()
+    if input('Open installation folder? (y/n)').lower() == 'y':
+        open_folder(pywriterPath + APPNAME)

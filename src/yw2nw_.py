@@ -22,12 +22,12 @@ SUFFIX = ''
 APPNAME = 'yw2nw'
 
 SETTINGS = dict(
-    major_character_tags=['Major', 'Main'],
+    major_character_status=['Major', 'Main'],
     character_notes_heading='## Notes',
     character_goals_heading='## Goals',
     character_bio_heading='## Bio',
-    world_element_aka_tag='%AKA:',
-    world_element_tag_tag='%tag:',
+    world_element_aka_tag='AKA',
+    world_element_tag_tag='tag',
 )
 
 OPTIONS = dict(

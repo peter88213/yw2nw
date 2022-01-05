@@ -37,12 +37,20 @@ class NwProject(Yw7File):
         Yw7File.__init__(self, filePath, **kwargs)
         self.nwHandles = Handles()
 
-        self.majorCharacterTags = kwargs['major_character_tags']
+        # Customizable Character importance.
+
+        self.majorCharacterStatus = kwargs['major_character_status']
+
+        # Headings that divide the character sheet into sections.
+
         self.characterNotesHeading = kwargs['character_notes_heading']
         self.characterGoalsHeading = kwargs['character_goals_heading']
         self.characterBioHeading = kwargs['character_bio_heading']
-        self.weAkaTag = kwargs['world_element_aka_tag']
-        self.weTagTag = kwargs['world_element_tag_tag']
+
+        # Customizable tags for characters.
+
+        self.weAkaTag = '%' + kwargs['world_element_aka_tag'] + ':'
+        self.weTagTag = '%' + kwargs['world_element_tag_tag'] + ':'
 
     def read(self):
         """Parse the files and store selected properties.
@@ -254,7 +262,7 @@ class NwProject(Yw7File):
             self.characters[crId].goals = '\n'.join(goals)
             self.characters[crId].notes = '\n'.join(notes)
 
-            if nwItems[handle].nwStatus in self.majorCharacterTags:
+            if nwItems[handle].nwStatus in self.majorCharacterStatus:
                 self.characters[crId].isMajor = True
 
             else:
