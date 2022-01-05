@@ -91,17 +91,13 @@ class NwProject(Yw7File):
                 for subId in subtree[id]:
                     get_nodes(subId, list, subtree[id])
 
-        # Read the XML file.
+        if self.tree is None:
+            message = self.read_xml_file()
 
-        try:
-            self.tree = ET.parse(self.filePath)
-
-        except:
-            return 'ERROR: Can not process "' + os.path.normpath(self.filePath) + '".'
+            if message.startswith('ERROR'):
+                return message
 
         root = self.tree.getroot()
-        sceneCount = 0
-        chapterCount = 0
 
         # Check file type and version.
 
@@ -322,7 +318,23 @@ class NwProject(Yw7File):
         self.chapters['1'] = Chapter()
         self.srtChapters = ['1']
 
+        sceneCount = 0
+        chapterCount = 0
+
         for id in novList:
             print(nwItems[id].nwName + '\t' + nwItems[id].nwType)
 
         return('SUCCESS')
+
+    def read_xml_file(self):
+        """Read the novelWriter XML project file.
+        Return a message beginning with SUCCESS or ERROR.
+        """
+
+        try:
+            self.tree = ET.parse(self.filePath)
+
+        except:
+            return 'ERROR: Can not process "' + os.path.normpath(self.filePath) + '".'
+
+        return 'SUCCESS: XML element tree read in.'
