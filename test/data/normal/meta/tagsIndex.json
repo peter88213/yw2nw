@@ -1,0 +1,102 @@
+{
+"tagIndex": {
+  "John": [3, "14298de4d9524", "CHARACTER", "T000001"],
+  "Jane": [3, "bb2c23b3c42cc", "CHARACTER", "T000001"],
+  "Earth": [3, "b3e74dbc1f584", "WORLD", "T000001"],
+  "Space": [3, "f1471bef9f2ae", "WORLD", "T000001"],
+  "Mars": [3, "5eaea4e8cdee8", "WORLD", "T000001"]
+},
+"refIndex": {
+  "6a2d6d5f4f401": {
+    "T000001": [[3, "@pov", "Jane"], [4, "@location", "Earth"]]
+  },
+  "636b6aa9b697b": {
+    "T000001": [[3, "@pov", "Jane"], [4, "@char", "John"], [5, "@location", "Earth"]]
+  },
+  "bc0cbd2a407f3": {
+    "T000001": [[3, "@pov", "John"], [4, "@focus", "Jane"], [5, "@location", "Earth"]],
+    "T000011": [[13, "@pov", "Jane"], [14, "@focus", "John"], [15, "@location", "Earth"]]
+  },
+  "88706ddc78b1b": {
+    "T000001": [[3, "@pov", "Jane"], [4, "@location", "Space"]],
+    "T000008": [[10, "@pov", "Jane"], [11, "@location", "Space"]]
+  },
+  "ae7339df26ded": {
+    "T000001": [[3, "@pov", "John"], [4, "@location", "Mars"]]
+  }
+},
+"fileIndex": {
+  "53b69b83cdafc": {
+    "T000001": {"level": "H1", "title": "My Novel", "layout": "DOCUMENT", "cCount": 93, "wCount": 19, "pCount": 2, "synopsis": ""}
+  },
+  "974e400180a99": {
+    "T000000": {"level": "H0", "title": "", "layout": "DOCUMENT", "cCount": 186, "wCount": 39, "pCount": 2, "synopsis": ""}
+  },
+  "edca4be2fcaf8": {
+    "T000001": {"level": "H1", "title": "Part One", "layout": "DOCUMENT", "cCount": 26, "wCount": 6, "pCount": 1, "synopsis": ""}
+  },
+  "6a2d6d5f4f401": {
+    "T000001": {"level": "H2", "title": "So it Begins", "layout": "DOCUMENT", "cCount": 75, "wCount": 14, "pCount": 1, "synopsis": "We can add a chapter file, but keep the scene files separate. In the chapter file we can set the meta data that applies to the whole chapter if we wish to."}
+  },
+  "636b6aa9b697b": {
+    "T000001": {"level": "H3", "title": "Making a Scene", "layout": "DOCUMENT", "cCount": 1422, "wCount": 245, "pCount": 6, "synopsis": ""},
+    "T000019": {"level": "H4", "title": "Some Section Here", "layout": "DOCUMENT", "cCount": 432, "wCount": 80, "pCount": 2, "synopsis": ""},
+    "T000025": {"level": "H4", "title": "Text Alignment", "layout": "DOCUMENT", "cCount": 324, "wCount": 59, "pCount": 4, "synopsis": ""},
+    "T000035": {"level": "H4", "title": "Text Indent", "layout": "DOCUMENT", "cCount": 251, "wCount": 48, "pCount": 2, "synopsis": ""}
+  },
+  "bc0cbd2a407f3": {
+    "T000001": {"level": "H3", "title": "Another Scene", "layout": "DOCUMENT", "cCount": 362, "wCount": 70, "pCount": 2, "synopsis": ""},
+    "T000011": {"level": "H3", "title": "More Scenes", "layout": "DOCUMENT", "cCount": 114, "wCount": 23, "pCount": 1, "synopsis": ""}
+  },
+  "ba8a28a246524": {
+    "T000001": {"level": "H2", "title": "Interlude", "layout": "DOCUMENT", "cCount": 617, "wCount": 101, "pCount": 3, "synopsis": ""}
+  },
+  "96b68994dfa3d": {
+    "T000001": {"level": "H1", "title": "A Note on Structure", "layout": "NOTE", "cCount": 368, "wCount": 72, "pCount": 2, "synopsis": ""},
+    "T000007": {"level": "H2", "title": "Headers in Notes", "layout": "NOTE", "cCount": 169, "wCount": 30, "pCount": 1, "synopsis": ""},
+    "T000011": {"level": "H2", "title": "Folders in the Tree View", "layout": "NOTE", "cCount": 382, "wCount": 71, "pCount": 1, "synopsis": ""},
+    "T000015": {"level": "H2", "title": "Linking Files and Notes", "layout": "NOTE", "cCount": 773, "wCount": 140, "pCount": 2, "synopsis": ""}
+  },
+  "88706ddc78b1b": {
+    "T000001": {"level": "H2", "title": "Where has John Gone?", "layout": "DOCUMENT", "cCount": 20, "wCount": 4, "pCount": 0, "synopsis": ""},
+    "T000008": {"level": "H3", "title": "Jane Cannot Find John", "layout": "DOCUMENT", "cCount": 125, "wCount": 26, "pCount": 3, "synopsis": ""}
+  },
+  "ae7339df26ded": {
+    "T000001": {"level": "H3", "title": "We Found John!", "layout": "DOCUMENT", "cCount": 189, "wCount": 37, "pCount": 1, "synopsis": ""}
+  },
+  "14298de4d9524": {
+    "T000001": {"level": "H1", "title": "John Smith", "layout": "NOTE", "cCount": 49, "wCount": 9, "pCount": 1, "synopsis": ""}
+  },
+  "bb2c23b3c42cc": {
+    "T000001": {"level": "H1", "title": "Jane Smith", "layout": "NOTE", "cCount": 55, "wCount": 9, "pCount": 1, "synopsis": ""}
+  },
+  "b3e74dbc1f584": {
+    "T000001": {"level": "H1", "title": "Earth", "layout": "NOTE", "cCount": 76, "wCount": 15, "pCount": 1, "synopsis": ""}
+  },
+  "f1471bef9f2ae": {
+    "T000001": {"level": "H1", "title": "Space", "layout": "NOTE", "cCount": 115, "wCount": 24, "pCount": 1, "synopsis": ""}
+  },
+  "5eaea4e8cdee8": {
+    "T000001": {"level": "H1", "title": "Mars", "layout": "NOTE", "cCount": 28, "wCount": 6, "pCount": 1, "synopsis": ""}
+  }
+},
+"fileMeta": {
+  "53b69b83cdafc": ["H1", 93, 19, 2],
+  "974e400180a99": ["H0", 186, 39, 2],
+  "edca4be2fcaf8": ["H1", 26, 6, 1],
+  "6a2d6d5f4f401": ["H2", 75, 14, 1],
+  "636b6aa9b697b": ["H3", 2429, 432, 14],
+  "bc0cbd2a407f3": ["H3", 476, 93, 3],
+  "ba8a28a246524": ["H2", 617, 101, 3],
+  "96b68994dfa3d": ["H1", 1692, 313, 6],
+  "88706ddc78b1b": ["H2", 145, 30, 3],
+  "ae7339df26ded": ["H3", 189, 37, 1],
+  "14298de4d9524": ["H1", 49, 9, 1],
+  "bb2c23b3c42cc": ["H1", 55, 9, 1],
+  "b3e74dbc1f584": ["H1", 76, 15, 1],
+  "f1471bef9f2ae": ["H1", 115, 24, 1],
+  "5eaea4e8cdee8": ["H1", 28, 6, 1],
+  "8a5deb88c0e97": ["H0", 315, 55, 1],
+  "b8136a5a774a0": ["H0", 30, 6, 1]
+}
+}

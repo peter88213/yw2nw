@@ -7,7 +7,7 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 import os
 import xml.etree.ElementTree as ET
 
-from pywriter.model.novel import Novel
+from pywriter.yw.yw7_file import Yw7File
 from pywriter.model.scene import Scene
 from pywriter.model.chapter import Chapter
 from pywriter.model.world_element import WorldElement
@@ -17,7 +17,7 @@ from pywnw.handles import Handles
 from pywnw.nw_item import NwItem
 
 
-class NwProject(Novel):
+class NwProject(Yw7File):
     """OpenDocument project representation.
     """
 
@@ -30,15 +30,19 @@ class NwProject(Novel):
     NWX_TAG = 'novelWriterXML'
     NWX_VERSION = '1.3'
 
-    MAJOR_CHARACTER_TAGS = ['Major', 'Main']
-
     def __init__(self, filePath, **kwargs):
         """Extend the superclass constructor,
         defining instance variables.
         """
-        Novel.__init__(self, filePath, **kwargs)
+        Yw7File.__init__(self, filePath, **kwargs)
         self.nwHandles = Handles()
-        self.tree = None
+
+        self.majorCharacterTags = kwargs['major_character_tags']
+        self.characterNotesHeading = kwargs['character_notes_heading']
+        self.characterGoalsHeading = kwargs['character_goals_heading']
+        self.characterBioHeading = kwargs['character_bio_heading']
+        self.weAkaTag = kwargs['world_element_aka_tag']
+        self.weTagTag = kwargs['world_element_tag_tag']
 
     def read(self):
         """Parse the files and store selected properties.
@@ -55,7 +59,7 @@ class NwProject(Novel):
 
             try:
                 with open(filePath, 'r', encoding='utf-8') as f:
-                    lines = f.readlines()
+                    lines = f.read().split('\n')
 
                 return lines
 
@@ -180,7 +184,7 @@ class NwProject(Novel):
         #--- Get characters.
 
         crCount = 0
-        crIdsByName = {}
+        crIdsByTitle = {}
 
         for handle in charList:
             lines = read_file(handle)
@@ -192,37 +196,75 @@ class NwProject(Novel):
             crId = str(crCount)
             self.characters[crId] = Character()
             self.characters[crId].fullName = nwItems[handle].nwName
-            self.characters[crId].name = nwItems[handle].nwName
+            self.characters[crId].title = nwItems[handle].nwName
             description = []
+            bio = []
+            goals = []
+            notes = []
+
+            section = 'desc'
 
             for line in lines:
 
-                if line == '\n':
+                if line == '':
                     continue
 
-                if line.startswith('%%'):
+                elif line.startswith('%%'):
                     continue
 
-                if line.startswith('#'):
-                    continue
+                elif line.startswith('#'):
+                    section = 'desc'
 
-                if line.startswith('@'):
+                    if line.startswith(self.characterBioHeading):
+                        section = 'bio'
+
+                    elif line.startswith(self.characterGoalsHeading):
+                        section = 'goals'
+
+                    elif line.startswith(self.characterNotesHeading):
+                        section = 'notes'
+
+                elif line.startswith('@'):
 
                     if line.startswith('@tag'):
-                        self.characters[crId].name = line.split(':')[1].strip()
+                        self.characters[crId].title = line.split(':')[1].strip()
 
-                else:
+                elif line.startswith('%'):
+
+                    if line.startswith(self.weAkaTag):
+                        self.characters[crId].aka = line.split(':')[1].strip()
+
+                    elif line.startswith(self.weTagTag):
+
+                        if self.characters[crId].tags is None:
+                            self.characters[crId].tags = []
+
+                        self.characters[crId].tags.append(line.split(':')[1].strip())
+
+                elif section == 'desc':
                     description.append(line)
 
-            self.characters[crId].desc = '\n'.join(description)
+                elif section == 'bio':
+                    bio.append(line)
 
-            if nwItems[handle].nwStatus in self.MAJOR_CHARACTER_TAGS:
+                elif section == 'goals':
+                    goals.append(line)
+
+                elif section == 'notes':
+                    notes.append(line)
+
+            self.characters[crId].desc = '\n'.join(description)
+            self.characters[crId].bio = '\n'.join(bio)
+            self.characters[crId].goals = '\n'.join(goals)
+            self.characters[crId].notes = '\n'.join(notes)
+
+            if nwItems[handle].nwStatus in self.majorCharacterTags:
                 self.characters[crId].isMajor = True
 
             else:
                 self.characters[crId].isMajor = False
 
-            crIdsByName[self.characters[crId].name] = [crId]
+            crIdsByTitle[self.characters[crId].title] = [crId]
             self.srtCharacters.append(crId)
 
         #--- Get locations.
@@ -244,16 +286,28 @@ class NwProject(Novel):
 
             for line in lines:
 
-                if line == '\n':
+                if line == '':
                     continue
 
-                if line.startswith('%%'):
+                elif line.startswith('%%'):
                     continue
 
-                if line.startswith('#'):
+                elif line.startswith('#'):
                     continue
 
-                if line.startswith('@'):
+                elif line.startswith('%'):
+
+                    if line.startswith(self.weAkaTag):
+                        self.locations[lcId].aka = line.split(':')[1].strip()
+
+                    elif line.startswith(self.weTagTag):
+
+                        if self.locations[lcId].tags is None:
+                            self.locations[lcId].tags = []
+
+                        self.locations[lcId].tags.append(line.split(':')[1].strip())
+
+                elif line.startswith('@'):
 
                     if line.startswith('@tag'):
                         self.locations[lcId].title = line.split(':')[1].strip()

@@ -13,7 +13,7 @@ import argparse
 from pathlib import Path
 
 from pywriter.ui.ui import Ui
-from pywriter.ui.ui_tk import UiTk
+from pywriter.ui.ui_cmd import UiCmd
 from pywriter.config.configuration import Configuration
 
 from pywnw.nw_converter import NwConverter
@@ -22,6 +22,12 @@ SUFFIX = ''
 APPNAME = 'yw2nw'
 
 SETTINGS = dict(
+    major_character_tags=['Major', 'Main'],
+    character_notes_heading='## Notes',
+    character_goals_heading='## Goals',
+    character_bio_heading='## Bio',
+    world_element_aka_tag='%AKA:',
+    world_element_tag_tag='%tag:',
 )
 
 OPTIONS = dict(
@@ -34,7 +40,7 @@ def run(sourcePath, silentMode=True, installDir=''):
         ui = Ui('')
 
     else:
-        ui = UiTk('Synchronize Aeon Timeline 2 and yWriter @release')
+        ui = UiCmd('Synchronize Aeon Timeline 2 and yWriter @release')
 
     #--- Try to get persistent configuration data
 

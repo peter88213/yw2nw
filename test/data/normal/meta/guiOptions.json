@@ -1,0 +1,68 @@
+{
+  "GuiOutline": {
+    "headerOrder": [
+      "TITLE",
+      "LEVEL",
+      "LABEL",
+      "LINE",
+      "CCOUNT",
+      "WCOUNT",
+      "PCOUNT",
+      "POV",
+      "FOCUS",
+      "CHAR",
+      "PLOT",
+      "TIME",
+      "WORLD",
+      "OBJECT",
+      "ENTITY",
+      "CUSTOM",
+      "SYNOP"
+    ],
+    "columnWidth": {
+      "TITLE": 200,
+      "LEVEL": 40,
+      "LABEL": 150,
+      "LINE": 40,
+      "CCOUNT": 50,
+      "WCOUNT": 50,
+      "PCOUNT": 50,
+      "POV": 100,
+      "FOCUS": 100,
+      "CHAR": 100,
+      "PLOT": 100,
+      "TIME": 100,
+      "WORLD": 100,
+      "OBJECT": 100,
+      "ENTITY": 100,
+      "CUSTOM": 100,
+      "SYNOP": 427
+    },
+    "columnHidden": {
+      "TITLE": false,
+      "LEVEL": true,
+      "LABEL": false,
+      "LINE": true,
+      "CCOUNT": true,
+      "WCOUNT": false,
+      "PCOUNT": false,
+      "POV": false,
+      "FOCUS": true,
+      "CHAR": false,
+      "PLOT": false,
+      "TIME": true,
+      "WORLD": false,
+      "OBJECT": true,
+      "ENTITY": true,
+      "CUSTOM": true,
+      "SYNOP": false
+    }
+  },
+  "GuiProjectSettings": {
+    "winWidth": 570,
+    "winHeight": 375,
+    "replaceColW": 130,
+    "statusColW": 130,
+    "importColW": 130
+  }
+}

@@ -14,8 +14,8 @@ import inliner
 
 SRC = '../src/'
 BUILD = '../test/'
-SOURCE_FILE = 'aeon2yw_.pyw'
-TARGET_FILE = BUILD + 'yw2nw.pyw'
+SOURCE_FILE = 'yw2nw_.py'
+TARGET_FILE = BUILD + 'yw2nw.py'
 
 
 def main():
