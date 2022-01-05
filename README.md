@@ -1,4 +1,4 @@
-# yw2nw# Converter between yWriter and novelWriter
+# yw2nw -- Converter between yWriter and novelWriter
 
 For more information, see the [project homepage](https://peter88213.github.io/yw2nw) with description and download instructions.
 
