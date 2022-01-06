@@ -1,4 +1,4 @@
-"""Provide a file handle list for novelWriter.
+"""Provide a class to manage novelWriter handles.
 
 Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw

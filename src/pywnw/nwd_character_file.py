@@ -1,0 +1,122 @@
+"""Provide a class for novelWriter character file representation.
+
+Copyright (c) 2022 Peter Triesberger
+For further information see https://github.com/peter88213/yw2nw
+Published under the MIT License (https://opensource.org/licenses/mit-license.php)
+"""
+from pywriter.model.character import Character
+
+from pywnw.nwd_file import NwdFile
+
+
+class NwdCharacterFile(NwdFile):
+    """novelWriter character file representation.
+    """
+
+    def __init__(self, prj, handle, nwItem, **kwargs):
+        """Extend the superclass constructor,
+        defining instance variables.
+        """
+        NwdFile.__init__(self, prj, handle, nwItem, **kwargs)
+
+        # Customizable Character importance.
+
+        self.majorCharacterStatus = kwargs['major_character_status']
+
+        # Headings that divide the character sheet into sections.
+
+        self.characterNotesHeading = kwargs['character_notes_heading']
+        self.characterGoalsHeading = kwargs['character_goals_heading']
+        self.characterBioHeading = kwargs['character_bio_heading']
+
+        # Customizable tags for characters and locations.
+
+        self.weAkaTag = '%' + kwargs['world_element_aka_tag'] + ':'
+        self.weTagTag = '%' + kwargs['world_element_tag_tag'] + ':'
+
+    def read(self):
+        """Parse the files and store selected properties.
+        Return a message beginning with SUCCESS or ERROR.
+        Extend the superclass method.
+        """
+        message = NwdFile.read(self)
+
+        if message.startswith('ERROR'):
+            return message
+
+        self.prj.crCount += 1
+        crId = str(self.prj.crCount)
+        self.prj.characters[crId] = Character()
+        self.prj.characters[crId].fullName = self.nwItem.nwName
+        self.prj.characters[crId].title = self.nwItem.nwName
+        desc = []
+        bio = []
+        goals = []
+        notes = []
+
+        section = 'desc'
+
+        for line in self.lines:
+
+            if line == '':
+                continue
+
+            elif line.startswith('%%'):
+                continue
+
+            elif line.startswith('#'):
+                section = 'desc'
+
+                if line.startswith(self.characterBioHeading):
+                    section = 'bio'
+
+                elif line.startswith(self.characterGoalsHeading):
+                    section = 'goals'
+
+                elif line.startswith(self.characterNotesHeading):
+                    section = 'notes'
+
+            elif line.startswith('@'):
+
+                if line.startswith('@tag'):
+                    self.prj.characters[crId].title = line.split(':')[1].strip()
+
+            elif line.startswith('%'):
+
+                if line.startswith(self.weAkaTag):
+                    self.prj.characters[crId].aka = line.split(':')[1].strip()
+
+                elif line.startswith(self.weTagTag):
+
+                    if self.prj.characters[crId].tags is None:
+                        self.prj.characters[crId].tags = []
+
+                    self.prj.characters[crId].tags.append(line.split(':')[1].strip())
+
+            elif section == 'desc':
+                desc.append(line)
+
+            elif section == 'bio':
+                bio.append(line)
+
+            elif section == 'goals':
+                goals.append(line)
+
+            elif section == 'notes':
+                notes.append(line)
+
+        self.prj.characters[crId].desc = '\n'.join(desc)
+        self.prj.characters[crId].bio = '\n'.join(bio)
+        self.prj.characters[crId].goals = '\n'.join(goals)
+        self.prj.characters[crId].notes = '\n'.join(notes)
+
+        if self.nwItem.nwStatus in self.majorCharacterStatus:
+            self.prj.characters[crId].isMajor = True
+
+        else:
+            self.prj.characters[crId].isMajor = False
+
+        self.prj.crIdsByTitle[self.prj.characters[crId].title] = [crId]
+        self.prj.srtCharacters.append(crId)
+
+        return('SUCCESS')

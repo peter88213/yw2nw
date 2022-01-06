@@ -5,11 +5,10 @@ For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 import os
-import xml.etree.ElementTree as ET
 
 from pywriter.converter.yw_cnv_ui import YwCnvUi
 from pywriter.yw.yw7_file import Yw7File
-from pywnw.nw_project import NwProject
+from pywnw.nwx_file import NwxFile
 
 
 class NwConverter(YwCnvUi):
@@ -36,18 +35,18 @@ class NwConverter(YwCnvUi):
             prjDir = srcDir + '/' + title + '.nw'
 
             try:
-                os.makedirs(prjDir + NwProject.CONTENT_DIR)
+                os.makedirs(prjDir + NwxFile.CONTENT_DIR)
 
             except FileExistsError:
                 os.replace(prjDir, prjDir + '.bak')
                 self.ui.set_info_what('Backup folder "' + os.path.normpath(prjDir) + '.bak" saved.')
-                os.makedirs(prjDir + NwProject.CONTENT_DIR)
+                os.makedirs(prjDir + NwxFile.CONTENT_DIR)
 
-            targetFile = NwProject(prjDir + '/nwProject.nwx', **kwargs)
+            targetFile = NwxFile(prjDir + '/nwProject.nwx', **kwargs)
             self.export_from_yw(sourceFile, targetFile)
 
-        elif fileExtension == NwProject.EXTENSION:
-            sourceFile = NwProject(sourcePath, **kwargs)
+        elif fileExtension == NwxFile.EXTENSION:
+            sourceFile = NwxFile(sourcePath, **kwargs)
 
             prjDir = srcDir + '/../'
             message = sourceFile.read_xml_file()
