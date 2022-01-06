@@ -14,4 +14,5 @@ class NwItem():
         self.nwType = None
         self.nwClass = None
         self.nwStatus = None
-        self.doExport = None
+        self.nwExported = None
+        self.nwLayout = None

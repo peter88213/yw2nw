@@ -70,10 +70,10 @@ class NwConverter(YwCnvUi):
             targetFile = Yw7File(fileName, **kwargs)
 
             if os.path.isfile(fileName):
-                self.import_to_yw(sourceFile, targetFile)
+                os.replace(fileName, fileName + '.bak')
 
-            else:
-                self.create_yw7(sourceFile, targetFile)
+                if self.confirm_overwrite(fileName):
+                    self.create_yw7(sourceFile, targetFile)
 
         else:
             self.ui.set_info_how('ERROR: File type of "' + os.path.normpath(sourcePath) + '" not supported.')

@@ -22,6 +22,15 @@ SUFFIX = ''
 APPNAME = 'yw2nw'
 
 SETTINGS = dict(
+    # part_heading_prefix='#',
+    # chapter_heading_prefix='##',
+    # scene_heading_prefix='###',
+    # section_heading_prefix='####',
+    outline_status=['New', 'Notes'],
+    draft_status=['Started', '1st Draft'],
+    first_edit_status=['2nd Draft'],
+    second_edit_status=['3rd Draft'],
+    done_status=['Finished'],
     major_character_status=['Major', 'Main'],
     character_notes_heading='## Notes',
     character_goals_heading='## Goals',
