@@ -40,6 +40,7 @@ class NwConverter(YwCnvUi):
 
             except FileExistsError:
                 os.replace(prjDir, prjDir + '.bak')
+                self.ui.set_info_what('Backup folder "' + os.path.normpath(prjDir) + '.bak" saved.')
                 os.makedirs(prjDir + NwProject.CONTENT_DIR)
 
             targetFile = NwProject(prjDir + '/nwProject.nwx', **kwargs)
@@ -70,10 +71,16 @@ class NwConverter(YwCnvUi):
             targetFile = Yw7File(fileName, **kwargs)
 
             if os.path.isfile(fileName):
-                os.replace(fileName, fileName + '.bak')
 
                 if self.confirm_overwrite(fileName):
-                    self.create_yw7(sourceFile, targetFile)
+                    os.replace(fileName, fileName + '.bak')
+                    self.ui.set_info_what('Backup file "' + os.path.normpath(sourcePath) + '.bak" saved.')
+
+                else:
+                    self.ui.set_info_what('Action canceled by user.')
+                    return
+
+            self.create_yw7(sourceFile, targetFile)
 
         else:
             self.ui.set_info_how('ERROR: File type of "' + os.path.normpath(sourcePath) + '" not supported.')

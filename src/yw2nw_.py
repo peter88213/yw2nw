@@ -49,7 +49,7 @@ def run(sourcePath, silentMode=True, installDir=''):
         ui = Ui('')
 
     else:
-        ui = UiCmd('Synchronize Aeon Timeline 2 and yWriter @release')
+        ui = UiCmd('Convert novelWriter to yWriter and vice versa @release')
 
     #--- Try to get persistent configuration data
 
