@@ -22,11 +22,17 @@ class NwItem():
         self.nwParaCount = None
         self.nwCursorPos = None
 
+        self.nwHandle = None
+        self.nwOrder = None
+        self.nwParent = None
+
     def read(self, node):
         """Read a novelWriter node entry from the XML project tree. 
         Return the handle.
         """
-        handle = node.attrib.get('handle')
+        self.nwHandle = node.attrib.get('handle')
+        self.nwOrder = int(node.attrib.get('order'))
+        self.nwParent = node.attrib.get('parent')
 
         if node.find('name') is not None:
             self.nwName = node.find('name').text
@@ -46,15 +52,15 @@ class NwItem():
         if node.find('layout') is not None:
             self.nwLayout = node.find('layout').text
 
-        return handle
+        return self.nwHandle
 
-    def write(self, handle, order, parentHandle, parentNode):
+    def write(self, parentNode):
         """Write a novelWriter item entry to the XML project tree.
         """
         attrs = {
-            'handle': handle,
-            'order': str(order),
-            'parent': parentHandle
+            'handle': self.nwHandle,
+            'order': str(self.nwOrder),
+            'parent': self.nwParent
         }
         node = ET.SubElement(parentNode, 'item', attrs)
 

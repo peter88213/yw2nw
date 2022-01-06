@@ -314,7 +314,10 @@ class NwxFile(Novel):
         novelFolder.nwClass = 'NOVEL'
         novelFolder.nwStatus = 'None'
         novelFolder.nwExpanded = 'True'
-        novelFolder.write(novelFolderHandle, level0Order, 'None', content)
+        novelFolder.nwHandle = novelFolderHandle
+        novelFolder.nwOrder = level0Order
+        novelFolder.nwParent = 'None'
+        novelFolder.write(content)
         level0Order += 1
         level1Order = 0
 
@@ -325,7 +328,10 @@ class NwxFile(Novel):
             attrCount += 1
             chapterHandle = self.nwHandles.create_member(chId + self.chapters[chId].title)
             chapter = NwItem()
-            chapter.write(chapterHandle, level1Order, novelFolderHandle, content)
+            chapter.nwHandle = chapterHandle
+            chapter.nwOrder = level1Order
+            chapter.nwParent = novelFolderHandle
+            chapter.write(content)
             level1Order += 1
 
             for scId in self.chapters[chId].srtScenes:
@@ -335,7 +341,10 @@ class NwxFile(Novel):
                 attrCount += 1
                 sceneHandle = self.nwHandles.create_member(scId + self.scenes[scId].title)
                 scene = NwItem()
-                scene.write(sceneHandle, level1Order, novelFolderHandle, content)
+                scene.nwHandle = sceneHandle
+                scene.nwOrder = level1Order
+                scene.nwParent = novelFolderHandle
+                scene.write(content)
                 level1Order += 1
 
         #--- Write character folder.
@@ -348,7 +357,10 @@ class NwxFile(Novel):
         characterFolder.nwClass = 'CHARACTER'
         characterFolder.nwStatus = 'None'
         characterFolder.nwExpanded = 'True'
-        characterFolder.write(characterFolderHandle, level0Order, 'None', content)
+        characterFolder.nwHandle = characterFolderHandle
+        characterFolder.nwOrder = level0Order
+        characterFolder.nwParent = 'None'
+        characterFolder.write(content)
         level0Order += 1
         level1Order = 0
 
@@ -359,7 +371,10 @@ class NwxFile(Novel):
             attrCount += 1
             characterHandle = self.nwHandles.create_member(crId + self.characters[crId].title)
             character = NwItem()
-            character.write(characterHandle, level1Order, novelFolderHandle, content)
+            character.nwHandle = characterHandle
+            character.nwOrder = level1Order
+            character.nwParent = novelFolderHandle
+            character.write(content)
             level1Order += 1
 
         #--- Write world folder.
@@ -372,7 +387,10 @@ class NwxFile(Novel):
         worldFolder.nwClass = 'WORLD'
         worldFolder.nwStatus = 'None'
         worldFolder.nwExpanded = 'True'
-        worldFolder.write(worldFolderHandle, level0Order, 'None', content)
+        worldFolder.nwHandle = worldFolderHandle
+        worldFolder.nwOrder = level0Order
+        worldFolder.nwParent = 'None'
+        worldFolder.write(content)
         level0Order += 1
         level1Order = 0
 
@@ -383,7 +401,10 @@ class NwxFile(Novel):
             attrCount += 1
             locationHandle = self.nwHandles.create_member(lcId + self.locations[lcId].title)
             location = NwItem()
-            location.write(locationHandle, level1Order, novelFolderHandle, content)
+            location.nwHandle = locationHandle
+            location.nwOrder = level1Order
+            location.nwParent = novelFolderHandle
+            location.write(content)
             level1Order += 1
 
         # Write the content counter.
