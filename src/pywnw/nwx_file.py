@@ -295,14 +295,14 @@ class NwxFile(Novel):
         attrCount += 1
         novelFolderHandle = self.nwHandles.create_member('novelFolderHandle')
         novelFolder = NwItem()
+        novelFolder.nwHandle = novelFolderHandle
+        novelFolder.nwOrder = level0Order
+        novelFolder.nwParent = 'None'
         novelFolder.nwName = 'Novel'
         novelFolder.nwType = 'ROOT'
         novelFolder.nwClass = 'NOVEL'
         novelFolder.nwStatus = 'None'
         novelFolder.nwExpanded = 'True'
-        novelFolder.nwHandle = novelFolderHandle
-        novelFolder.nwOrder = level0Order
-        novelFolder.nwParent = 'None'
         novelFolder.write(content)
         level0Order += 1
         level1Order = 0
@@ -338,14 +338,14 @@ class NwxFile(Novel):
         attrCount += 1
         characterFolderHandle = self.nwHandles.create_member('characterFolderHandle')
         characterFolder = NwItem()
+        characterFolder.nwHandle = characterFolderHandle
+        characterFolder.nwOrder = level0Order
+        characterFolder.nwParent = 'None'
         characterFolder.nwName = 'Characters'
         characterFolder.nwType = 'ROOT'
         characterFolder.nwClass = 'CHARACTER'
         characterFolder.nwStatus = 'None'
         characterFolder.nwExpanded = 'True'
-        characterFolder.nwHandle = characterFolderHandle
-        characterFolder.nwOrder = level0Order
-        characterFolder.nwParent = 'None'
         characterFolder.write(content)
         level0Order += 1
         level1Order = 0
@@ -368,14 +368,14 @@ class NwxFile(Novel):
         attrCount += 1
         worldFolderHandle = self.nwHandles.create_member('worldFolderHandle')
         worldFolder = NwItem()
+        worldFolder.nwHandle = worldFolderHandle
+        worldFolder.nwOrder = level0Order
+        worldFolder.nwParent = 'None'
         worldFolder.nwName = 'Locations'
         worldFolder.nwType = 'ROOT'
         worldFolder.nwClass = 'WORLD'
         worldFolder.nwStatus = 'None'
         worldFolder.nwExpanded = 'True'
-        worldFolder.nwHandle = worldFolderHandle
-        worldFolder.nwOrder = level0Order
-        worldFolder.nwParent = 'None'
         worldFolder.write(content)
         level0Order += 1
         level1Order = 0
