@@ -153,11 +153,10 @@ class NwxFile(Novel):
             item = NwItem()
             handle = item.read(node)
 
-            if self.nwHandles.add_member(handle):
-                nwItems[handle] = item
+            if not self.nwHandles.add_member(handle):
+                return 'ERROR: Invalid handle: ' + handle
 
-            else:
-                return 'ERROR: Invalid handle: ' + item.attrib.get('handle')
+            nwItems[handle] = item
 
         #--- Re-serialize the project tree to get lists.
 
