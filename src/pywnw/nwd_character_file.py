@@ -13,26 +13,26 @@ class NwdCharacterFile(NwdFile):
     """novelWriter character file representation.
     """
 
-    def __init__(self, prj, handle, nwItem, **kwargs):
+    def __init__(self, prj, handle, nwItem):
         """Extend the superclass constructor,
         defining instance variables.
         """
-        NwdFile.__init__(self, prj, handle, nwItem, **kwargs)
+        NwdFile.__init__(self, prj, handle, nwItem)
 
         # Customizable Character importance.
 
-        self.majorCharacterStatus = kwargs['major_character_status']
+        self.majorCharacterStatus = prj.kwargs['major_character_status']
 
         # Headings that divide the character sheet into sections.
 
-        self.characterNotesHeading = kwargs['character_notes_heading']
-        self.characterGoalsHeading = kwargs['character_goals_heading']
-        self.characterBioHeading = kwargs['character_bio_heading']
+        self.characterNotesHeading = prj.kwargs['character_notes_heading']
+        self.characterGoalsHeading = prj.kwargs['character_goals_heading']
+        self.characterBioHeading = prj.kwargs['character_bio_heading']
 
         # Customizable tags for characters and locations.
 
-        self.weAkaTag = '%' + kwargs['world_element_aka_tag'] + ':'
-        self.weTagTag = '%' + kwargs['world_element_tag_tag'] + ':'
+        self.weAkaTag = '%' + prj.kwargs['world_element_aka_tag'] + ':'
+        self.weTagTag = '%' + prj.kwargs['world_element_tag_tag'] + ':'
 
     def read(self):
         """Parse the files and store selected properties.

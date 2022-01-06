@@ -22,10 +22,6 @@ SUFFIX = ''
 APPNAME = 'yw2nw'
 
 SETTINGS = dict(
-    # part_heading_prefix='#',
-    # chapter_heading_prefix='##',
-    # scene_heading_prefix='###',
-    # section_heading_prefix='####',
     outline_status=['New', 'Notes'],
     draft_status=['Started', '1st Draft'],
     first_edit_status=['2nd Draft'],
@@ -37,6 +33,10 @@ SETTINGS = dict(
     character_bio_heading='## Bio',
     world_element_aka_tag='AKA',
     world_element_tag_tag='tag',
+    # part_heading_prefix='#',
+    # chapter_heading_prefix='##',
+    # scene_heading_prefix='###',
+    # section_heading_prefix='####',
 )
 
 OPTIONS = dict(

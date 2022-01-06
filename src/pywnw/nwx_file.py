@@ -8,10 +8,6 @@ import os
 import xml.etree.ElementTree as ET
 
 from pywriter.yw.yw7_file import Yw7File
-from pywriter.model.scene import Scene
-from pywriter.model.chapter import Chapter
-from pywriter.model.world_element import WorldElement
-from pywriter.model.character import Character
 
 from pywnw.handles import Handles
 from pywnw.nw_item import NwItem
@@ -178,7 +174,7 @@ class NwxFile(Yw7File):
         #--- Get characters.
 
         for handle in charList:
-            nwdFile = NwdCharacterFile(self, handle, nwItems[handle], **self.kwargs)
+            nwdFile = NwdCharacterFile(self, handle, nwItems[handle])
             message = nwdFile.read()
 
             if message.startswith('ERROR'):
@@ -187,7 +183,7 @@ class NwxFile(Yw7File):
         #--- Get locations.
 
         for handle in locList:
-            nwdFile = NwdWorldFile(self, handle, nwItems[handle], **self.kwargs)
+            nwdFile = NwdWorldFile(self, handle, nwItems[handle])
             message = nwdFile.read()
 
             if message.startswith('ERROR'):
@@ -197,7 +193,7 @@ class NwxFile(Yw7File):
 
         for handle in novList:
             scId = None
-            nwdFile = NwdNovelFile(self, handle, nwItems[handle], **self.kwargs)
+            nwdFile = NwdNovelFile(self, handle, nwItems[handle])
             message = nwdFile.read()
 
             if message.startswith('ERROR'):

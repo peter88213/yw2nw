@@ -13,7 +13,7 @@ class NwdFile():
 
     EXTENSION = '.nwd'
 
-    def __init__(self, prj, handle, nwItem, **kwargs):
+    def __init__(self, prj, handle, nwItem):
         """Define instance variables.
         """
         self.lines = None

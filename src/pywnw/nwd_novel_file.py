@@ -14,26 +14,26 @@ class NwdNovelFile(NwdFile):
     """novelWriter novel file representation.
     """
 
-    def __init__(self, prj, handle, nwItem, **kwargs):
+    def __init__(self, prj, handle, nwItem):
         """Extend the superclass constructor,
         defining instance variables.
         """
-        NwdFile.__init__(self, prj, handle, nwItem, **kwargs)
-
-        # Headings that divide the file into parts, chapters and scenes.
-
-        # self.partHeadingPrefix = kwargs['part_heading_prefix']
-        # self.chapterHeadingPrefix = kwargs['chapter_heading_prefix']
-        # self.sceneHeadingPrefix = kwargs['scene_heading_prefix']
-        # self.sectionHeadingPrefix = kwargs['section_heading_prefix']
+        NwdFile.__init__(self, prj, handle, nwItem)
 
         # Scene status mapping.
 
-        self.outlineStatus = kwargs['outline_status']
-        self.draftStatus = kwargs['draft_status']
-        self.firstEditStatus = kwargs['first_edit_status']
-        self.secondEditStatus = kwargs['second_edit_status']
-        self.doneStatus = kwargs['done_status']
+        self.outlineStatus = prj.kwargs['outline_status']
+        self.draftStatus = prj.kwargs['draft_status']
+        self.firstEditStatus = prj.kwargs['first_edit_status']
+        self.secondEditStatus = prj.kwargs['second_edit_status']
+        self.doneStatus = prj.kwargs['done_status']
+
+        # Headings that divide the file into parts, chapters and scenes.
+
+        # self.partHeadingPrefix = prj.kwargs['part_heading_prefix']
+        # self.chapterHeadingPrefix = prj.kwargs['chapter_heading_prefix']
+        # self.sceneHeadingPrefix = prj.kwargs['scene_heading_prefix']
+        # self.sectionHeadingPrefix = prj.kwargs['section_heading_prefix']
 
     def read(self):
         """Parse the files and store selected properties.
