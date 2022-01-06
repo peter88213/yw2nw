@@ -249,20 +249,6 @@ class NwxFile(Novel):
 
         return 'SUCCESS'
 
-    def get_fileHeaderMapping(self):
-        """Return a mapping dictionary for the project section. 
-        """
-        projectTemplateMapping = dict(
-            Title=self.title,
-            Desc=self.convert_from_yw(self.desc),
-            AuthorName=self.author,
-            FieldTitle1=self.fieldTitle1,
-            FieldTitle2=self.fieldTitle2,
-            FieldTitle3=self.fieldTitle3,
-            FieldTitle4=self.fieldTitle4,
-        )
-        return projectTemplateMapping
-
     def write(self):
         """Write the novelFolder attributes to a new novelWriter project
         consisting of a set of different files.
