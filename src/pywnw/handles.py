@@ -48,7 +48,7 @@ class Handles():
         Use a non-random algorithm in order to faciliate testing.
         """
 
-        def create_handle(self, text, salt):
+        def create_handle(text, salt):
             """Return a handle for novelWriter.
             """
             text = text.encode('utf-8')

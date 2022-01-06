@@ -6,8 +6,10 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 """
 import os
 import xml.etree.ElementTree as ET
+from datetime import datetime
 
-from pywriter.yw.yw7_file import Yw7File
+from pywriter.model.novel import Novel
+from pywriter.yw.xml_indent import indent
 
 from pywnw.handles import Handles
 from pywnw.nw_item import NwItem
@@ -17,7 +19,7 @@ from pywnw.nwd_world_file import NwdWorldFile
 from pywnw.nwd_novel_file import NwdNovelFile
 
 
-class NwxFile(Yw7File):
+class NwxFile(Novel):
     """novelWriter project representation.
     """
 
@@ -28,14 +30,20 @@ class NwxFile(Yw7File):
     CONTENT_EXTENSION = '.nwd'
 
     NWX_TAG = 'novelWriterXML'
-    NWX_VERSION = '1.3'
+    NWX_ATTR = {
+        'appVersion': '1.6-alpha0',
+        'hexVersion': '0x010600a0',
+        'fileVersion': '1.3',
+        'timeStamp': datetime.now().replace(microsecond=0).isoformat(sep=' '),
+    }
 
     def __init__(self, filePath, **kwargs):
         """Extend the superclass constructor,
         defining instance variables.
         """
-        Yw7File.__init__(self, filePath, **kwargs)
+        Novel.__init__(self, filePath, **kwargs)
 
+        self.tree = None
         self.kwargs = kwargs
         self.nwHandles = Handles()
 
@@ -48,6 +56,19 @@ class NwxFile(Yw7File):
         self.scCount = 0
         self.chCount = 0
         self.chId = None
+
+    def read_xml_file(self):
+        """Read the novelWriter XML project file.
+        Return a message beginning with SUCCESS or ERROR.
+        """
+
+        try:
+            self.tree = ET.parse(self.filePath)
+
+        except:
+            return 'ERROR: Can not process "' + os.path.normpath(self.filePath) + '".'
+
+        return 'SUCCESS: XML element tree read in.'
 
     def read(self):
         """Parse the files and store selected properties.
@@ -95,7 +116,7 @@ class NwxFile(Yw7File):
         if root.tag != self.NWX_TAG:
             return 'ERROR: This seems not to bee a novelWriter project file.'
 
-        if root.attrib.get('fileVersion') != self.NWX_VERSION:
+        if root.attrib.get('fileVersion') != self.NWX_ATTR['fileVersion']:
             return 'ERROR: Wrong file version (must be ' + self.NWX_VERSION + ').'
 
         #--- Read project metadata from the xml element tree.
@@ -128,29 +149,12 @@ class NwxFile(Yw7File):
 
         nwItems = {}
 
-        for item in content.iter('item'):
-            handle = item.attrib.get('handle')
+        for node in content.iter('item'):
+            item = NwItem()
+            handle = item.read(node)
 
             if self.nwHandles.add_member(handle):
-                nwItems[handle] = NwItem()
-
-                if item.find('name') is not None:
-                    nwItems[handle].nwName = item.find('name').text
-
-                if item.find('type') is not None:
-                    nwItems[handle].nwType = item.find('type').text
-
-                if item.find('class') is not None:
-                    nwItems[handle].nwClass = item.find('class').text
-
-                if item.find('status') is not None:
-                    nwItems[handle].nwStatus = item.find('status').text
-
-                if item.find('exported') is not None:
-                    nwItems[handle].nwExported = item.find('exported').text
-
-                if item.find('layout') is not None:
-                    nwItems[handle].nwLayout = item.find('layout').text
+                nwItems[handle] = item
 
             else:
                 return 'ERROR: Invalid handle: ' + item.attrib.get('handle')
@@ -201,15 +205,195 @@ class NwxFile(Yw7File):
 
         return('SUCCESS')
 
-    def read_xml_file(self):
-        """Read the novelWriter XML project file.
+    def merge(self, source):
+        """Copy the yWriter project parts that can be mapped to the novelWriter project.
         Return a message beginning with SUCCESS or ERROR.
+        Override the superclass method.
+        """
+        if source.title is not None:
+            self.title = source.title
+
+        else:
+            self.title = ''
+
+        if source.desc is not None:
+            self.desc = source.desc
+
+        else:
+            self.desc = ''
+
+        if source.author is not None:
+            self.author = source.author
+
+        else:
+            self.author = ''
+
+        if source.scenes is not None:
+            self.scenes = source.scenes
+
+        if source.srtChapters != []:
+            self.srtChapters = source.srtChapters
+            self.chapters = source.chapters
+
+        if source.srtCharacters != []:
+            self.srtCharacters = source.srtCharacters
+            self.characters = source.characters
+
+        if source.srtLocations != []:
+            self.srtLocations = source.srtLocations
+            self.locations = source.locations
+
+        if source.srtItems != []:
+            self.srtItems = source.srtItems
+            self.items = source.items
+
+        return 'SUCCESS'
+
+    def get_fileHeaderMapping(self):
+        """Return a mapping dictionary for the project section. 
+        """
+        projectTemplateMapping = dict(
+            Title=self.title,
+            Desc=self.convert_from_yw(self.desc),
+            AuthorName=self.author,
+            FieldTitle1=self.fieldTitle1,
+            FieldTitle2=self.fieldTitle2,
+            FieldTitle3=self.fieldTitle3,
+            FieldTitle4=self.fieldTitle4,
+        )
+        return projectTemplateMapping
+
+    def write(self):
+        """Write the novelFolder attributes to a new novelWriter project
+        consisting of a set of different files.
+        Return a message beginning with SUCCESS or ERROR.
+        Override the superclass method.
         """
 
-        try:
-            self.tree = ET.parse(self.filePath)
+        root = ET.Element(self.NWX_TAG, self.NWX_ATTR)
 
-        except:
-            return 'ERROR: Can not process "' + os.path.normpath(self.filePath) + '".'
+        #--- Write project metadata.
 
-        return 'SUCCESS: XML element tree read in.'
+        xmlPrj = ET.SubElement(root, 'project')
+
+        if self.title:
+            title = self.title
+
+        else:
+            title = 'New project'
+
+        ET.SubElement(xmlPrj, 'name').text = title
+        ET.SubElement(xmlPrj, 'title').text = title
+
+        if self.author:
+            authors = self.author.split(',')
+
+        else:
+            authors = ['']
+
+        for author in authors:
+            ET.SubElement(xmlPrj, 'author').text = author.strip()
+
+        # Omit settings.
+
+        world = ET.SubElement(root, 'settings')
+
+        #--- Write content.
+
+        content = ET.SubElement(root, 'content')
+        attrCount = 0
+        level0Order = 0
+
+        #--- Write novel folder.
+
+        attrCount += 1
+        novelFolderHandle = self.nwHandles.create_member('novelFolderHandle')
+        novelFolder = NwItem()
+        novelFolder.nwName = 'Novel'
+        novelFolder.nwType = 'ROOT'
+        novelFolder.nwClass = 'NOVEL'
+        novelFolder.nwStatus = 'None'
+        novelFolder.nwExpanded = 'True'
+        novelFolder.write(novelFolderHandle, level0Order, 'None', content)
+        level0Order += 1
+        level1Order = 0
+
+        for chId in self.srtChapters:
+
+            # Put a chapter into the folder.
+
+            attrCount += 1
+            chapterHandle = self.nwHandles.create_member(chId + self.chapters[chId].title)
+            chapter = NwItem()
+            chapter.write(chapterHandle, level1Order, novelFolderHandle, content)
+            level1Order += 1
+
+            for scId in self.chapters[chId].srtScenes:
+
+                # Put a scene into the folder.
+
+                attrCount += 1
+                sceneHandle = self.nwHandles.create_member(scId + self.scenes[scId].title)
+                scene = NwItem()
+                scene.write(sceneHandle, level1Order, novelFolderHandle, content)
+                level1Order += 1
+
+        #--- Write character folder.
+
+        attrCount += 1
+        characterFolderHandle = self.nwHandles.create_member('characterFolderHandle')
+        characterFolder = NwItem()
+        characterFolder.nwName = 'Characters'
+        characterFolder.nwType = 'ROOT'
+        characterFolder.nwClass = 'CHARACTER'
+        characterFolder.nwStatus = 'None'
+        characterFolder.nwExpanded = 'True'
+        characterFolder.write(characterFolderHandle, level0Order, 'None', content)
+        level0Order += 1
+        level1Order = 0
+
+        for crId in self.srtCharacters:
+
+            #--- Put a character into the folder.
+
+            attrCount += 1
+            characterHandle = self.nwHandles.create_member(crId + self.characters[crId].title)
+            character = NwItem()
+            character.write(characterHandle, level1Order, novelFolderHandle, content)
+            level1Order += 1
+
+        #--- Write world folder.
+
+        attrCount += 1
+        worldFolderHandle = self.nwHandles.create_member('worldFolderHandle')
+        worldFolder = NwItem()
+        worldFolder.nwName = 'Locations'
+        worldFolder.nwType = 'ROOT'
+        worldFolder.nwClass = 'WORLD'
+        worldFolder.nwStatus = 'None'
+        worldFolder.nwExpanded = 'True'
+        worldFolder.write(worldFolderHandle, level0Order, 'None', content)
+        level0Order += 1
+        level1Order = 0
+
+        for lcId in self.srtLocations:
+
+            #--- Put a location into the folder.
+
+            attrCount += 1
+            locationHandle = self.nwHandles.create_member(lcId + self.locations[lcId].title)
+            location = NwItem()
+            location.write(locationHandle, level1Order, novelFolderHandle, content)
+            level1Order += 1
+
+        # Write the content counter.
+
+        content.set('count', str(attrCount))
+
+        #--- Format and write the XML tree.
+
+        indent(root)
+        self.tree = ET.ElementTree(root)
+        self.tree.write(self.filePath, xml_declaration=True, encoding='utf-8')
+
+        return 'SUCCESS: "' + os.path.normpath(self.filePath) + '" written.'

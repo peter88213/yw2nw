@@ -38,9 +38,12 @@ class NwConverter(YwCnvUi):
                 os.makedirs(prjDir + NwxFile.CONTENT_DIR)
 
             except FileExistsError:
+                pass
+                '''
                 os.replace(prjDir, prjDir + '.bak')
                 self.ui.set_info_what('Backup folder "' + os.path.normpath(prjDir) + '.bak" saved.')
                 os.makedirs(prjDir + NwxFile.CONTENT_DIR)
+                '''
 
             targetFile = NwxFile(prjDir + '/nwProject.nwx', **kwargs)
             self.export_from_yw(sourceFile, targetFile)

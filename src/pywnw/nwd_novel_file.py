@@ -4,6 +4,9 @@ Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
+import xml.etree.ElementTree as ET
+from pywriter.yw.xml_indent import indent
+
 from pywriter.model.scene import Scene
 from pywriter.model.chapter import Chapter
 
