@@ -17,6 +17,8 @@ from pywnw.nw_item import NwItem
 from pywnw.nwd_character_file import NwdCharacterFile
 from pywnw.nwd_world_file import NwdWorldFile
 from pywnw.nwd_novel_file import NwdNovelFile
+from pywnw.nwd_chapter_file import NwdChapterFile
+from pywnw.nwd_scene_file import NwdSceneFile
 
 
 class NwxFile(Novel):
@@ -352,7 +354,7 @@ class NwxFile(Novel):
                 partHeading.nwHandle = partHeadingHandle
                 partHeading.nwOrder = order[-1]
                 partHeading.nwParent = partFolderHandle
-                partHeading.nwName = self.chapters[chId].title + ' (Heading)'
+                partHeading.nwName = self.chapters[chId].title
                 partHeading.nwType = 'FILE'
                 partHeading.nwClass = 'NOVEL'
                 partHeading.nwExported = 'True'
@@ -368,9 +370,8 @@ class NwxFile(Novel):
 
                 partHeading.write(content)
 
-                partHeadingDoc = NwdNovelFile(self, partHeading)
-                partHeadingDoc.lines.append('# ' + self.chapters[chId].title)
-                partHeadingDoc.write()
+                partHeadingDoc = NwdChapterFile(self, partHeading)
+                partHeadingDoc.write(chId)
 
                 attrCount += 1
                 order[-1] += 1
@@ -418,7 +419,7 @@ class NwxFile(Novel):
                 chapterHeading.nwHandle = chapterHeadingHandle
                 chapterHeading.nwOrder = order[-1]
                 chapterHeading.nwParent = chapterFolderHandle
-                chapterHeading.nwName = self.chapters[chId].title + ' (Heading)'
+                chapterHeading.nwName = self.chapters[chId].title
                 chapterHeading.nwType = 'FILE'
                 chapterHeading.nwClass = 'NOVEL'
 
@@ -432,9 +433,8 @@ class NwxFile(Novel):
                 chapterHeading.nwStatus = 'None'
 
                 chapterHeading.write(content)
-                chapterHeadingDoc = NwdNovelFile(self, chapterHeading)
-                chapterHeadingDoc.lines.append('## ' + self.chapters[chId].title)
-                chapterHeadingDoc.write()
+                chapterHeadingDoc = NwdChapterFile(self, chapterHeading)
+                chapterHeadingDoc.write(chId)
 
                 attrCount += 1
                 order[-1] += 1
@@ -487,15 +487,8 @@ class NwxFile(Novel):
                     scene.nwCharCount = str(self.scenes[scId].letterCount)
 
                 scene.write(content)
-                sceneDoc = NwdNovelFile(self, scene)
-
-                if self.scenes[scId].appendToPrev:
-                    sceneDoc.lines.append('#### ' + title)
-
-                else:
-                    sceneDoc.lines.append('### ' + title)
-
-                sceneDoc.write()
+                sceneDoc = NwdSceneFile(self, scene)
+                sceneDoc.write(scId)
 
                 attrCount += 1
                 order[-1] += 1
@@ -567,8 +560,7 @@ class NwxFile(Novel):
 
             character.write(content)
             characterDoc = NwdCharacterFile(self, character)
-            characterDoc.lines.append('# ' + self.characters[crId].title)
-            characterDoc.write()
+            characterDoc.write(crId)
 
             attrCount += 1
             order[-1] += 1
@@ -625,8 +617,7 @@ class NwxFile(Novel):
 
             location.write(content)
             locationDoc = NwdWorldFile(self, location)
-            locationDoc.lines.append('# ' + title)
-            locationDoc.write()
+            locationDoc.write(lcId)
 
             attrCount += 1
             order[-1] += 1

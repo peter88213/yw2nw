@@ -81,3 +81,36 @@ class NwdWorldFile(NwdFile):
         self.prj.lcIdsByName[self.prj.locations[lcId].title] = [lcId]
         self.prj.srtLocations.append(lcId)
         return('SUCCESS')
+
+    def write(self, lcId):
+        """Write a content file. 
+        Return a message beginning with SUCCESS or ERROR.
+        """
+        location = self.prj.locations[lcId]
+
+        # Set Heading.
+
+        self.lines.append('# ' + location.title + '\n')
+
+        # Set tag.
+
+        self.lines.append('@tag: ' + location.title)
+
+        # Set yWriter AKA.
+
+        if location.aka:
+            self.lines.append(self.weAkaTag + ': ' + location.aka)
+
+        # Set yWriter tags.
+
+        if location.tags is not None:
+
+            for tag in location.tags:
+                self.lines.append(self.weTagTag + ': ' + tag)
+
+        # Set yWriter description.
+
+        if location.desc:
+            self.lines.append('\n' + location.desc)
+
+        return NwdFile.write(self)

@@ -120,3 +120,60 @@ class NwdCharacterFile(NwdFile):
         self.prj.srtCharacters.append(crId)
 
         return('SUCCESS')
+
+    def write(self, crId):
+        """Write a content file. 
+        Return a message beginning with SUCCESS or ERROR.
+        """
+        character = self.prj.characters[crId]
+
+        # Set Heading.
+
+        if character.fullName:
+            title = character.fullName
+
+        else:
+            title = character.title
+
+        self.lines.append('# ' + title + '\n')
+
+        # Set tag.
+
+        self.lines.append('@tag: ' + character.title)
+
+        # Set yWriter AKA.
+
+        if character.aka:
+            self.lines.append(self.weAkaTag + ': ' + character.aka)
+
+        # Set yWriter tags.
+
+        if character.tags is not None:
+
+            for tag in character.tags:
+                self.lines.append(self.weTagTag + ': ' + tag)
+
+        # Set yWriter description.
+
+        if character.desc:
+            self.lines.append('\n' + character.desc)
+
+        # Set yWriter bio.
+
+        if character.bio:
+            self.lines.append('\n' + self.characterBioHeading)
+            self.lines.append(character.bio)
+
+        # Set yWriter goals.
+
+        if character.goals:
+            self.lines.append('\n' + self.characterGoalsHeading)
+            self.lines.append(character.goals)
+
+        # Set yWriter notes.
+
+        if character.notes:
+            self.lines.append('\n' + self.characterNotesHeading)
+            self.lines.append(character.notes)
+
+        return NwdFile.write(self)
