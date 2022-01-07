@@ -49,7 +49,7 @@ def run(sourcePath, silentMode=True, installDir=''):
         ui = Ui('')
 
     else:
-        ui = UiCmd('Convert novelWriter to yWriter and vice versa @release')
+        ui = UiCmd('Converter between yWriter and novelWriter @release')
 
     #--- Try to get persistent configuration data
 
@@ -81,11 +81,11 @@ def run(sourcePath, silentMode=True, installDir=''):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='yWriter import and export for novelWriter',
+        description='Converter between yWriter and novelWriter',
         epilog='')
     parser.add_argument('sourcePath',
                         metavar='Sourcefile',
-                        help='The path of the nwx or yw7 file.')
+                        help='The path of the .nwx or .yw7 file.')
 
     parser.add_argument('--silent',
                         action="store_true",

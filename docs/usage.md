@@ -17,7 +17,7 @@ usage: `yw2nw.py [-h] [--silent] Sourcefile`
 
 `Sourcefile` 
 
-The path of the source file for the conversion. 
+The path of the .nwx or .yw7 file for the conversion. 
 
 - If it's a yWriter project file with extension '.yw7', 
 a new novelWriter project will be created in a directory named after the yWriter file.

@@ -55,7 +55,6 @@ class NwxFile(Novel):
 
         self.scCount = 0
         self.chCount = 0
-        self.chId = None
 
     def read_xml_file(self):
         """Read the novelWriter XML project file.
@@ -77,8 +76,7 @@ class NwxFile(Novel):
         """
 
         def add_nodes(node):
-            """Add nodes to the novelWriter project tree.
-            This is for de-serializing the project tree. 
+            """Add nodes to the novelWriter project tree of handles.
             """
 
             for item in content.iter('item'):
@@ -89,7 +87,7 @@ class NwxFile(Novel):
                     add_nodes(node[parent])
 
         def get_nodes(id, list, subtree):
-            """Get a list of handles, passed as a parameter.
+            """Get a list of file handles, passed as a parameter.
             This is for serializing a project subtree.
             """
 
@@ -140,7 +138,7 @@ class NwxFile(Novel):
 
         content = root.find('content')
 
-        # De-serialize the project tree.
+        # Build a tree of handles.
 
         nwTree = {'None': {}}
         add_nodes(nwTree)
@@ -158,7 +156,7 @@ class NwxFile(Novel):
 
             nwItems[handle] = item
 
-        #--- Re-serialize the project tree to get lists.
+        #--- Re-serialize the project tree to get lists of file handles.
 
         for id in nwTree['None']:
 
@@ -195,7 +193,6 @@ class NwxFile(Novel):
         #--- Get chapters and scenes.
 
         for handle in novList:
-            scId = None
             nwdFile = NwdNovelFile(self, handle, nwItems[handle])
             message = nwdFile.read()
 
@@ -286,16 +283,17 @@ class NwxFile(Novel):
         #--- Write content.
 
         content = ET.SubElement(root, 'content')
+
         attrCount = 0
-        level0Order = 0
+        order = [0]
+        # Use a list as a stack for the order within a level
 
         #--- Write novel folder.
 
-        attrCount += 1
         novelFolderHandle = self.nwHandles.create_member('novelFolderHandle')
         novelFolder = NwItem()
         novelFolder.nwHandle = novelFolderHandle
-        novelFolder.nwOrder = level0Order
+        novelFolder.nwOrder = order[-1]
         novelFolder.nwParent = 'None'
         novelFolder.nwName = 'Novel'
         novelFolder.nwType = 'ROOT'
@@ -303,94 +301,237 @@ class NwxFile(Novel):
         novelFolder.nwStatus = 'None'
         novelFolder.nwExpanded = 'True'
         novelFolder.write(content)
-        level0Order += 1
-        level1Order = 0
+
+        attrCount += 1
+        order[-1] += 1
+        # content level
+
+        hasPartLevel = False
+        isInChapter = False
+
+        # Add novel items to the folder.
+
+        order.append(0)
+        # Level up from content to novel
 
         for chId in self.srtChapters:
 
-            # Put a chapter into the folder.
+            if self.chapters[chId].chLevel == 1:
 
-            attrCount += 1
-            chapterHandle = self.nwHandles.create_member(chId + self.chapters[chId].title)
-            chapter = NwItem()
-            chapter.nwHandle = chapterHandle
-            chapter.nwOrder = level1Order
-            chapter.nwParent = novelFolderHandle
-            chapter.write(content)
-            level1Order += 1
+                # Begin with a new part.
+
+                hasPartLevel = True
+                isInChapter = False
+
+                #--- Write a new folder for this part.
+
+                partFolderHandle = self.nwHandles.create_member(chId + self.chapters[chId].title + 'Folder')
+                partFolder = NwItem()
+                partFolder.nwHandle = partFolderHandle
+                partFolder.nwOrder = order[-1]
+                partFolder.nwParent = novelFolderHandle
+                partFolder.nwName = self.chapters[chId].title
+                partFolder.nwType = 'FOLDER'
+                partFolder.expanded = 'True'
+
+                partFolder.write(content)
+
+                attrCount += 1
+                order[-1] += 1
+                # novel level
+
+                order.append(0)
+                # Level up from novel to part
+
+                # Put the heading into the part folder.
+
+                partHeadingHandle = self.nwHandles.create_member(chId + self.chapters[chId].title)
+                partHeading = NwItem()
+                partHeading.nwHandle = partHeadingHandle
+                partHeading.nwOrder = order[-1]
+                partHeading.nwParent = partFolderHandle
+                partHeading.nwName = self.chapters[chId].title
+                partHeading.nwType = 'FILE'
+
+                partHeading.write(content)
+
+                attrCount += 1
+                order[-1] += 1
+                # part level
+
+                order.append(0)
+                # Level up from part to chapter
+
+            else:
+
+                # Begin with a new chapter.
+
+                isInChapter = True
+
+                #--- Write a new folder for this chapter.
+
+                chapterFolderHandle = self.nwHandles.create_member(chId + self.chapters[chId].title + 'Folder')
+                chapterFolder = NwItem()
+                chapterFolder.nwHandle = chapterFolderHandle
+                chapterFolder.nwOrder = order[-1]
+
+                if hasPartLevel:
+                    chapterFolder.nwParent = partFolderHandle
+
+                else:
+                    chapterFolder.nwParent = novelFolderHandle
+
+                chapterFolder.nwName = self.chapters[chId].title
+                chapterFolder.nwType = 'FOLDER'
+                chapterFolder.expanded = 'True'
+
+                chapterFolder.write(content)
+
+                attrCount += 1
+                order[-1] += 1
+                # part or novel level
+
+                order.append(0)
+                # Level up from part or novel to chapter
+
+                # Put the heading into the folder.
+
+                chapterHeadingHandle = self.nwHandles.create_member(chId + self.chapters[chId].title)
+                chapterHeading = NwItem()
+                chapterHeading.nwHandle = chapterHeadingHandle
+                chapterHeading.nwOrder = order[-1]
+                chapterHeading.nwParent = chapterFolderHandle
+                chapterHeading.nwName = self.chapters[chId].title
+                chapterHeading.nwType = 'FILE'
+
+                chapterHeading.write(content)
+
+                attrCount += 1
+                order[-1] += 1
+                # chapter level
 
             for scId in self.chapters[chId].srtScenes:
 
                 # Put a scene into the folder.
 
-                attrCount += 1
                 sceneHandle = self.nwHandles.create_member(scId + self.scenes[scId].title)
                 scene = NwItem()
                 scene.nwHandle = sceneHandle
-                scene.nwOrder = level1Order
-                scene.nwParent = novelFolderHandle
+                scene.nwOrder = order[-1]
+
+                if isInChapter:
+                    scene.nwParent = chapterFolderHandle
+
+                else:
+                    scene.nwParent = partFolderHandle
+
+                scene.nwName = self.scenes[scId].title
+                scene.nwType = 'FILE'
+
                 scene.write(content)
-                level1Order += 1
+
+                attrCount += 1
+                order[-1] += 1
+                # chapter or part level
+
+            order.pop()
+            # Level down from chapter to part or novel
+
+            # if hasPartLevel:
+            # order.pop()
+            # Level down from part to novel
+
+        order.pop()
+        # Level down from novel to content
 
         #--- Write character folder.
 
-        attrCount += 1
         characterFolderHandle = self.nwHandles.create_member('characterFolderHandle')
         characterFolder = NwItem()
         characterFolder.nwHandle = characterFolderHandle
-        characterFolder.nwOrder = level0Order
+        characterFolder.nwOrder = order[-1]
         characterFolder.nwParent = 'None'
         characterFolder.nwName = 'Characters'
         characterFolder.nwType = 'ROOT'
         characterFolder.nwClass = 'CHARACTER'
         characterFolder.nwStatus = 'None'
         characterFolder.nwExpanded = 'True'
+
         characterFolder.write(content)
-        level0Order += 1
-        level1Order = 0
+
+        attrCount += 1
+        order[-1] += 1
+
+        # Add character items to the folder.
+
+        order.append(0)
+        # Level up from world to character
 
         for crId in self.srtCharacters:
 
             #--- Put a character into the folder.
 
-            attrCount += 1
             characterHandle = self.nwHandles.create_member(crId + self.characters[crId].title)
             character = NwItem()
             character.nwHandle = characterHandle
-            character.nwOrder = level1Order
-            character.nwParent = novelFolderHandle
+            character.nwOrder = order[-1]
+            character.nwParent = characterFolderHandle
+            character.nwName = self.characters[crId].title
+            character.nwType = 'FILE'
+
             character.write(content)
-            level1Order += 1
+
+            attrCount += 1
+            order[-1] += 1
+            # character level
+
+        order.pop()
+        # Level down from character to content
 
         #--- Write world folder.
 
-        attrCount += 1
         worldFolderHandle = self.nwHandles.create_member('worldFolderHandle')
         worldFolder = NwItem()
         worldFolder.nwHandle = worldFolderHandle
-        worldFolder.nwOrder = level0Order
+        worldFolder.nwOrder = order[-1]
         worldFolder.nwParent = 'None'
         worldFolder.nwName = 'Locations'
         worldFolder.nwType = 'ROOT'
         worldFolder.nwClass = 'WORLD'
         worldFolder.nwStatus = 'None'
         worldFolder.nwExpanded = 'True'
+
         worldFolder.write(content)
-        level0Order += 1
-        level1Order = 0
+
+        attrCount += 1
+        order[-1] += 1
+        # content level
+
+        # Add world items to the folder.
+
+        order.append(0)
+        # Level up from content to world
 
         for lcId in self.srtLocations:
 
             #--- Put a location into the folder.
 
-            attrCount += 1
             locationHandle = self.nwHandles.create_member(lcId + self.locations[lcId].title)
             location = NwItem()
             location.nwHandle = locationHandle
-            location.nwOrder = level1Order
-            location.nwParent = novelFolderHandle
+            location.nwOrder = order[-1]
+            location.nwParent = worldFolderHandle
+            location.nwName = self.locations[lcId].title
+            location.nwType = 'FILE'
+
             location.write(content)
-            level1Order += 1
+
+            attrCount += 1
+            order[-1] += 1
+            # world level
+
+        order.pop()
+        # Level down to content
 
         # Write the content counter.
 

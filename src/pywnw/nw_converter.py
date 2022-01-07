@@ -34,16 +34,28 @@ class NwConverter(YwCnvUi):
             title = fileName.replace(srcDir, '')
             prjDir = srcDir + '/' + title + '.nw'
 
+            if os.path.isfile(prjDir + '/nwProject.lock'):
+                self.ui.set_info_how('ERROR: Please exit novelWriter.')
+                return
+
             try:
                 os.makedirs(prjDir + NwxFile.CONTENT_DIR)
 
             except FileExistsError:
-                pass
-                '''
-                os.replace(prjDir, prjDir + '.bak')
-                self.ui.set_info_what('Backup folder "' + os.path.normpath(prjDir) + '.bak" saved.')
+                extension = '.bak'
+                i = 0
+
+                while os.path.isdir(prjDir + extension):
+                    extension = '.bk' + str(i).zfill(3)
+                    i += 1
+
+                    if i > 999:
+                        self.ui.set_info_how('ERROR: Unable to back up the project.')
+                        return
+
+                os.replace(prjDir, prjDir + extension)
+                self.ui.set_info_what('Backup folder "' + os.path.normpath(prjDir) + extension + '" saved.')
                 os.makedirs(prjDir + NwxFile.CONTENT_DIR)
-                '''
 
             targetFile = NwxFile(prjDir + '/nwProject.nwx', **kwargs)
             self.export_from_yw(sourceFile, targetFile)
@@ -70,7 +82,6 @@ class NwConverter(YwCnvUi):
                 title = 'NewProject'
 
             fileName = prjDir + title + Yw7File.EXTENSION
-            targetFile = Yw7File(fileName, **kwargs)
 
             if os.path.isfile(fileName):
 
@@ -82,6 +93,7 @@ class NwConverter(YwCnvUi):
                     self.ui.set_info_what('Action canceled by user.')
                     return
 
+            targetFile = Yw7File(fileName, **kwargs)
             self.create_yw7(sourceFile, targetFile)
 
         else:
