@@ -13,11 +13,11 @@ class NwdWorldFile(NwdFile):
     """novelWriter character file representation.
     """
 
-    def __init__(self, prj, handle, nwItem):
+    def __init__(self, prj, nwItem):
         """Extend the superclass constructor,
         defining instance variables.
         """
-        NwdFile.__init__(self, prj, handle, nwItem)
+        NwdFile.__init__(self, prj, nwItem)
 
         # Customizable tags for characters and locations.
 

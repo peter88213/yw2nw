@@ -56,6 +56,8 @@ class NwxFile(Novel):
         self.scCount = 0
         self.chCount = 0
 
+        self.sceneStatus = kwargs['scene_status']
+
     def read_xml_file(self):
         """Read the novelWriter XML project file.
         Return a message beginning with SUCCESS or ERROR.
@@ -298,7 +300,6 @@ class NwxFile(Novel):
         novelFolder.nwName = 'Novel'
         novelFolder.nwType = 'ROOT'
         novelFolder.nwClass = 'NOVEL'
-        novelFolder.nwStatus = 'None'
         novelFolder.nwExpanded = 'True'
         novelFolder.write(content)
 
@@ -332,6 +333,7 @@ class NwxFile(Novel):
                 partFolder.nwParent = novelFolderHandle
                 partFolder.nwName = self.chapters[chId].title
                 partFolder.nwType = 'FOLDER'
+                partFolder.nwClass = 'NOVEL'
                 partFolder.expanded = 'True'
 
                 partFolder.write(content)
@@ -350,10 +352,25 @@ class NwxFile(Novel):
                 partHeading.nwHandle = partHeadingHandle
                 partHeading.nwOrder = order[-1]
                 partHeading.nwParent = partFolderHandle
-                partHeading.nwName = self.chapters[chId].title
+                partHeading.nwName = self.chapters[chId].title + ' (Heading)'
                 partHeading.nwType = 'FILE'
+                partHeading.nwClass = 'NOVEL'
+                partHeading.nwExported = 'True'
+
+                if self.chapters[chId].chType == 0:
+                    partHeading.nwExported = 'True'
+
+                else:
+                    partHeading.nwExported = 'False'
+
+                partHeading.nwLayout = 'DOCUMENT'
+                partHeading.nwStatus = 'None'
 
                 partHeading.write(content)
+
+                partHeadingDoc = NwdNovelFile(self, partHeading)
+                partHeadingDoc.lines.append('# ' + self.chapters[chId].title)
+                partHeadingDoc.write()
 
                 attrCount += 1
                 order[-1] += 1
@@ -401,10 +418,23 @@ class NwxFile(Novel):
                 chapterHeading.nwHandle = chapterHeadingHandle
                 chapterHeading.nwOrder = order[-1]
                 chapterHeading.nwParent = chapterFolderHandle
-                chapterHeading.nwName = self.chapters[chId].title
+                chapterHeading.nwName = self.chapters[chId].title + ' (Heading)'
                 chapterHeading.nwType = 'FILE'
+                chapterHeading.nwClass = 'NOVEL'
+
+                if self.chapters[chId].chType == 0:
+                    chapterHeading.nwExported = 'True'
+
+                else:
+                    chapterHeading.nwExported = 'False'
+
+                chapterHeading.nwLayout = 'DOCUMENT'
+                chapterHeading.nwStatus = 'None'
 
                 chapterHeading.write(content)
+                chapterHeadingDoc = NwdNovelFile(self, chapterHeading)
+                chapterHeadingDoc.lines.append('## ' + self.chapters[chId].title)
+                chapterHeadingDoc.write()
 
                 attrCount += 1
                 order[-1] += 1
@@ -412,7 +442,7 @@ class NwxFile(Novel):
 
             for scId in self.chapters[chId].srtScenes:
 
-                # Put a scene into the folder.
+                #--- Put a scene into the folder.
 
                 sceneHandle = self.nwHandles.create_member(scId + self.scenes[scId].title)
                 scene = NwItem()
@@ -425,10 +455,47 @@ class NwxFile(Novel):
                 else:
                     scene.nwParent = partFolderHandle
 
-                scene.nwName = self.scenes[scId].title
+                if self.scenes[scId].title:
+                    title = self.scenes[scId].title
+
+                else:
+                    title = 'Scene ' + str(order[-1] + 1)
+
+                scene.nwName = title
                 scene.nwType = 'FILE'
+                scene.nwClass = 'NOVEL'
+
+                if self.scenes[scId].status is not None:
+                    scene.nwStatus = self.sceneStatus[self.scenes[scId].status]
+
+                if self.scenes[scId].isUnused:
+                    scene.nwExported = 'False'
+
+                else:
+                    scene.nwExported = 'True'
+
+                if self.scenes[scId].isNotesScene or self.scenes[scId].isTodoScene:
+                    scene.nwLayout = 'NOTE'
+
+                else:
+                    scene.nwLayout = 'DOCUMENT'
+
+                if self.scenes[scId].wordCount:
+                    scene.nwWordCount = str(self.scenes[scId].wordCount)
+
+                if self.scenes[scId].letterCount:
+                    scene.nwCharCount = str(self.scenes[scId].letterCount)
 
                 scene.write(content)
+                sceneDoc = NwdNovelFile(self, scene)
+
+                if self.scenes[scId].appendToPrev:
+                    sceneDoc.lines.append('#### ' + title)
+
+                else:
+                    sceneDoc.lines.append('### ' + title)
+
+                sceneDoc.write()
 
                 attrCount += 1
                 order[-1] += 1
@@ -476,10 +543,32 @@ class NwxFile(Novel):
             character.nwHandle = characterHandle
             character.nwOrder = order[-1]
             character.nwParent = characterFolderHandle
-            character.nwName = self.characters[crId].title
+
+            if self.characters[crId].fullName:
+                character.nwName = self.characters[crId].fullName
+
+            elif self.characters[crId].title:
+                character.nwName = self.characters[crId].title
+
+            else:
+                character.nwName = 'Character ' + str(order[-1] + 1)
+
             character.nwType = 'FILE'
+            character.nwClass = 'CHARACTER'
+
+            if self.characters[crId].isMajor:
+                character.nwStatus = 'Major'
+
+            else:
+                character.nwStatus = 'Minor'
+
+            character.nwExported = 'True'
+            character.nwLayout = 'NOTE'
 
             character.write(content)
+            characterDoc = NwdCharacterFile(self, character)
+            characterDoc.lines.append('# ' + self.characters[crId].title)
+            characterDoc.write()
 
             attrCount += 1
             order[-1] += 1
@@ -521,10 +610,23 @@ class NwxFile(Novel):
             location.nwHandle = locationHandle
             location.nwOrder = order[-1]
             location.nwParent = worldFolderHandle
-            location.nwName = self.locations[lcId].title
+
+            if self.locations[lcId].title:
+                title = self.locations[lcId].title
+
+            else:
+                title = 'Place ' + str(order[-1] + 1)
+
+            location.nwName = title
             location.nwType = 'FILE'
+            location.nwClass = 'WORLD'
+            location.nwExported = 'True'
+            location.nwLayout = 'NOTE'
 
             location.write(content)
+            locationDoc = NwdWorldFile(self, location)
+            locationDoc.lines.append('# ' + title)
+            locationDoc.write()
 
             attrCount += 1
             order[-1] += 1

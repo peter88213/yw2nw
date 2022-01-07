@@ -27,6 +27,7 @@ SETTINGS = dict(
     first_edit_status=['2nd Draft'],
     second_edit_status=['3rd Draft'],
     done_status=['Finished'],
+    scene_status=['None', 'New', '1st Draft', '2nd Draft', '3rd Draft', 'Finished'],
     major_character_status=['Major', 'Main'],
     character_notes_heading='## Notes',
     character_goals_heading='## Goals',

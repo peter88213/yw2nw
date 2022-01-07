@@ -13,13 +13,14 @@ class NwdFile():
 
     EXTENSION = '.nwd'
 
-    def __init__(self, prj, handle, nwItem):
+    def __init__(self, prj, nwItem):
         """Define instance variables.
         """
         self.lines = None
         self.prj = prj
         self.nwItem = nwItem
-        self.filePath = os.path.dirname(self.prj.filePath) + self.prj.CONTENT_DIR + handle + self.EXTENSION
+        self.filePath = os.path.dirname(self.prj.filePath) + self.prj.CONTENT_DIR + nwItem.nwHandle + self.EXTENSION
+        self.lines = []
 
     def read(self):
         """Read a content file. 
@@ -35,14 +36,15 @@ class NwdFile():
         except:
             return 'ERROR: Can not read "' + os.path.normpath(self.filePath) + '".'
 
-    def write(self, parent):
+    def write(self):
         """Write a content file. 
         Return a message beginning with SUCCESS or ERROR.
         """
         lines = ['%%~name: ' + self.nwItem.nwName,
-                 '%%~path: ' + parent + '/' + self.handle,
+                 '%%~path: ' + self.nwItem.nwParent + '/' + self.nwItem.nwHandle,
                  '%%~kind: ' + self.nwItem.nwClass + '/' + self.nwItem.nwLayout,
-                 ].extend(self.lines)
+                 ]
+        lines.extend(self.lines)
         text = '\n'.join(lines)
 
         try:
