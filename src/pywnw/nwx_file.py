@@ -256,6 +256,16 @@ class NwxFile(Novel):
         Override the superclass method.
         """
 
+        def write_entry(parent, entry, red, green, blue):
+            """Write an XML entry with RGB values as attributes.
+            """
+            attrib = {
+                'blue': str(blue),
+                'green': str(green),
+                'red': str(red)
+            }
+            ET.SubElement(parent, 'entry', attrib).text = entry
+
         root = ET.Element(self.NWX_TAG, self.NWX_ATTR)
 
         #--- Write project metadata.
@@ -280,9 +290,26 @@ class NwxFile(Novel):
         for author in authors:
             ET.SubElement(xmlPrj, 'author').text = author.strip()
 
-        # Omit settings.
+        #--- Write settings.
 
-        world = ET.SubElement(root, 'settings')
+        settings = ET.SubElement(root, 'settings')
+        status = ET.SubElement(settings, 'status')
+
+        try:
+            write_entry(status, self.sceneStatus[0], 230, 230, 230)
+            write_entry(status, self.sceneStatus[1], 0, 0, 0)
+            write_entry(status, self.sceneStatus[2], 170, 40, 0)
+            write_entry(status, self.sceneStatus[3], 240, 140, 0)
+            write_entry(status, self.sceneStatus[4], 250, 190, 90)
+            write_entry(status, self.sceneStatus[5], 58, 180, 58)
+
+        except IndexError:
+            pass
+
+        importance = ET.SubElement(settings, 'importance')
+        write_entry(importance, 'None', 220, 220, 220)
+        write_entry(importance, 'Minor', 0, 122, 188)
+        write_entry(importance, 'Major', 21, 0, 180)
 
         #--- Write content.
 
@@ -466,7 +493,12 @@ class NwxFile(Novel):
                 scene.nwClass = 'NOVEL'
 
                 if self.scenes[scId].status is not None:
-                    scene.nwStatus = self.sceneStatus[self.scenes[scId].status]
+
+                    try:
+                        scene.nwStatus = self.sceneStatus[self.scenes[scId].status]
+
+                    except IndexError:
+                        scene.nwStatus = self.sceneStatus[-1]
 
                 if self.scenes[scId].isUnused:
                     scene.nwExported = 'False'

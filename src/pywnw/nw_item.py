@@ -57,12 +57,12 @@ class NwItem():
     def write(self, parentNode):
         """Write a novelWriter item entry to the XML project tree.
         """
-        attrs = {
+        attrib = {
             'handle': self.nwHandle,
             'order': str(self.nwOrder),
             'parent': self.nwParent
         }
-        node = ET.SubElement(parentNode, 'item', attrs)
+        node = ET.SubElement(parentNode, 'item', attrib)
 
         if self.nwName is not None:
             ET.SubElement(node, 'name').text = self.nwName
