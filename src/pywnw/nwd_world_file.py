@@ -10,7 +10,9 @@ from pywnw.nwd_file import NwdFile
 
 
 class NwdWorldFile(NwdFile):
-    """novelWriter character file representation.
+    """novelWriter location file representation.
+    Read a yWriter location from a .nwd file.
+    Write a yWriter location to a .nwd file.    
     """
 
     def __init__(self, prj, nwItem):

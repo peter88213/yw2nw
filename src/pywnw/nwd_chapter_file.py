@@ -9,6 +9,7 @@ from pywnw.nwd_file import NwdFile
 
 class NwdChapterFile(NwdFile):
     """novelWriter part/chapter file representation.
+    Write a yWriter chapter to a .nwd file.
     """
 
     def write(self, chId):

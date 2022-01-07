@@ -11,6 +11,8 @@ from pywnw.nwd_file import NwdFile
 
 class NwdCharacterFile(NwdFile):
     """novelWriter character file representation.
+    Read a yWriter character from a .nwd file.
+    Write a yWriter character to a .nwd file.    
     """
 
     def __init__(self, prj, nwItem):

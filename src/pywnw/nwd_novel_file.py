@@ -15,6 +15,7 @@ from pywnw.nwd_file import NwdFile
 
 class NwdNovelFile(NwdFile):
     """novelWriter novel file representation.
+    Read yWriter chapters and scenes from a .nwd file.
     """
 
     def __init__(self, prj, nwItem):

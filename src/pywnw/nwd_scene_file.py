@@ -9,6 +9,7 @@ from pywnw.nwd_file import NwdFile
 
 class NwdSceneFile(NwdFile):
     """novelWriter scene file representation.
+    Write a yWriter scene to a .nwd file.
     """
 
     def write(self, scId):
