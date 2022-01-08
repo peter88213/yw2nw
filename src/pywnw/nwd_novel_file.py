@@ -19,6 +19,7 @@ class NwdNovelFile(NwdFile):
     POV_TAG = '@pov: '
     CHARACTER_TAG = '@char: '
     LOCATION_TAG = '@location: '
+    SYNOPSIS_TAG = '% Synopsis: '
 
     def __init__(self, prj, nwItem):
         """Extend the superclass constructor,
@@ -200,7 +201,7 @@ class NwdNovelFile(NwdFile):
         # Set synopsis.
 
         if scene.desc:
-            self.lines.append('% Synopsis: ' + scene.desc + '\n')
+            self.lines.append(self.SYNOPSIS_TAG + scene.desc + '\n')
 
         # Set scene content.
 
