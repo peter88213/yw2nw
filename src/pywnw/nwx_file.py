@@ -88,18 +88,18 @@ class NwxFile(Novel):
                     node[parent][item.attrib.get('handle')] = {}
                     add_nodes(node[parent])
 
-        def get_nodes(id, list, subtree):
+        def get_nodes(handle, handles, subtree):
             """Get a list of file handles, passed as a parameter.
             This is for serializing a project subtree.
             """
 
-            if nwItems[id].nwType == 'FILE':
-                list.append(id)
+            if nwItems[handle].nwType == 'FILE':
+                handles.append(handle)
 
             else:
 
-                for subId in subtree[id]:
-                    get_nodes(subId, list, subtree[id])
+                for node in subtree[handle]:
+                    get_nodes(node, handles, subtree[handle])
 
         #--- Read the XML file, if necessary.
 
