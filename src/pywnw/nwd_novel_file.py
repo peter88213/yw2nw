@@ -77,7 +77,7 @@ class NwdNovelFile(NwdFile):
         isUnused = None
         isNotesScene = None
         status = None
-        title = None
+        sceneTitle = None
         appendToPrev = None
         characters = []
         locations = []
@@ -138,9 +138,6 @@ class NwdNovelFile(NwdFile):
                 if line.startswith(self.ywTagTag):
                     tags.append(line.split(':')[1].strip())
 
-                else:
-                    continue
-
             elif line.startswith('###') and self.prj.chId:
 
                 # Write previous scene content.
@@ -151,7 +148,7 @@ class NwdNovelFile(NwdFile):
                 locations = []
                 synopsis = []
                 tags = []
-                title = line.split(' ', maxsplit=1)[1]
+                sceneTitle = line.split(' ', maxsplit=1)[1]
 
                 if line.startswith('####'):
                     appendToPrev = True
@@ -164,26 +161,15 @@ class NwdNovelFile(NwdFile):
                 # Write previous scene content.
 
                 write_scene_content(scId, contentLines, characters, locations, synopsis, tags)
-                scId = None
-                characters = []
-                locations = []
-                synopsis = []
-                tags = []
-
-                # Prepare the next scene that may be appended without a heading.
-
-                title = 'Scene ' + str(self.prj.scCount + 1)
 
                 # Add a chapter.
 
                 self.prj.chCount += 1
                 self.prj.chId = str(self.prj.chCount)
                 self.prj.chapters[self.prj.chId] = Chapter()
-                title = line.split(' ', maxsplit=1)[1]
-                self.prj.chapters[self.prj.chId].title = title
+                self.prj.chapters[self.prj.chId].title = line.split(' ', maxsplit=1)[1]
                 self.prj.chapters[self.prj.chId].chType = chType
                 self.prj.chapters[self.prj.chId].isUnused = isUnused
-
                 self.prj.srtChapters.append(self.prj.chId)
 
                 if line.startswith('##'):
@@ -192,10 +178,24 @@ class NwdNovelFile(NwdFile):
                 else:
                     self.prj.chapters[self.prj.chId].chLevel = 1
 
+                # Prepare the next scene that may be appended without a heading.
+
+                scId = None
+                characters = []
+                locations = []
+                tags = []
+                sceneTitle = 'Scene ' + str(self.prj.scCount + 1)
+
             elif scId is None and not line:
                 continue
 
-            elif title and scId is None:
+            elif sceneTitle and scId is None:
+
+                # Write chapter synopsis.
+
+                if synopsis != []:
+                    self.prj.chapters[self.prj.chId].desc = '\n'.join(synopsis)
+                    synopsis = []
 
                 # Add a scene.
 
@@ -203,7 +203,7 @@ class NwdNovelFile(NwdFile):
                 scId = str(self.prj.scCount)
                 self.prj.scenes[scId] = Scene()
                 self.prj.scenes[scId].status = status
-                self.prj.scenes[scId].title = title
+                self.prj.scenes[scId].title = sceneTitle
                 self.prj.scenes[scId].isNotesScene = isNotesScene
                 self.prj.chapters[self.prj.chId].srtScenes.append(scId)
                 self.prj.scenes[scId].appendToPrev = appendToPrev
@@ -212,9 +212,14 @@ class NwdNovelFile(NwdFile):
             elif scId is not None:
                 contentLines.append(line)
 
-        # Write the last scene of the file.
+        # Write the last scene of the file or a chapter synopsis, if there is no scene.
 
-        write_scene_content(scId, contentLines, characters, locations, synopsis, tags)
+        if scId is not None:
+            write_scene_content(scId, contentLines, characters, locations, synopsis, tags)
+
+        elif synopsis != []:
+            self.prj.chapters[self.prj.chId].desc = '\n'.join(synopsis)
+
         return('SUCCESS')
 
     def add_scene(self, scId):
@@ -282,4 +287,4 @@ class NwdNovelFile(NwdFile):
         # Set yWriter chapter description.
 
         if chapter.desc:
-            self.lines.append(self.SYNOPSIS_TAG + chapter.desc)
+            self.lines.append('\n' + self.SYNOPSIS_TAG + chapter.desc + '\n')
