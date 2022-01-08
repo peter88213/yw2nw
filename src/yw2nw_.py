@@ -22,11 +22,11 @@ SUFFIX = ''
 APPNAME = 'yw2nw'
 
 SETTINGS = dict(
-    outline_status=['New', 'Notes'],
-    draft_status=['Started', '1st Draft'],
-    first_edit_status=['2nd Draft'],
-    second_edit_status=['3rd Draft'],
-    done_status=['Finished'],
+    outline_status=['Outline', 'New', 'Notes'],
+    draft_status=['Draft', 'Started', '1st Draft'],
+    first_edit_status=['1st Edit', '2nd Draft'],
+    second_edit_status=['2nd Edit', '3rd Draft'],
+    done_status=['Done', 'Finished'],
     scene_status=['None', 'Outline', 'Draft', '1st Edit', '2nd Edit', 'Done'],
     major_character_status=['Major', 'Main'],
     character_notes_heading='## Notes',

@@ -48,11 +48,14 @@ class NwdNovelFile(NwdFile):
         Extend the superclass method.
         """
 
-        def write_scene_content(scId, contentLines):
+        def write_scene_content(scId, contentLines, characters, locations, synopsis):
 
             if scId is not None:
                 text = '\n'.join(contentLines)
                 self.prj.scenes[scId].sceneContent = text
+                self.prj.scenes[scId].desc = '\n'.join(synopsis)
+                self.prj.scenes[scId].characters = characters
+                self.prj.scenes[scId].locations = locations
 
         #--- Get chapters and scenes.
 
@@ -70,6 +73,9 @@ class NwdNovelFile(NwdFile):
         isNotesScene = None
         status = None
         title = None
+        characters = []
+        locations = []
+        synopsis = []
 
         if self.nwItem.nwLayout == 'DOCUMENT':
             chType = 0
@@ -95,7 +101,7 @@ class NwdNovelFile(NwdFile):
         elif self.nwItem.nwStatus in self.secondEditStatus:
             status = 4
 
-        elif self.nwItem.nwStatus in self.doneEditStatus:
+        elif self.nwItem.nwStatus in self.doneStatus:
             status = 5
 
         contentLines = []
@@ -104,6 +110,18 @@ class NwdNovelFile(NwdFile):
 
             if line.startswith('%%'):
                 continue
+
+            elif line.startswith(self.POV_TAG):
+                characters.insert(0, line.replace(self.POV_TAG, '').strip())
+
+            elif line.startswith(self.CHARACTER_TAG):
+                characters.append(line.replace(self.CHARACTER_TAG, '').strip())
+
+            elif line.startswith(self.LOCATION_TAG):
+                locations.append(line.replace(self.LOCATION_TAG, '').strip())
+
+            elif line.startswith(self.SYNOPSIS_TAG):
+                synopsis.append(line.replace(self.SYNOPSIS_TAG, '').strip())
 
             elif line.startswith('@'):
                 continue
@@ -115,8 +133,11 @@ class NwdNovelFile(NwdFile):
 
                 # Write previous scene.
 
-                write_scene_content(scId, contentLines)
+                write_scene_content(scId, contentLines, characters, locations, synopsis)
                 scId = None
+                characters = []
+                locations = []
+                synopsis = []
 
                 self.prj.scCount += 1
                 scId = str(self.prj.scCount)
@@ -135,8 +156,11 @@ class NwdNovelFile(NwdFile):
 
                 # Write previous scene.
 
-                write_scene_content(scId, contentLines)
+                write_scene_content(scId, contentLines, characters, locations, synopsis)
                 scId = None
+                characters = []
+                locations = []
+                synopsis = []
 
                 # Add a chapter.
 
@@ -161,7 +185,7 @@ class NwdNovelFile(NwdFile):
 
         # Write the last scene of the file.
 
-        write_scene_content(scId, contentLines)
+        write_scene_content(scId, contentLines, characters, locations, synopsis)
         return('SUCCESS')
 
     def add_scene(self, scId):
@@ -224,4 +248,4 @@ class NwdNovelFile(NwdFile):
         # Set yWriter chapter description.
 
         if chapter.desc:
-            self.lines.append('% Synopsis: ' + chapter.desc)
+            self.lines.append(self.SYNOPSIS_TAG + chapter.desc)

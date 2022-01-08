@@ -176,30 +176,58 @@ class NwxFile(Novel):
 
         #--- Get characters.
 
+        crIdsByTitle = {}
+
         for handle in charList:
-            nwdFile = NwdCharacterFile(self, handle, nwItems[handle])
+            nwdFile = NwdCharacterFile(self, nwItems[handle])
             message = nwdFile.read()
 
             if message.startswith('ERROR'):
                 return message
+
+        for crId in self.characters:
+            crIdsByTitle[self.characters[crId].title] = crId
 
         #--- Get locations.
 
+        lcIdsByTitle = {}
+
         for handle in locList:
-            nwdFile = NwdWorldFile(self, handle, nwItems[handle])
+            nwdFile = NwdWorldFile(self, nwItems[handle])
             message = nwdFile.read()
 
             if message.startswith('ERROR'):
                 return message
+
+        for lcId in self.locations:
+            lcIdsByTitle[self.locations[lcId].title] = lcId
 
         #--- Get chapters and scenes.
 
         for handle in novList:
-            nwdFile = NwdNovelFile(self, handle, nwItems[handle])
+            nwdFile = NwdNovelFile(self, nwItems[handle])
             message = nwdFile.read()
 
             if message.startswith('ERROR'):
                 return message
+
+        # Fix scene references.
+
+        for scId in self.scenes:
+            characters = []
+
+            for crId in self.scenes[scId].characters:
+                characters.append(crIdsByTitle[crId])
+
+            self.scenes[scId].characters = characters
+
+        for scId in self.scenes:
+            locations = []
+
+            for lcId in self.scenes[scId].locations:
+                locations.append(lcIdsByTitle[lcId])
+
+            self.scenes[scId].locations = locations
 
         return('SUCCESS')
 
