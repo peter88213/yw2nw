@@ -160,19 +160,19 @@ class NwxFile(Novel):
 
         #--- Re-serialize the project tree to get lists of file handles.
 
-        for id in nwTree['None']:
+        for handle in nwTree['None']:
 
-            if nwItems[id].nwClass == 'CHARACTER':
+            if nwItems[handle].nwClass == 'CHARACTER':
                 charList = []
-                get_nodes(id, charList, nwTree['None'])
+                get_nodes(handle, charList, nwTree['None'])
 
-            if nwItems[id].nwClass == 'WORLD':
+            if nwItems[handle].nwClass == 'WORLD':
                 locList = []
-                get_nodes(id, locList, nwTree['None'])
+                get_nodes(handle, locList, nwTree['None'])
 
-            if nwItems[id].nwClass == 'NOVEL':
+            if nwItems[handle].nwClass == 'NOVEL':
                 novList = []
-                get_nodes(id, novList, nwTree['None'])
+                get_nodes(handle, novList, nwTree['None'])
 
         #--- Get characters.
 

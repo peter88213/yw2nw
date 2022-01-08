@@ -21,10 +21,11 @@ The path of the .nwx or .yw7 file for the conversion.
 
 - If it's a yWriter project file with extension '.yw7', 
 a new novelWriter project will be created in a directory named after the yWriter file.
-- Existing novel writer project directories will be renamed as a whole and get the extension '.bak'.
-- It it's a novelWriter project file with extension '.nwx', 
+- Existing novel writer project directories will be renamed as a whole and get the extension '.bak'. 
+If there is already such a directory, a new, numbered backup directory is created with the  extension '.bkxxxx'
+- If it's a novelWriter project named 'nwProject.nwx', 
 a new yWriter 7 project will be created one directory level below. 
-- Existing yWriter projects are overwritten on demand.
+- Existing yWriter projects are backed up with  the extension '.bak' before overwritten.
 
 
 #### optional arguments:
