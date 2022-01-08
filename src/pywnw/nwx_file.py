@@ -48,13 +48,14 @@ class NwxFile(Novel):
         self.nwHandles = Handles()
 
         self.lcCount = 0
-        self.lcIdsByName = {}
+        self.lcIdsByTitle = {}
 
         self.crCount = 0
         self.crIdsByTitle = {}
 
         self.scCount = 0
         self.chCount = 0
+        self.chId = None
 
         self.sceneStatus = kwargs['scene_status']
 

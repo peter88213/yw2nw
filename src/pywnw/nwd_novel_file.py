@@ -78,6 +78,7 @@ class NwdNovelFile(NwdFile):
         isNotesScene = None
         status = None
         title = None
+        appendToPrev = None
         characters = []
         locations = []
         synopsis = []
@@ -142,7 +143,7 @@ class NwdNovelFile(NwdFile):
 
             elif line.startswith('###') and self.prj.chId:
 
-                # Write previous scene.
+                # Write previous scene content.
 
                 write_scene_content(scId, contentLines, characters, locations, synopsis, tags)
                 scId = None
@@ -150,23 +151,17 @@ class NwdNovelFile(NwdFile):
                 locations = []
                 synopsis = []
                 tags = []
-
-                self.prj.scCount += 1
-                scId = str(self.prj.scCount)
-                self.prj.scenes[scId] = Scene()
-                self.prj.scenes[scId].status = status
                 title = line.split(' ', maxsplit=1)[1]
-                self.prj.scenes[scId].title = title
-                self.prj.scenes[scId].isNotesScene = isNotesScene
-                self.prj.chapters[self.prj.chId].srtScenes.append(scId)
-                contentLines = [line]
 
                 if line.startswith('####'):
-                    self.prj.scenes[scId].appendToPrev = True
+                    appendToPrev = True
+
+                else:
+                    appendToPrev = None
 
             elif line.startswith('#'):
 
-                # Write previous scene.
+                # Write previous scene content.
 
                 write_scene_content(scId, contentLines, characters, locations, synopsis, tags)
                 scId = None
@@ -174,6 +169,10 @@ class NwdNovelFile(NwdFile):
                 locations = []
                 synopsis = []
                 tags = []
+
+                # Prepare the next scene that may be appended without a heading.
+
+                title = 'Scene ' + str(self.prj.scCount + 1)
 
                 # Add a chapter.
 
@@ -192,6 +191,23 @@ class NwdNovelFile(NwdFile):
 
                 else:
                     self.prj.chapters[self.prj.chId].chLevel = 1
+
+            elif scId is None and not line:
+                continue
+
+            elif title and scId is None:
+
+                # Add a scene.
+
+                self.prj.scCount += 1
+                scId = str(self.prj.scCount)
+                self.prj.scenes[scId] = Scene()
+                self.prj.scenes[scId].status = status
+                self.prj.scenes[scId].title = title
+                self.prj.scenes[scId].isNotesScene = isNotesScene
+                self.prj.chapters[self.prj.chId].srtScenes.append(scId)
+                self.prj.scenes[scId].appendToPrev = appendToPrev
+                contentLines = [line]
 
             elif scId is not None:
                 contentLines.append(line)

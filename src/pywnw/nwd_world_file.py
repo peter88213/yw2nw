@@ -31,12 +31,6 @@ class NwdWorldFile(NwdFile):
         Return a message beginning with SUCCESS or ERROR.
         Extend the superclass method.
         """
-
-        self.prj.lcCount = 0
-        self.prj.lcIdsByName = {}
-
-        #--- Get locations.
-
         message = NwdFile.read(self)
 
         if message.startswith('ERROR'):
@@ -86,7 +80,7 @@ class NwdWorldFile(NwdFile):
                 desc.append(line)
 
         self.prj.locations[lcId].desc = '\n'.join(desc)
-        self.prj.lcIdsByName[self.prj.locations[lcId].title] = [lcId]
+        self.prj.lcIdsByTitle[self.prj.locations[lcId].title] = lcId
         self.prj.srtLocations.append(lcId)
         return('SUCCESS')
 
