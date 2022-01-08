@@ -11,8 +11,8 @@ from pywnw.nwd_file import NwdFile
 
 class NwdCharacterFile(NwdFile):
     """novelWriter character file representation.
-    Read a yWriter character from a .nwd file.
-    Write a yWriter character to a .nwd file.    
+    Read yWriter characters from a .nwd file.
+    Write yWriter characters to a .nwd file.    
     """
 
     def __init__(self, prj, nwItem):
@@ -123,9 +123,8 @@ class NwdCharacterFile(NwdFile):
 
         return('SUCCESS')
 
-    def write(self, crId):
-        """Write a content file. 
-        Return a message beginning with SUCCESS or ERROR.
+    def add_character(self, crId):
+        """Add a character to the lines list.
         """
         character = self.prj.characters[crId]
 
@@ -177,5 +176,3 @@ class NwdCharacterFile(NwdFile):
         if character.notes:
             self.lines.append('\n' + self.characterNotesHeading)
             self.lines.append(character.notes)
-
-        return NwdFile.write(self)

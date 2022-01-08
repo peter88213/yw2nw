@@ -17,8 +17,6 @@ from pywnw.nw_item import NwItem
 from pywnw.nwd_character_file import NwdCharacterFile
 from pywnw.nwd_world_file import NwdWorldFile
 from pywnw.nwd_novel_file import NwdNovelFile
-from pywnw.nwd_chapter_file import NwdChapterFile
-from pywnw.nwd_scene_file import NwdSceneFile
 
 
 class NwxFile(Novel):
@@ -394,11 +392,13 @@ class NwxFile(Novel):
 
                 partHeading.nwLayout = 'DOCUMENT'
                 partHeading.nwStatus = 'None'
-
                 partHeading.write(content)
 
-                partHeadingDoc = NwdChapterFile(self, partHeading)
-                partHeadingDoc.write(chId)
+                # Add it to the .nwd file.
+
+                nwdFile = NwdNovelFile(self, partHeading)
+                nwdFile.add_chapter(chId)
+                nwdFile.write()
 
                 attrCount += 1
                 order[-1] += 1
@@ -458,10 +458,13 @@ class NwxFile(Novel):
 
                 chapterHeading.nwLayout = 'DOCUMENT'
                 chapterHeading.nwStatus = 'None'
-
                 chapterHeading.write(content)
-                chapterHeadingDoc = NwdChapterFile(self, chapterHeading)
-                chapterHeadingDoc.write(chId)
+
+                # Add it to the .nwd file.
+
+                nwdFile = NwdNovelFile(self, chapterHeading)
+                nwdFile.add_chapter(chId)
+                nwdFile.write()
 
                 attrCount += 1
                 order[-1] += 1
@@ -519,19 +522,19 @@ class NwxFile(Novel):
                     scene.nwCharCount = str(self.scenes[scId].letterCount)
 
                 scene.write(content)
-                sceneDoc = NwdSceneFile(self, scene)
-                sceneDoc.write(scId)
+
+                # Add it to the .nwd file.
+
+                nwdFile = NwdNovelFile(self, scene)
+                nwdFile.add_scene(scId)
+                nwdFile.write()
 
                 attrCount += 1
                 order[-1] += 1
                 # chapter or part level
 
             order.pop()
-            # Level down from chapter to part or novel
-
-            # if hasPartLevel:
-            # order.pop()
-            # Level down from part to novel
+            # Level down from chapter to part or from part to novel
 
         order.pop()
         # Level down from novel to content
@@ -591,8 +594,12 @@ class NwxFile(Novel):
             character.nwLayout = 'NOTE'
 
             character.write(content)
-            characterDoc = NwdCharacterFile(self, character)
-            characterDoc.write(crId)
+
+            # Add it to the .nwd file.
+
+            nwdFile = NwdCharacterFile(self, character)
+            nwdFile.add_character(crId)
+            nwdFile.write()
 
             attrCount += 1
             order[-1] += 1
@@ -648,8 +655,12 @@ class NwxFile(Novel):
             location.nwLayout = 'NOTE'
 
             location.write(content)
-            locationDoc = NwdWorldFile(self, location)
-            locationDoc.write(lcId)
+
+            # Add it to the .nwd file.
+
+            nwdFile = NwdWorldFile(self, location)
+            nwdFile.add_world_element(lcId)
+            nwdFile.write()
 
             attrCount += 1
             order[-1] += 1

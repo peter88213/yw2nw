@@ -11,8 +11,8 @@ from pywnw.nwd_file import NwdFile
 
 class NwdWorldFile(NwdFile):
     """novelWriter location file representation.
-    Read a yWriter location from a .nwd file.
-    Write a yWriter location to a .nwd file.    
+    Read yWriter world elements from a .nwd file.
+    Write yWriter world elements to a .nwd file.    
     """
 
     def __init__(self, prj, nwItem):
@@ -84,9 +84,8 @@ class NwdWorldFile(NwdFile):
         self.prj.srtLocations.append(lcId)
         return('SUCCESS')
 
-    def write(self, lcId):
-        """Write a content file. 
-        Return a message beginning with SUCCESS or ERROR.
+    def add_world_element(self, lcId):
+        """Add an element of the story world to the lines list.
         """
         location = self.prj.locations[lcId]
 

@@ -16,6 +16,7 @@ from pywnw.nwd_file import NwdFile
 class NwdNovelFile(NwdFile):
     """novelWriter novel file representation.
     Read yWriter chapters and scenes from a .nwd file.
+    Write yWriter chapters and scenes to a .nwd file.
     """
 
     def __init__(self, prj, nwItem):
@@ -160,3 +161,42 @@ class NwdNovelFile(NwdFile):
 
         write_scene_content(scId, contentLines)
         return('SUCCESS')
+
+    def add_scene(self, scId):
+        """Add a scene to the lines list.
+        """
+        scene = self.prj.scenes[scId]
+
+        if scene.appendToPrev:
+            self.lines.append('#### ' + scene.title + '\n')
+
+        else:
+            self.lines.append('### ' + scene.title + '\n')
+
+        # Set synopsis.
+
+        if scene.desc:
+            self.lines.append('% Synopsis: ' + scene.desc + '\n')
+
+        # Set scene content.
+
+        text = scene.sceneContent
+
+        if text:
+            self.lines.append(text)
+
+    def add_chapter(self, chId):
+        """Add a chapter to the lines list.
+        """
+        chapter = self.prj.chapters[chId]
+
+        if chapter.chLevel == 0:
+            self.lines.append('## ' + chapter.title + '\n')
+
+        else:
+            self.lines.append('# ' + chapter.title + '\n')
+
+        # Set yWriter chapter description.
+
+        if chapter.desc:
+            self.lines.append('% Synopsis: ' + chapter.desc)
