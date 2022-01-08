@@ -16,6 +16,10 @@ class NwdNovelFile(NwdFile):
     Write yWriter chapters and scenes to a .nwd file.
     """
 
+    POV_TAG = '@pov: '
+    CHARACTER_TAG = '@char: '
+    LOCATION_TAG = '@location: '
+
     def __init__(self, prj, nwItem):
         """Extend the superclass constructor,
         defining instance variables.
@@ -169,6 +173,29 @@ class NwdNovelFile(NwdFile):
 
         else:
             self.lines.append('### ' + scene.title + '\n')
+
+        # Set point of view and characters.
+
+        if scene.characters is not None:
+            isViewpoint = True
+
+            for crId in scene.characters:
+
+                if isViewpoint:
+                    self.lines.append(self.POV_TAG + self.prj.characters[crId].title)
+                    isViewpoint = False
+
+                else:
+                    self.lines.append(self.CHARACTER_TAG + self.prj.characters[crId].title)
+
+        # Set locations.
+
+        if scene.locations is not None:
+
+            for lcId in scene.locations:
+                self.lines.append(self.LOCATION_TAG + self.prj.locations[lcId].title)
+
+        self.lines.append('\n')
 
         # Set synopsis.
 
