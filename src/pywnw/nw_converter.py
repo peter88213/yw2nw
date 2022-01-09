@@ -6,13 +6,22 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 """
 import os
 
-from pywriter.converter.yw_cnv_ui import YwCnvUi
+from pywriter.converter.yw_cnv import YwCnv
+from pywriter.ui.ui import Ui
 from pywriter.yw.yw7_file import Yw7File
 from pywnw.nwx_file import NwxFile
 
 
-class NwConverter(YwCnvUi):
+class NwConverter(YwCnv):
     """A converter class for yWriter and novelWriter."""
+
+    def __init__(self):
+        """Define instance variables."""
+        self.ui = Ui('')
+        # Per default, 'silent mode' is active.
+
+        self.newFile = None
+        # Also indicates successful conversion.
 
     def run(self, sourcePath, **kwargs):
         """Create source and target objects and run conversion.
@@ -100,3 +109,85 @@ class NwConverter(YwCnvUi):
 
         else:
             self.ui.set_info_how('ERROR: File type of "' + os.path.normpath(sourcePath) + '" not supported.')
+
+    def export_from_yw(self, sourceFile, targetFile):
+        """Convert from yWriter project to other file format.
+
+        sourceFile -- YwFile subclass instance.
+        targetFile -- Any Novel subclass instance.
+
+        This is a primitive operation of the run() template method.
+
+        1. Send specific information about the conversion to the UI.
+        2. Convert sourceFile into targetFile.
+        3. Pass the message to the UI.
+        4. Save the new file pathname.
+
+        Error handling:
+        - If the conversion fails, newFile is set to None.
+        """
+
+        # Send specific information about the conversion to the UI.
+
+        self.ui.set_info_what('Input: ' + sourceFile.DESCRIPTION + ' "' + os.path.normpath(
+            sourceFile.filePath) + '"\nOutput: ' + targetFile.DESCRIPTION + ' "' + os.path.normpath(targetFile.filePath) + '"')
+
+        # Convert sourceFile into targetFile.
+
+        message = self.convert(sourceFile, targetFile)
+
+        # Pass the message to the UI.
+
+        self.ui.set_info_how(message)
+
+        # Save the new file pathname.
+
+        if message.startswith('SUCCESS'):
+            self.newFile = targetFile.filePath
+
+        else:
+            self.newFile = None
+
+    def create_yw7(self, sourceFile, targetFile):
+        """Create targetFile from sourceFile.
+
+        sourceFile -- Any Novel subclass instance.
+        targetFile -- YwFile subclass instance.
+
+        This is a primitive operation of the run() template method.
+
+        1. Send specific information about the conversion to the UI.
+        2. Convert sourceFile into targetFile.
+        3. Pass the message to the UI.
+        4. Save the new file pathname.
+
+        Error handling:
+        - Tf targetFile already exists as a file, the conversion is cancelled,
+          an error message is sent to the UI.
+        - If the conversion fails, newFile is set to None.
+        """
+
+        # Send specific information about the conversion to the UI.
+
+        self.ui.set_info_what(
+            'Create a yWriter project file from ' + sourceFile.DESCRIPTION + '\nNew project: "' + os.path.normpath(targetFile.filePath) + '"')
+
+        if os.path.isfile(targetFile.filePath):
+            self.ui.set_info_how('ERROR: "' + os.path.normpath(targetFile.filePath) + '" already exists.')
+
+        else:
+            # Convert sourceFile into targetFile.
+
+            message = self.convert(sourceFile, targetFile)
+
+            # Pass the message to the UI.
+
+            self.ui.set_info_how(message)
+
+            # Save the new file pathname.
+
+            if message.startswith('SUCCESS'):
+                self.newFile = targetFile.filePath
+
+            else:
+                self.newFile = None
