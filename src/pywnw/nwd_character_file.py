@@ -33,8 +33,8 @@ class NwdCharacterFile(NwdFile):
 
         # Customizable tags for characters and locations.
 
-        self.weAkaTag = '%' + prj.kwargs['world_element_aka_tag'] + ': '
-        self.ywTagTag = '%' + prj.kwargs['ywriter_tag_tag'] + ': '
+        self.ywAkaKeyword = '%' + prj.kwargs['ywriter_aka_keyword'] + ': '
+        self.ywTagKeyword = '%' + prj.kwargs['ywriter_tag_keyword'] + ': '
 
     def read(self):
         """Parse the files and store selected properties.
@@ -85,10 +85,10 @@ class NwdCharacterFile(NwdFile):
 
             elif line.startswith('%'):
 
-                if line.startswith(self.weAkaTag):
+                if line.startswith(self.ywAkaKeyword):
                     self.prj.characters[crId].aka = line.split(':')[1].strip()
 
-                elif line.startswith(self.ywTagTag):
+                elif line.startswith(self.ywTagKeyword):
 
                     if self.prj.characters[crId].tags is None:
                         self.prj.characters[crId].tags = []
@@ -145,14 +145,14 @@ class NwdCharacterFile(NwdFile):
         # Set yWriter AKA.
 
         if character.aka:
-            self.lines.append(self.weAkaTag + character.aka)
+            self.lines.append(self.ywAkaKeyword + character.aka)
 
         # Set yWriter tags.
 
         if character.tags is not None:
 
             for tag in character.tags:
-                self.lines.append(self.ywTagTag + tag)
+                self.lines.append(self.ywTagKeyword + tag)
 
         # Set yWriter description.
 

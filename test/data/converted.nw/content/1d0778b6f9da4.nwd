@@ -7,7 +7,7 @@
 @char: John
 @location: Earth
 
-% Synopsis: this is about making scenes.
+% synopsis: this is about making scenes.
 
 A scene is defined by a level three heading, like the one at the top of this page. The scene will be assigned to the chapter preceding it in the project tree.
 

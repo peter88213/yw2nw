@@ -21,7 +21,7 @@ class NwdNovelFile(NwdFile):
     POV_TAG = '@pov: '
     CHARACTER_TAG = '@char: '
     LOCATION_TAG = '@location: '
-    SYNOPSIS_TAG = '% Synopsis: '
+    SYNOPSIS_KEYWORD = 'synopsis:'
 
     def __init__(self, prj, nwItem):
         """Extend the superclass constructor,
@@ -43,7 +43,7 @@ class NwdNovelFile(NwdFile):
 
         # Customizable tags for general use.
 
-        self.ywTagTag = '%' + prj.kwargs['ywriter_tag_tag'] + ': '
+        self.ywTagKeyword = '%' + prj.kwargs['ywriter_tag_keyword'] + ': '
 
         # Headings that divide the file into parts, chapters and scenes.
 
@@ -200,16 +200,21 @@ class NwdNovelFile(NwdFile):
             elif line.startswith(self.LOCATION_TAG):
                 locations.append(line.replace(self.LOCATION_TAG, '').strip())
 
-            elif line.startswith(self.SYNOPSIS_TAG):
-                synopsis.append(line.replace(self.SYNOPSIS_TAG, '').strip())
-
             elif line.startswith('@'):
                 continue
 
             elif line.startswith('%'):
 
-                if line.startswith(self.ywTagTag):
-                    tags.append(line.split(':')[1].strip())
+                if line.startswith(self.ywTagKeyword):
+                    tags.append(line.split(':', maxsplit=1)[1].strip())
+
+                else:
+                    line = line.lstrip('%').lstrip()
+
+                    if line.lower().startswith(self.SYNOPSIS_KEYWORD):
+                        synopsis.append(line.split(':', maxsplit=1)[1].strip())
+
+                    pass
 
             elif line.startswith('###') and self.prj.chId:
 
@@ -338,12 +343,12 @@ class NwdNovelFile(NwdFile):
         if scene.tags is not None:
 
             for tag in scene.tags:
-                self.lines.append(self.ywTagTag + tag)
+                self.lines.append(self.ywTagKeyword + tag)
 
         # Set synopsis.
 
         if scene.desc:
-            self.lines.append('\n' + self.SYNOPSIS_TAG + scene.desc + '\n')
+            self.lines.append('\n% ' + self.SYNOPSIS_KEYWORD + ' ' + scene.desc + '\n')
 
         # Set scene content.
 
@@ -366,4 +371,4 @@ class NwdNovelFile(NwdFile):
         # Set yWriter chapter description.
 
         if chapter.desc:
-            self.lines.append('\n' + self.SYNOPSIS_TAG + chapter.desc + '\n')
+            self.lines.append('\n% ' + self.SYNOPSIS_KEYWORD + ' ' + chapter.desc + '\n')
