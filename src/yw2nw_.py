@@ -41,10 +41,11 @@ SETTINGS = dict(
 )
 
 OPTIONS = dict(
+    double_linebreaks=False
 )
 
 
-def run(sourcePath, silentMode=True, installDir=''):
+def run(sourcePath, doubleLinebreaks=False, silentMode=True, installDir=''):
 
     if silentMode:
         ui = Ui('')
@@ -74,6 +75,11 @@ def run(sourcePath, silentMode=True, installDir=''):
     kwargs.update(configuration.settings)
     kwargs.update(configuration.options)
 
+    # Override the paragraph break convention by command line parameter.
+
+    if doubleLinebreaks:
+        kwargs['double_linebreaks'] = True
+
     converter = NwConverter()
     converter.ui = ui
     converter.run(sourcePath, **kwargs)
@@ -88,6 +94,10 @@ if __name__ == '__main__':
                         metavar='Sourcefile',
                         help='The path of the .nwx or .yw7 file.')
 
+    parser.add_argument('-d', '--double_linebreaks',
+                        action="store_true",
+                        help='paragraph breaks are represented by double line breaks in novelWriter')
+
     parser.add_argument('--silent',
                         action="store_true",
                         help='suppress error messages and the request to confirm overwriting')
@@ -99,4 +109,4 @@ if __name__ == '__main__':
     except:
         installDir = ''
 
-    run(args.sourcePath, args.silent, installDir)
+    run(args.sourcePath, args.double_linebreaks, args.silent, installDir)

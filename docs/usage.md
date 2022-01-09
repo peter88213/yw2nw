@@ -17,7 +17,7 @@ usage: `yw2nw.py [-h] [--silent] Sourcefile`
 
 `Sourcefile` 
 
-The path of the .nwx or .yw7 file for the conversion. 
+The path of the .nwx or .yw7 file. 
 
 - If it's a yWriter project file with extension '.yw7', 
 a new novelWriter project will be created in a directory named after the yWriter file.
@@ -30,7 +30,15 @@ a new yWriter 7 project will be created one directory level below.
 
 #### optional arguments:
 
-`-h, --help` show this help message and exit
+`-h, --help` 
 
-`--silent` suppress error messages and the request to confirm overwriting
+show this help message and exit
+
+`-d, --double_linebreaks` 
+
+paragraph breaks are represented by double line breaks in novelWriter
+
+`--silent` 
+
+suppress error messages and the request to confirm overwriting
 
