@@ -17,7 +17,7 @@ If there is already such a directory, a new, numbered backup directory is create
 
 Alternatively, you can
 
-- launch the program on the command line passing the yWriter/Timeline project file as an argument, or
+- launch the program on the command line passing the yWriter/novelWriter project file as an argument, or
 - launch the program via a batch file.
 
 usage: `yw2nw.py [-h] [--silent] Sourcefile`
@@ -195,6 +195,6 @@ Standard Merkdown behavior kan be enforced by setting the command line parameter
 
 The setup script installs *yw2nw.py* in the user profile. This is the installation path on Windows: 
 
-`c:\Users\<user name>\.pywriter\yw-timeline`
+`c:\Users\<user name>\.pywriter\yw2nw`
 
 
