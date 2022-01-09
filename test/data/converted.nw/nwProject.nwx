@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<novelWriterXML appVersion="1.6-alpha0" hexVersion="0x010600a0" fileVersion="1.3" timeStamp="2022-01-09 12:42:22">
+<novelWriterXML appVersion="1.6-alpha0" hexVersion="0x010600a0" fileVersion="1.3" timeStamp="2022-01-09 13:48:57">
   <project>
     <name>Sample Project</name>
     <title>Sample Project</title>
@@ -188,7 +188,7 @@
       <class>NOVEL</class>
       <status>None</status>
       <exported>False</exported>
-      <layout>DOCUMENT</layout>
+      <layout>NOTE</layout>
     </item>
     <item handle="24281d41132c3" order="0" parent="cbf77ec70fa04">
       <name>Scene 11</name>
@@ -210,7 +210,7 @@
       <class>NOVEL</class>
       <status>None</status>
       <exported>False</exported>
-      <layout>DOCUMENT</layout>
+      <layout>NOTE</layout>
     </item>
     <item handle="85b5ef16f31f1" order="1" parent="83efeb7d63faf">
       <name>Scene 12</name>
@@ -232,7 +232,7 @@
       <class>NOVEL</class>
       <status>None</status>
       <exported>False</exported>
-      <layout>DOCUMENT</layout>
+      <layout>NOTE</layout>
     </item>
     <item handle="07d536ac89211" order="1" parent="3f7c4f7c21af9">
       <name>Scene 13</name>
@@ -254,7 +254,7 @@
       <class>NOVEL</class>
       <status>None</status>
       <exported>False</exported>
-      <layout>DOCUMENT</layout>
+      <layout>NOTE</layout>
     </item>
     <item handle="6712d66560e47" order="1" parent="e447e5b9ec226">
       <name>Scene 14</name>

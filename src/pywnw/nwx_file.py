@@ -415,11 +415,12 @@ class NwxFile(Novel):
 
                 if self.chapters[chId].chType == 0:
                     partHeading.nwExported = 'True'
+                    partHeading.nwLayout = 'DOCUMENT'
 
                 else:
                     partHeading.nwExported = 'False'
+                    partHeading.nwLayout = 'NOTE'
 
-                partHeading.nwLayout = 'DOCUMENT'
                 partHeading.nwStatus = 'None'
                 partHeading.write(content)
 
@@ -481,11 +482,12 @@ class NwxFile(Novel):
 
                 if self.chapters[chId].chType == 0:
                     chapterHeading.nwExported = 'True'
+                    chapterHeading.nwLayout = 'DOCUMENT'
 
                 else:
                     chapterHeading.nwExported = 'False'
+                    chapterHeading.nwLayout = 'NOTE'
 
-                chapterHeading.nwLayout = 'DOCUMENT'
                 chapterHeading.nwStatus = 'None'
                 chapterHeading.write(content)
 
