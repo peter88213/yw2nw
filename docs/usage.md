@@ -47,20 +47,21 @@ suppress error messages and the request to confirm overwriting
 ### Mapping
 
 | Topic                      | yWriter                                        | novelWriter                               |
-| -------------------------- | :--------------------------------------------- | :---------------------------------------- |
-| ** Novel 1st level**       |                                                |                                           |
+| -------------------------- | ---------------------------------------------- | ----------------------------------------- |
+| **Novel 1st level**        |                                                |                                           |
 | "Part" (novelWriter)       | Chapter marked as beginning of a new section   | Text with a first level heading           |
-| Part synopsis              | Chapter description                            | Text prefixed by *% synopsis :*           |
-| ** Novel 2nd level**       |                                                |                                           |
+| Part synopsis              | Chapter description                            | Text prefixed by "*% synopsis :*"         |
+| **Novel 2nd level**        |                                                |                                           |
 | Chapter                    | Chapter                                        | Text with a second level heading          |
 | Chapter synopsis           | Chapter description                            | Text prefixed by *% synopsis :*           |
-| ** Novel 3rd level**       |                                                |                                           |
+| **Novel 3rd level**        |                                                |                                           |
 | Scene                      | Scene                                          | Text with a third level heading           |
 | Scene synopsis             | Scene description                              | Text prefixed by *% synopsis :*           |
-| ** Novel 4th level**       |                                                |                                           |
+| **Novel 4th level**        |                                                |                                           |
 | "Section" (novelWriter)    | Scene appended to the previous without divider | Text with a fourth level heading          |
 | Section synopsis           | Scene description                              | Text prefixed by *% synopsis :*           |
-| ** Characters **           |                                                |                                           |
+| **State of completion**    | Scene status                                   | Status (scenes/sections only)             |
+| **Characters**             |                                                |                                           |
 | Character				     | Character                                      | Character (tagged)                        |
 | Character full name        | Character full name                            | First level heading in the character file |
 | Character short name       | Character name                                 | Text prefixed by *@tag :*                 |
@@ -69,7 +70,7 @@ suppress error messages and the request to confirm overwriting
 | Character	goals            | Character goals                                | Text with a "## Goals" heading            |
 | Point of view	reference    | Scene viewpoint character                      | Text in scene prefixed by *@pov :*        |
 | Character reference 	     | Scene character                                | Text in scene prefixed by *@character *   |
-| ** World building **       |                                                |                                           |
+| **World building**         |                                                |                                           |
 | Location				     | Location                                       | Location (tagged)                         |
 | Location alternative name  | Location aka                                   | Text prefixed by *%aka :*                 |
 | Location description       | Location description                           | Text body below the first heading         |
@@ -78,7 +79,10 @@ suppress error messages and the request to confirm overwriting
 ### Metadata
 
 - *yWriter*'s scene date/time/duration are lost when converting to *novelWriter*. 
-- *yWriter*'s scene action/reaction and goal/conflict/outcome are lost when converting to *novelWriter*. 
+- *yWriter*'s scene action/reaction flags are lost when converting to *novelWriter*. 
+- *yWriter*'s scene goal/conflict/outcome are lost when converting to *novelWriter*. 
+- *yWriter*'s scene importance flags (*Plot/Subplot*) are lost when converting to *novelWriter*. 
+- *yWriter*'s scene ratings are lost when converting to *novelWriter*. 
 
 ### Text formatting
 
