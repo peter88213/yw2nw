@@ -237,7 +237,7 @@ as is common in prose texts.
 NOTE: *double_linebreaks = No* is not compliant with novelWriter's standard (version 1.6alpha),
 so you better don't use this option if you want to use *novelWriter*'s built-in document export. 
 
-Standard Markdown behavior kan be enforced by setting the command line parameter *-d*. 
+Standard Markdown behavior can be enforced by setting the command line parameter *-d*. 
 
 ### Headings
 
