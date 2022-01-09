@@ -71,16 +71,10 @@ suppress error messages and the request to confirm overwriting
 
 You can override the default settings by providing a configuration file. Be always aware that faulty entries may cause program errors or unreadable projects. 
 
-### Global configuration
-
-An optional global configuration file can be placed in the configuration directory in your user profile. It is applied to any project. Its entries override yw2nw's built-in constants. This is the path:
+The global configuration file is placed in the configuration directory in your user profile. It is applied to any project. Its entries override yw2nw's built-in constants. This is the path:
 `c:\Users\<user name>\.pywriter\yw2nw\config\yw2nw.ini`
   
 The setup script installs a sample configuration file containing yw2nw's default values. You can modify or delete it. 
-
-### Local project configuration
-
-An optional project configuration file named `yw2nw.ini` can be placed in your project directory, i.e. the folder containing your yWriter or novelWriter project files. It is only applied to this project. Its entries override yw2nw's built-in constants as well as the global configuration, if any.
 
 ### How to provide/modify a configuration file
 
@@ -148,12 +142,14 @@ ywriter_tag_keyword = tag
 # If there are multiple tags assigned, put each one on its own line.
 
 [OPTIONS]
-double_linebreaks = No
+double_linebreaks = Yes
 
-# "Yes" -- In novelWriter, paragraphs are separated by a double line break,
-#          as intended by novelWriter's author.
-# "No"  -- In novelWriter, paragraphs are separated by a simple line break.
-# Note: This is overridden by the "-d" command line parameter.
+# "Yes" -- In novelWriter, paragraphs are separated by double line breaks,
+#          as is supported by novelWriter's document export.
+# "No"  -- In novelWriter, paragraphs are separated by single line breaks,
+#          as is common in prose texts.
+# Note: "No" is overridden by the "-d" command line parameter.
+
 ```
 
 ## Markdown reference
@@ -162,15 +158,18 @@ By default, *yw2nw* converts a Markdown subset according to the following specif
 
 ### Paragraphs
 
-By default, single line breaks are considered paragraph breaks, as is common in prose texts.
+By default, double line breaks are considered paragraph breaks, as is the Markdown standard
+supported by *novelWriter*'s document export. In this case, single blank lines in yWriter
+scenes are Markdown-encoded by three blank lines.
 
-NOTE: This is not compliant with novelWriter's standard, so you better use the *-d* option 
-if you want to use *novelWriter*'s built-in document export:
+You can change the converter's behavior by changing the *double_linebreaks* setting in
+the configuration file to "No". Then single line breaks are considered paragraph breaks,
+as is common in prose texts.
 
-You can change the converter's behavior by either setting the *double_linebreaks* option in
-the configuration file, or by setting the command line parameter *-d*. Then double line 
-breaks are considered paragraph breaks, as is the Markdown standard supported by *novelWriter*. 
-In this case, single blank lines in yWriter scenes are Markdown-encoded by three blank lines.
+NOTE: *Double_linebreaks = No* is not compliant with novelWriter's standard (version 1.6alpha),
+so you better don't use this option if you want to use *novelWriter*'s built-in document export. 
+
+Standard Merkdown behavior kan be enforced by setting the command line parameter *-d*. 
 
 ### Headings
 

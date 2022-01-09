@@ -41,7 +41,7 @@ SETTINGS = dict(
 )
 
 OPTIONS = dict(
-    double_linebreaks=False
+    double_linebreaks=True
 )
 
 
@@ -64,7 +64,7 @@ def run(sourcePath, doubleLinebreaks=False, silentMode=True, installDir=''):
         sourceDir += '/'
 
     iniFileName = APPNAME + '.ini'
-    iniFiles = [installDir + iniFileName, sourceDir + iniFileName]
+    iniFiles = [installDir + iniFileName]
 
     configuration = Configuration(SETTINGS, OPTIONS)
 
