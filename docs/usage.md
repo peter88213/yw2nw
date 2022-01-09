@@ -71,13 +71,13 @@ suppress error messages and the request to confirm overwriting
 | Character	goals            | Character goals                                | Text with a "## Goals" heading            |
 | Notes about a Character    | Character notes                                | Text with a "## Notes" heading            |
 | Point of view	reference    | Scene viewpoint character                      | Text in scene prefixed by *@pov :*        |
-| Character reference 	     | Scene character                                | Text in scene prefixed by *@character *   |
+| Character reference 	     | Scene character                                | Text in scene prefixed by *@character :*  |
 | **World building**         |                                                |                                           |
 | Location				     | Location                                       | Location (tagged)                         |
 | Location name              | Location name                                  | Text prefixed by *@tag :*                 |
 | Location alternative name  | Location aka                                   | Text prefixed by *%aka :*                 |
 | Location description       | Location description                           | Text body below the first heading         |
-| Location reference         | Scene location entry                           | Text prefixed by *@loc*                   |
+| Location reference         | Scene location entry                           | Text prefixed by *@loc :*                 |
 | **Tools**                  |                                                |                                           |
 | Notes                      | "Notes" type scene                             | "Notes" file                              |
 
@@ -98,6 +98,7 @@ suppress error messages and the request to confirm overwriting
 - *yWriter*'s scene importance flags (*Plot/Subplot*) are lost when converting to *novelWriter*. 
 - *yWriter*'s scene ratings are lost when converting to *novelWriter*. 
 - *novelWriter*'s custom tags are lost when converting to *yWriter*. 
+- *novelWriter*'s "focus" character reference is lost when converting to *yWriter*. 
 
 ### Text formatting
 
