@@ -146,15 +146,9 @@ class NwdNovelFile(NwdFile):
         # Determine the attibutes for all chapters and scenes included.
 
         chType = None
-        isUnused = None
         isNotesScene = None
+        isUnused = None
         status = None
-        sceneTitle = None
-        appendToPrev = None
-        characters = []
-        locations = []
-        synopsis = []
-        tags = []
 
         if self.nwItem.nwLayout == 'DOCUMENT':
             chType = 0
@@ -183,7 +177,14 @@ class NwdNovelFile(NwdFile):
         elif self.nwItem.nwStatus in self.doneStatus:
             status = 5
 
+        characters = []
+        locations = []
+        synopsis = []
         contentLines = []
+        tags = []
+        inScene = False
+        sceneTitle = None
+        appendToPrev = None
 
         for line in self.lines:
 
@@ -228,11 +229,14 @@ class NwdNovelFile(NwdFile):
                 else:
                     appendToPrev = None
 
+                inScene = True
+
             elif line.startswith('#'):
 
                 # Write previous scene content.
 
                 write_scene_content(scId, contentLines, characters, locations, synopsis, tags)
+                synopsis = []
 
                 # Add a chapter.
 
@@ -257,6 +261,7 @@ class NwdNovelFile(NwdFile):
                 locations = []
                 tags = []
                 sceneTitle = 'Scene ' + str(self.prj.scCount + 1)
+                inScene = False
 
             elif scId is None and not line:
                 continue
@@ -265,9 +270,11 @@ class NwdNovelFile(NwdFile):
 
                 # Write chapter synopsis.
 
-                if synopsis != []:
+                if not inScene and synopsis != []:
                     self.prj.chapters[self.prj.chId].desc = '\n'.join(synopsis)
                     synopsis = []
+
+                inScene = True
 
                 # Add a scene.
 

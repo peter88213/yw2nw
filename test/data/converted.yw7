@@ -62,6 +62,7 @@ Wearing sunglasses even by night. ]]></Desc>
       <BelongsToChID>1</BelongsToChID>
       <Desc />
       <SceneContent><![CDATA[>> [b]By Jane Doh[/b] <<
+
 >> This is the title page. <<
 >> It should be the first document of the project. <<]]></SceneContent>
       <WordCount>23</WordCount>
@@ -105,12 +106,17 @@ Wearing sunglasses even by night. ]]></Desc>
       <ID>4</ID>
       <Title><![CDATA[Making a Scene]]></Title>
       <BelongsToChID>3</BelongsToChID>
-      <Desc />
+      <Desc><![CDATA[this is about making scenes.]]></Desc>
       <SceneContent><![CDATA[A scene is defined by a level three heading, like the one at the top of this page. The scene will be assigned to the chapter preceding it in the project tree.
+
 Each paragraph in the scene is separated by a blank line. The text supports minimal formatting, like [b]bold[/b], [i]italic[/i] and [b][i]bold italic[/i][/b]. You can also [s]strike through[/s] text. There is [b]some support for [i]nested[/i] emphasis[/b], but there are some known limitations. If the syntax highlighter doesn’t show it correctly, the export tool will not either.
+
 In addition, the editor supports automatic formatting of “quotes”, both double and ‘single’. Depending on the syntax highlighter, these can be in different colours. “You can of course use [b]bold[/b] and [i]italic[/i] text inside of quotes too.”
+
 If you have the need for it, you can also add text that can be automatically replaced by other text when you generate a preview or export the project. Now, let’s auto-replace this A with <A>, and this C with <C>. While <E> is just <E>. Press Ctrl+R to see what this looks like in the view pane.
+
 The editor also supports non breaking spaces, and the spell checker accepts long dashes—like this—as valid word separators. Regular dashes are also supported – and can be automatically inserted when typing two hyphens.
+
 Thin spaces and thin non-breaking spaces are also supported from the Insert menu, and can be used to separate numbers from their units, like: 25 kg.]]></SceneContent>
       <WordCount>241</WordCount>
       <LetterCount>1380</LetterCount>
@@ -128,8 +134,9 @@ Thin spaces and thin non-breaking spaces are also supported from the Insert menu
       <ID>5</ID>
       <Title><![CDATA[Some Section Here]]></Title>
       <BelongsToChID>3</BelongsToChID>
-      <Desc />
+      <Desc><![CDATA[How to make scenes.]]></Desc>
       <SceneContent><![CDATA[If you need to split a scene file up into further pieces, you can do so with the level four heading, like the one above this paragraph. This is referred to as a “section” in the documentation.
+
 Both scene and section titles can be left out of the final exported document. The formatting of titles can be selected from the Build Novel Project dialog. You can also have them replaced with scene separators like “* * *”.]]></SceneContent>
       <WordCount>77</WordCount>
       <LetterCount>415</LetterCount>
@@ -143,10 +150,13 @@ Both scene and section titles can be left out of the final exported document. Th
       <ID>6</ID>
       <Title><![CDATA[Text Alignment]]></Title>
       <BelongsToChID>3</BelongsToChID>
-      <Desc />
+      <Desc><![CDATA[How to align text.]]></Desc>
       <SceneContent><![CDATA[The text by default will have the left or justified alignment in the main text files in your project. You can also specify alignment for a specific paragraph by “pushing” it away from an edge with a set of ‘>>’ or ‘<<’ symbols, like so:
+
 This text is left-aligned. <<
+
 >> This text is right-aligned.
+
 >> This text is centred. <<]]></SceneContent>
       <WordCount>61</WordCount>
       <LetterCount>322</LetterCount>
@@ -160,8 +170,9 @@ This text is left-aligned. <<
       <ID>7</ID>
       <Title><![CDATA[Text Indent]]></Title>
       <BelongsToChID>3</BelongsToChID>
-      <Desc />
+      <Desc><![CDATA[How to indent text.]]></Desc>
       <SceneContent><![CDATA[You can indent a paragraph from both the left and right margin with ‘>’ and ‘<’ symbols.
+
 > This paragraph is indented from both the left margin and the right margin. This is useful for when you want to quote a large chunk of text for instance. <]]></SceneContent>
       <WordCount>48</WordCount>
       <LetterCount>244</LetterCount>
@@ -177,6 +188,7 @@ This text is left-aligned. <<
       <BelongsToChID>3</BelongsToChID>
       <Desc />
       <SceneContent><![CDATA[Adding more scenes to a chapter is as easy as adding more scene files, with a level three heading, or just adding another level three heading in the same file if that works for the way you want to structure your files.
+
 In fact, if you wish, you can add all the scenes in the chapter file too. All novelWriter cares about is the level of the headings.]]></SceneContent>
       <WordCount>68</WordCount>
       <LetterCount>349</LetterCount>
@@ -215,13 +227,16 @@ In fact, if you wish, you can add all the scenes in the chapter file too. All no
 I've information vegetable, animal, and mineral
 I know the kings of England, and I quote the fights historical
 From Marathon to Waterloo, in order categorical
+
 I'm very well acquainted, too, with matters mathematical
 I understand equations, both the simple and quadratical
 About binomial theorem I'm teeming with a lot o’ news
 With many cheerful facts about the square of the hypotenuse
+
 	With many cheerful facts about the square of the hypotenuse
 	With many cheerful facts about the square of the hypotenuse
-	With many cheerful facts about the square of the hypotepotenuse]]></SceneContent>
+	With many cheerful facts about the square of the hypotepotenuse
+]]></SceneContent>
       <WordCount>100</WordCount>
       <LetterCount>608</LetterCount>
       <Status>1</Status>
@@ -235,6 +250,7 @@ With many cheerful facts about the square of the hypotenuse
       <BelongsToChID>5</BelongsToChID>
       <Desc />
       <SceneContent><![CDATA[This file is just a note. You can save notes anywhere you like in the project tree. Notes can be filtered out when you export the project.
+
 In root folders that isn’t the Novel root folder, you can [i]only[/i] add notes. In the Novel root folder, you can choose between a number of layouts. Some of them are just to let yourself know what each file is for.]]></SceneContent>
       <WordCount>68</WordCount>
       <LetterCount>347</LetterCount>
@@ -284,6 +300,7 @@ In root folders that isn’t the Novel root folder, you can [i]only[/i] add note
       <BelongsToChID>8</BelongsToChID>
       <Desc />
       <SceneContent><![CDATA[You can link files and notes together by assigning tags to them, and then reference them from other files. The file class of a file determines which reference keywords apply to each file. For instance a file in the Characters root folder can be referenced using either the @char keyword or the @pov keyword.
+
 If you want to see the content of the file the reference points to, you can click Ctrl+Enter with the cursor on top of the reference, and the view pane will show you the file. In the view pane, all references are clickable, so you can navigate further. At the bottom of the view pane, a list of files referencing the one your viewing will appear. This panel updates when you navigate, unless you make it sticky by clicking the sticky checkbox.]]></SceneContent>
       <WordCount>136</WordCount>
       <LetterCount>750</LetterCount>
@@ -301,8 +318,12 @@ If you want to see the content of the file the reference points to, you can clic
       <BelongsToChID>9</BelongsToChID>
       <Desc />
       <SceneContent><![CDATA[Jane has been looking all over for John. He’s nowhere to be found on Earth, so Jane goes to space.
+
 <<P
+
 ölk
+
+
 ]]></SceneContent>
       <WordCount>22</WordCount>
       <LetterCount>104</LetterCount>
