@@ -23,16 +23,18 @@ class NwConverter(YwCnvUi):
             self.ui.set_info_how('ERROR: File "' + os.path.normpath(sourcePath) + '" not found.')
             return
 
-        fileName, fileExtension = os.path.splitext(sourcePath)
+        fileName, fileExtension = os.path.splitext(sourcePath.replace('\\', '/'))
         srcDir = os.path.dirname(sourcePath).replace('\\', '/')
 
         if srcDir == '':
             srcDir = '.'
 
+        srcDir += '/'
+
         if fileExtension == Yw7File.EXTENSION:
             sourceFile = Yw7File(sourcePath, **kwargs)
             title = fileName.replace(srcDir, '')
-            prjDir = srcDir + '/' + title + '.nw'
+            prjDir = srcDir + title + '.nw'
 
             if os.path.isfile(prjDir + '/nwProject.lock'):
                 self.ui.set_info_how('ERROR: Please exit novelWriter.')
