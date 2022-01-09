@@ -192,13 +192,13 @@ class NwdNovelFile(NwdFile):
                 continue
 
             elif line.startswith(self.POV_TAG):
-                characters.insert(0, line.replace(self.POV_TAG, '').strip())
+                characters.insert(0, line.replace(self.POV_TAG, '').strip().replace('_', ' '))
 
             elif line.startswith(self.CHARACTER_TAG):
-                characters.append(line.replace(self.CHARACTER_TAG, '').strip())
+                characters.append(line.replace(self.CHARACTER_TAG, '').strip().replace('_', ' '))
 
             elif line.startswith(self.LOCATION_TAG):
-                locations.append(line.replace(self.LOCATION_TAG, '').strip())
+                locations.append(line.replace(self.LOCATION_TAG, '').strip().replace('_', ' '))
 
             elif line.startswith('@'):
                 continue
@@ -325,18 +325,18 @@ class NwdNovelFile(NwdFile):
             for crId in scene.characters:
 
                 if isViewpoint:
-                    self.lines.append(self.POV_TAG + self.prj.characters[crId].title)
+                    self.lines.append(self.POV_TAG + self.prj.characters[crId].title.replace(' ', '_'))
                     isViewpoint = False
 
                 else:
-                    self.lines.append(self.CHARACTER_TAG + self.prj.characters[crId].title)
+                    self.lines.append(self.CHARACTER_TAG + self.prj.characters[crId].title.replace(' ', '_'))
 
         # Set locations.
 
         if scene.locations is not None:
 
             for lcId in scene.locations:
-                self.lines.append(self.LOCATION_TAG + self.prj.locations[lcId].title)
+                self.lines.append(self.LOCATION_TAG + self.prj.locations[lcId].title.replace(' ', '_'))
 
         # Set yWriter tags.
 
@@ -348,7 +348,11 @@ class NwdNovelFile(NwdFile):
         # Set synopsis.
 
         if scene.desc:
-            self.lines.append('\n% ' + self.SYNOPSIS_KEYWORD + ' ' + scene.desc + '\n')
+            self.lines.append('\n% ' + self.SYNOPSIS_KEYWORD + ' ' + scene.desc)
+
+        # Separate the text body by a blank line.
+
+        self.lines.append('\n')
 
         # Set scene content.
 

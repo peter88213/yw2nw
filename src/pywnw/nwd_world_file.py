@@ -71,7 +71,7 @@ class NwdWorldFile(NwdFile):
             elif line.startswith('@'):
 
                 if line.startswith('@tag'):
-                    self.prj.locations[lcId].title = line.split(':')[1].strip()
+                    self.prj.locations[lcId].title = line.split(':')[1].strip().replace('_', ' ')
 
                 else:
                     continue
@@ -95,7 +95,7 @@ class NwdWorldFile(NwdFile):
 
         # Set tag.
 
-        self.lines.append('@tag: ' + location.title)
+        self.lines.append('@tag: ' + location.title.replace(' ', '_'))
 
         # Set yWriter AKA.
 

@@ -81,7 +81,7 @@ class NwdCharacterFile(NwdFile):
             elif line.startswith('@'):
 
                 if line.startswith('@tag'):
-                    self.prj.characters[crId].title = line.split(':')[1].strip()
+                    self.prj.characters[crId].title = line.split(':')[1].strip().replace('_', ' ')
 
             elif line.startswith('%'):
 
@@ -140,7 +140,7 @@ class NwdCharacterFile(NwdFile):
 
         # Set tag.
 
-        self.lines.append('@tag: ' + character.title)
+        self.lines.append('@tag: ' + character.title.replace(' ', '_'))
 
         # Set yWriter AKA.
 
