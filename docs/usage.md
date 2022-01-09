@@ -44,12 +44,50 @@ suppress error messages and the request to confirm overwriting
 
 ## Conventions and known limitations
 
+### Mapping
+
+| Topic                      | yWriter                                        | novelWriter                               |
+| -------------------------- | :--------------------------------------------- | :---------------------------------------- |
+| ** Novel 1st level**       |                                                |                                           |
+| "Part" (novelWriter)       | Chapter marked as beginning of a new section   | Text with a first level heading           |
+| Part synopsis              | Chapter description                            | Text prefixed by *% synopsis :*           |
+| ** Novel 2nd level**       |                                                |                                           |
+| Chapter                    | Chapter                                        | Text with a second level heading          |
+| Chapter synopsis           | Chapter description                            | Text prefixed by *% synopsis :*           |
+| ** Novel 3rd level**       |                                                |                                           |
+| Scene                      | Scene                                          | Text with a third level heading           |
+| Scene synopsis             | Scene description                              | Text prefixed by *% synopsis :*           |
+| ** Novel 4th level**       |                                                |                                           |
+| "Section" (novelWriter)    | Scene appended to the previous without divider | Text with a fourth level heading          |
+| Section synopsis           | Scene description                              | Text prefixed by *% synopsis :*           |
+| ** Characters **           |                                                |                                           |
+| Character				     | Character                                      | Character (tagged)                        |
+| Character full name        | Character full name                            | First level heading in the character file |
+| Character short name       | Character name                                 | Text prefixed by *@tag :*                 |
+| Character alternative name | Character aka                                  | Text prefixed by *%aka :*                 |
+| Character	biography    	 | Character bio                                  | Text with a "## Bio" heading              |
+| Character	goals            | Character goals                                | Text with a "## Goals" heading            |
+| Point of view	reference    | Scene viewpoint character                      | Text in scene prefixed by *@pov :*        |
+| Character reference 	     | Scene character                                | Text in scene prefixed by *@character *   |
+| ** World building **       |                                                |                                           |
+| Location				     | Location                                       | Location (tagged)                         |
+| Location alternative name  | Location aka                                   | Text prefixed by *%aka :*                 |
+| Location description       | Location description                           | Text body below the first heading         |
+| Location reference         | Scene location entry                           | Text prefixed by *@loc*                   |
+
+### Metadata
+
+- *yWriter*'s scene date/time/duration are lost when converting to *novelWriter*. 
+- *yWriter*'s scene action/reaction and goal/conflict/outcome are lost when converting to *novelWriter*. 
+
 ### Text formatting
 
 - Bold, italics, and strikethrough are supported. Other highlighting such as underline are lost.
 - Paragraph alignment such as centering or right-aligning is not supported. *novelWriter* 
   markup is treated like regular text when converting to *yWriter*. *yWriter* markup is lost.
 - Inline RTF, TEX and HTML markup in yWriter scenes is treated like regular text when converting to *novelWriter*.
+- *yWriter*'s global and text variables are not expanded when converting to *novelWriter*.
+- *novelWriter*'s auto replacement (if any) is not supported.
 
 ### Comments
 
@@ -57,13 +95,11 @@ suppress error messages and the request to confirm overwriting
 - Commented-out lines in the *novelWriter* text body (except ones that begin with a supported keyword)
   are lost when converting to *yWriter*.
   
-### Metadata
-
 #### Tags
 
 - *novelWriter*'s **pov**, **char**, **location** tags are supported. Others are lost. 
-- Only scene tags are converted from *novelWriter* to *yWriter. Part and chapter tags are lost.
-- yWriter scene/character/location tags are converted to *novelWriter* comments with customizable 
+- Only scene tags are converted from *novelWriter* to *yWriter*. Part and chapter tags are lost.
+- *yWriter* scene/character/location tags are converted to *novelWriter* comments with customizable 
   keywords. They can be re-converted back to *yWriter*.
 
 
