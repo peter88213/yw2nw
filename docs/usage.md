@@ -90,54 +90,66 @@ This is the configuration explained:
 [SETTINGS]
 outline_status = ['Outline', 'New', 'Notes']
 
-# This novelWriter status are converted to yWriter "Outline" scene status.
+# This novelWriter status are converted to yWriter "Outline"
+# scene status.
 
 draft_status = ['Draft', 'Started', '1st Draft']
 
-# This novelWriter status are converted to yWriter "Draft" scene status.
+# This novelWriter status are converted to yWriter "Draft"
+# scene status.
 
 first_edit_status = ['1st Edit', '2nd Draft']
 
-# This novelWriter status are converted to yWriter "1st Edit" scene status.
+# This novelWriter status are converted to yWriter "1st Edit"
+# scene status.
 
 second_edit_status = ['2nd Edit', '3rd Draft']
 
-# This novelWriter status are converted to yWriter "2nd Edit" scene status.
+# This novelWriter status are converted to yWriter "2nd Edit"
+# scene status.
 
 done_status = ['Done', 'Finished']
 
-# This novelWriter status are converted to yWriter "Done" scene status.
+# This novelWriter status are converted to yWriter "Done"
+# scene status.
 
 scene_status = ['None', 'Outline', 'Draft', '1st Edit', '2nd Edit', 'Done']
 
-# This status are used when creating a new novelWriter project from yWriter.
+# This status are used when creating a new novelWriter project from
+# yWriter.
 # You can rename them, but the number of list entries must not change.
 
 major_character_status = ['Major', 'Main']
 
-# This novelWriter status are converted to yWriter "Major" character importance.
+# This novelWriter status are converted to yWriter "Major" character
+# importance.
 
 character_notes_heading = ## Notes
 
-# Heading for novelWriter character text that is converted to yWriter character notes.
+# Heading for novelWriter character text that is converted to yWriter
+# character notes.
 
 character_goals_heading = ## Goals
 
-# Heading for novelWriter character text that is converted to yWriter character goals.
+# Heading for novelWriter character text that is converted to yWriter
+# character goals.
 
 character_bio_heading = ## Bio
 
-# Heading for novelWriter character text that is converted to yWriter character bio.
+# Heading for novelWriter character text that is converted to yWriter
+# character bio.
 
 ywriter_aka_keyword = aka
 
-# Keyword for 'aka' pseudo tag in novelWriter character text, signifying an alternative name. 
+# Keyword for 'aka' pseudo tag in novelWriter character text, signifying
+# an alternative name. 
 # Usage: "%aka: <character's alternative name>"
 # One aka per character.
 
 ywriter_tag_keyword = tag
 
-# Keyword for 'tag' pseudo tag in novelWriter character text, signifying a yWriter tag. 
+# Keyword for 'tag' pseudo tag in novelWriter character text, signifying
+# a yWriter tag. 
 # Usage: "%tag: <character, location, or scene tag>"
 # If there are multiple tags assigned, put each one on its own line.
 
@@ -149,6 +161,7 @@ double_linebreaks = Yes
 # "No"  -- In novelWriter, paragraphs are separated by single line breaks,
 #          as is common in prose texts.
 # Note: "No" is overridden by the "-d" command line parameter.
+
 
 ```
 
