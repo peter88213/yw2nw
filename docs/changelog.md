@@ -5,6 +5,7 @@
 ## Changelog
 
 
-### v0.2.0
-- First public release based on PyWriter v3.31.6.
+### v0.2.0 First public alpha release
+
+Based on PyWriter v3.32.0.
 

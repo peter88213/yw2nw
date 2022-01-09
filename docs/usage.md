@@ -20,7 +20,7 @@ Alternatively, you can
 - launch the program on the command line passing the yWriter/novelWriter project file as an argument, or
 - launch the program via a batch file.
 
-usage: `yw2nw.py [-h] [--silent] Sourcefile`
+usage: `yw2nw.py [-h] [-d] [--silent] Sourcefile`
 
 #### positional arguments:
 
@@ -60,34 +60,44 @@ suppress error messages and the request to confirm overwriting
 | **Novel 4th level**        |                                                |                                           |
 | "Section" (novelWriter)    | Scene appended to the previous without divider | Text with a fourth level heading          |
 | Section synopsis           | Scene description                              | Text prefixed by *% synopsis :*           |
-| **State of completion**    | Scene status                                   | Status (scenes/sections only)             |
+| **State of completion**    | Scene status                                   | Status (max. 6 conv., sect./scenes only)  |
 | **Characters**             |                                                |                                           |
 | Character				     | Character                                      | Character (tagged)                        |
 | Character full name        | Character full name                            | First level heading in the character file |
 | Character short name       | Character name                                 | Text prefixed by *@tag :*                 |
 | Character alternative name | Character aka                                  | Text prefixed by *%aka :*                 |
+| Character importance       | Major/minor character                          | Status (max. 2 converted, customizable)   |
 | Character	biography    	 | Character bio                                  | Text with a "## Bio" heading              |
 | Character	goals            | Character goals                                | Text with a "## Goals" heading            |
+| Notes about a Character    | Character notes                                | Text with a "## Notes" heading            |
 | Point of view	reference    | Scene viewpoint character                      | Text in scene prefixed by *@pov :*        |
 | Character reference 	     | Scene character                                | Text in scene prefixed by *@character *   |
 | **World building**         |                                                |                                           |
 | Location				     | Location                                       | Location (tagged)                         |
+| Location name              | Location name                                  | Text prefixed by *@tag :*                 |
 | Location alternative name  | Location aka                                   | Text prefixed by *%aka :*                 |
 | Location description       | Location description                           | Text body below the first heading         |
 | Location reference         | Scene location entry                           | Text prefixed by *@loc*                   |
+| **Tools**                  |                                                |                                           |
+| Notes                      | "Notes" type scene                             | "Notes" file                              |
 
 ### Novel structure
 
 -  Body text after a 1st or 2nd level heading in *novelWriter* is converted into a auto-named scene in *yWriter*.
-
+-  Custom trees in *novelWriter* are lost when converting to *yWriter*.
+-  Chapters and Scenes marked as "Unused" or "To do list" in *yWriter* are not exported to *novelWriter*.
+-  Items in *novelWriter*'s "Outtakes" folder are not exported to *yWriter*.
+-  The "Trash" folders are ignored when converting to both directions.
 
 ### Metadata
 
+- *yWriter*'s scene notes are lost when converting to *novelWriter*. 
 - *yWriter*'s scene date/time/duration are lost when converting to *novelWriter*. 
 - *yWriter*'s scene action/reaction flags are lost when converting to *novelWriter*. 
 - *yWriter*'s scene goal/conflict/outcome are lost when converting to *novelWriter*. 
 - *yWriter*'s scene importance flags (*Plot/Subplot*) are lost when converting to *novelWriter*. 
 - *yWriter*'s scene ratings are lost when converting to *novelWriter*. 
+- *novelWriter*'s custom tags are lost when converting to *yWriter*. 
 
 ### Text formatting
 
