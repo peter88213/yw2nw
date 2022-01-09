@@ -76,6 +76,11 @@ suppress error messages and the request to confirm overwriting
 | Location description       | Location description                           | Text body below the first heading         |
 | Location reference         | Scene location entry                           | Text prefixed by *@loc*                   |
 
+### Novel structure
+
+-  Body text after a 1st or 2nd level heading in *novelWriter* is converted into a auto-named scene in *yWriter*.
+
+
 ### Metadata
 
 - *yWriter*'s scene date/time/duration are lost when converting to *novelWriter*. 
