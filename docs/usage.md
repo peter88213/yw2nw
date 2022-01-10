@@ -72,12 +72,17 @@ suppress error messages and the request to confirm overwriting
 | Notes about a Character    | Character notes                                | Text with a "## Notes" heading            |
 | Point of view	reference    | Scene viewpoint character                      | Text in scene prefixed by *@pov :*        |
 | Character reference 	     | Scene character                                | Text in scene prefixed by *@character :*  |
-| **World building**         |                                                |                                           |
+| **Story world**            |                                                |                                           |
 | Location				     | Location                                       | Location (tagged)                         |
 | Location name              | Location name                                  | Text prefixed by *@tag :*                 |
 | Location alternative name  | Location aka                                   | Text prefixed by *%aka :*                 |
 | Location description       | Location description                           | Text body below the first heading         |
 | Location reference         | Scene location entry                           | Text prefixed by *@loc :*                 |
+| Item 				         | Item                                           | Item (tagged)                             |
+| Item name                  | Item name                                      | Text prefixed by *@tag :*                 |
+| Item alternative name      | Item aka                                       | Text prefixed by *%aka :*                 |
+| Item description           | Item description                               | Text body below the first heading         |
+| Item reference             | Scene item entry                               | Text prefixed by *@object :*              |
 | **Tools**                  |                                                |                                           |
 | Notes                      | "Notes" type scene                             | "Notes" file                              |
 

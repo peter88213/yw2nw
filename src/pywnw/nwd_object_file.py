@@ -1,4 +1,4 @@
-"""Provide a class for novelWriter world file representation.
+"""Provide a class for novelWriter object file representation.
 
 Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
@@ -9,10 +9,10 @@ from pywriter.model.world_element import WorldElement
 from pywnw.nwd_file import NwdFile
 
 
-class NwdWorldFile(NwdFile):
-    """novelWriter world file representation.
-    Read yWriter locations from a .nwd file.
-    Write yWriter locations to a .nwd file.    
+class NwdObjectFile(NwdFile):
+    """novelWriter object file representation.
+    Read yWriter items from a .nwd file.
+    Write yWriter items to a .nwd file.    
     """
 
     def __init__(self, prj, nwItem):
@@ -21,7 +21,7 @@ class NwdWorldFile(NwdFile):
         """
         NwdFile.__init__(self, prj, nwItem)
 
-        # Customizable tags for characters and locations.
+        # Customizable tags for characters and items.
 
         self.ywAkaKeyword = '%' + prj.kwargs['ywriter_aka_keyword'] + ': '
         self.ywTagKeyword = '%' + prj.kwargs['ywriter_tag_keyword'] + ': '
@@ -37,9 +37,9 @@ class NwdWorldFile(NwdFile):
             return message
 
         self.prj.lcCount += 1
-        lcId = str(self.prj.lcCount)
-        self.prj.locations[lcId] = WorldElement()
-        self.prj.locations[lcId].title = self.nwItem.nwName
+        itId = str(self.prj.lcCount)
+        self.prj.items[itId] = WorldElement()
+        self.prj.items[itId].title = self.nwItem.nwName
         desc = []
 
         for line in self.lines:
@@ -56,14 +56,14 @@ class NwdWorldFile(NwdFile):
             elif line.startswith('%'):
 
                 if line.startswith(self.ywAkaKeyword):
-                    self.prj.locations[lcId].aka = line.split(':')[1].strip()
+                    self.prj.items[itId].aka = line.split(':')[1].strip()
 
                 elif line.startswith(self.ywTagKeyword):
 
-                    if self.prj.locations[lcId].tags is None:
-                        self.prj.locations[lcId].tags = []
+                    if self.prj.items[itId].tags is None:
+                        self.prj.items[itId].tags = []
 
-                    self.prj.locations[lcId].tags.append(line.split(':')[1].strip())
+                    self.prj.items[itId].tags.append(line.split(':')[1].strip())
 
                 else:
                     continue
@@ -71,7 +71,7 @@ class NwdWorldFile(NwdFile):
             elif line.startswith('@'):
 
                 if line.startswith('@tag'):
-                    self.prj.locations[lcId].title = line.split(':')[1].strip().replace('_', ' ')
+                    self.prj.items[itId].title = line.split(':')[1].strip().replace('_', ' ')
 
                 else:
                     continue
@@ -79,39 +79,39 @@ class NwdWorldFile(NwdFile):
             else:
                 desc.append(line)
 
-        self.prj.locations[lcId].desc = '\n'.join(desc)
-        self.prj.lcIdsByTitle[self.prj.locations[lcId].title] = lcId
-        self.prj.srtLocations.append(lcId)
+        self.prj.items[itId].desc = '\n'.join(desc)
+        self.prj.lcIdsByTitle[self.prj.items[itId].title] = itId
+        self.prj.srtItems.append(itId)
         return('SUCCESS')
 
-    def add_element(self, lcId):
+    def add_element(self, itId):
         """Add an element of the story world to the lines list.
         """
-        location = self.prj.locations[lcId]
+        item = self.prj.items[itId]
 
         # Set Heading.
 
-        self.lines.append('# ' + location.title + '\n')
+        self.lines.append('# ' + item.title + '\n')
 
         # Set tag.
 
-        self.lines.append('@tag: ' + location.title.replace(' ', '_'))
+        self.lines.append('@tag: ' + item.title.replace(' ', '_'))
 
         # Set yWriter AKA.
 
-        if location.aka:
-            self.lines.append(self.ywAkaKeyword + location.aka)
+        if item.aka:
+            self.lines.append(self.ywAkaKeyword + item.aka)
 
         # Set yWriter tags.
 
-        if location.tags is not None:
+        if item.tags is not None:
 
-            for tag in location.tags:
+            for tag in item.tags:
                 self.lines.append(self.ywTagKeyword + tag)
 
         # Set yWriter description.
 
-        if location.desc:
-            self.lines.append('\n' + location.desc)
+        if item.desc:
+            self.lines.append('\n' + item.desc)
 
         return NwdFile.write(self)

@@ -21,6 +21,7 @@ class NwdNovelFile(NwdFile):
     POV_TAG = '@pov: '
     CHARACTER_TAG = '@char: '
     LOCATION_TAG = '@location: '
+    ITEM_TAG = '@object: '
     SYNOPSIS_KEYWORD = 'synopsis:'
 
     def __init__(self, prj, nwItem):
@@ -124,7 +125,7 @@ class NwdNovelFile(NwdFile):
         Extend the superclass method.
         """
 
-        def write_scene_content(scId, contentLines, characters, locations, synopsis, tags):
+        def write_scene_content(scId, contentLines, characters, locations, items, synopsis, tags):
 
             if scId is not None:
                 text = '\n'.join(contentLines)
@@ -132,6 +133,7 @@ class NwdNovelFile(NwdFile):
                 self.prj.scenes[scId].desc = '\n'.join(synopsis)
                 self.prj.scenes[scId].characters = characters
                 self.prj.scenes[scId].locations = locations
+                self.prj.scenes[scId].items = items
                 self.prj.scenes[scId].tags = tags
 
         #--- Get chapters and scenes.
@@ -179,6 +181,7 @@ class NwdNovelFile(NwdFile):
 
         characters = []
         locations = []
+        items = []
         synopsis = []
         contentLines = []
         tags = []
@@ -200,6 +203,9 @@ class NwdNovelFile(NwdFile):
             elif line.startswith(self.LOCATION_TAG):
                 locations.append(line.replace(self.LOCATION_TAG, '').strip().replace('_', ' '))
 
+            elif line.startswith(self.ITEM_TAG):
+                items.append(line.replace(self.ITEM_TAG, '').strip().replace('_', ' '))
+
             elif line.startswith('@'):
                 continue
 
@@ -220,10 +226,11 @@ class NwdNovelFile(NwdFile):
 
                 # Write previous scene content.
 
-                write_scene_content(scId, contentLines, characters, locations, synopsis, tags)
+                write_scene_content(scId, contentLines, characters, locations, items, synopsis, tags)
                 scId = None
                 characters = []
                 locations = []
+                items = []
                 synopsis = []
                 tags = []
                 sceneTitle = line.split(' ', maxsplit=1)[1]
@@ -240,7 +247,7 @@ class NwdNovelFile(NwdFile):
 
                 # Write previous scene content.
 
-                write_scene_content(scId, contentLines, characters, locations, synopsis, tags)
+                write_scene_content(scId, contentLines, characters, locations, items, synopsis, tags)
                 synopsis = []
 
                 # Add a chapter.
@@ -264,6 +271,7 @@ class NwdNovelFile(NwdFile):
                 scId = None
                 characters = []
                 locations = []
+                items = []
                 tags = []
                 sceneTitle = 'Scene ' + str(self.prj.scCount + 1)
                 inScene = False
@@ -299,7 +307,7 @@ class NwdNovelFile(NwdFile):
         # Write the last scene of the file or a chapter synopsis, if there is no scene.
 
         if scId is not None:
-            write_scene_content(scId, contentLines, characters, locations, synopsis, tags)
+            write_scene_content(scId, contentLines, characters, locations, items, synopsis, tags)
 
         elif synopsis != []:
             self.prj.chapters[self.prj.chId].desc = '\n'.join(synopsis)
@@ -337,6 +345,13 @@ class NwdNovelFile(NwdFile):
 
             for lcId in scene.locations:
                 self.lines.append(self.LOCATION_TAG + self.prj.locations[lcId].title.replace(' ', '_'))
+
+        # Set items.
+
+        if scene.items is not None:
+
+            for itId in scene.items:
+                self.lines.append(self.ITEM_TAG + self.prj.items[itId].title.replace(' ', '_'))
 
         # Set yWriter tags.
 

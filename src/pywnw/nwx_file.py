@@ -15,8 +15,9 @@ from pywnw.handles import Handles
 from pywnw.nw_item import NwItem
 
 from pywnw.nwd_character_file import NwdCharacterFile
-from pywnw.nwd_world_file import NwdWorldFile
 from pywnw.nwd_novel_file import NwdNovelFile
+from pywnw.nwd_world_file import NwdWorldFile
+from pywnw.nwd_object_file import NwdObjectFile
 
 
 class NwxFile(Novel):
@@ -168,8 +169,12 @@ class NwxFile(Novel):
                 get_nodes(handle, charList, nwTree['None'])
 
             if nwItems[handle].nwClass == 'WORLD':
-                locList = []
-                get_nodes(handle, locList, nwTree['None'])
+                worldList = []
+                get_nodes(handle, worldList, nwTree['None'])
+
+            if nwItems[handle].nwClass == 'OBJECT':
+                objectList = []
+                get_nodes(handle, objectList, nwTree['None'])
 
             if nwItems[handle].nwClass == 'NOVEL':
                 novList = []
@@ -193,7 +198,7 @@ class NwxFile(Novel):
 
         lcIdsByTitle = {}
 
-        for handle in locList:
+        for handle in worldList:
             nwdFile = NwdWorldFile(self, nwItems[handle])
             message = nwdFile.read()
 
@@ -202,6 +207,20 @@ class NwxFile(Novel):
 
         for lcId in self.locations:
             lcIdsByTitle[self.locations[lcId].title] = lcId
+
+        #--- Get items.
+
+        itIdsByTitle = {}
+
+        for handle in objectList:
+            nwdFile = NwdObjectFile(self, nwItems[handle])
+            message = nwdFile.read()
+
+            if message.startswith('ERROR'):
+                return message
+
+        for itId in self.items:
+            itIdsByTitle[self.items[itId].title] = itId
 
         #--- Get chapters and scenes.
 
@@ -222,13 +241,19 @@ class NwxFile(Novel):
 
             self.scenes[scId].characters = characters
 
-        for scId in self.scenes:
             locations = []
 
             for lcId in self.scenes[scId].locations:
                 locations.append(lcIdsByTitle[lcId])
 
             self.scenes[scId].locations = locations
+
+            items = []
+
+            for itId in self.scenes[scId].items:
+                items.append(itIdsByTitle[itId])
+
+            self.scenes[scId].items = items
 
         return('SUCCESS')
 
@@ -690,7 +715,7 @@ class NwxFile(Novel):
             # Add it to the .nwd file.
 
             nwdFile = NwdWorldFile(self, location)
-            nwdFile.add_world_element(lcId)
+            nwdFile.add_element(lcId)
             nwdFile.write()
 
             attrCount += 1
@@ -698,7 +723,68 @@ class NwxFile(Novel):
             # world level
 
         order.pop()
-        # Level down to content
+        # Level down from world to to content
+
+        #--- Write object folder.
+
+        objectFolderHandle = self.nwHandles.create_member('objectFolderHandle')
+        objectFolder = NwItem()
+        objectFolder.nwHandle = objectFolderHandle
+        objectFolder.nwOrder = order[-1]
+        objectFolder.nwParent = 'None'
+        objectFolder.nwName = 'Items'
+        objectFolder.nwType = 'ROOT'
+        objectFolder.nwClass = 'OBJECT'
+        objectFolder.nwStatus = 'None'
+        objectFolder.nwExpanded = 'True'
+
+        objectFolder.write(content)
+
+        attrCount += 1
+        order[-1] += 1
+        # content level
+
+        # Add object items to the folder.
+
+        order.append(0)
+        # Level up from content to object
+
+        for itId in self.srtItems:
+
+            #--- Put a item into the folder.
+
+            itemHandle = self.nwHandles.create_member(itId + self.items[itId].title)
+            item = NwItem()
+            item.nwHandle = itemHandle
+            item.nwOrder = order[-1]
+            item.nwParent = objectFolderHandle
+
+            if self.items[itId].title:
+                title = self.items[itId].title
+
+            else:
+                title = 'Place ' + str(order[-1] + 1)
+
+            item.nwName = title
+            item.nwType = 'FILE'
+            item.nwClass = 'OBJECT'
+            item.nwExported = 'True'
+            item.nwLayout = 'NOTE'
+
+            item.write(content)
+
+            # Add it to the .nwd file.
+
+            nwdFile = NwdObjectFile(self, item)
+            nwdFile.add_element(itId)
+            nwdFile.write()
+
+            attrCount += 1
+            order[-1] += 1
+            # object level
+
+        order.pop()
+        # Level down from object to to content
 
         # Write the content counter.
 
