@@ -80,7 +80,6 @@ class NwdObjectFile(NwdFile):
                 desc.append(line)
 
         self.prj.items[itId].desc = '\n'.join(desc)
-        self.prj.lcIdsByTitle[self.prj.items[itId].title] = itId
         self.prj.srtItems.append(itId)
         return('SUCCESS')
 

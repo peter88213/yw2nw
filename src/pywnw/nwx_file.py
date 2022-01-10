@@ -49,11 +49,8 @@ class NwxFile(Novel):
         self.nwHandles = Handles()
 
         self.lcCount = 0
-        self.lcIdsByTitle = {}
-
         self.crCount = 0
-        self.crIdsByTitle = {}
-
+        self.itCount = 0
         self.scCount = 0
         self.chCount = 0
         self.chId = None

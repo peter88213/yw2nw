@@ -80,7 +80,6 @@ class NwdWorldFile(NwdFile):
                 desc.append(line)
 
         self.prj.locations[lcId].desc = '\n'.join(desc)
-        self.prj.lcIdsByTitle[self.prj.locations[lcId].title] = lcId
         self.prj.srtLocations.append(lcId)
         return('SUCCESS')
 

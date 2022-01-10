@@ -75,22 +75,20 @@ class NwdNovelFile(NwdFile):
         ]
 
         if self.doubleLinebreaks:
-            MD_REPLACEMENTS[:0] = [['\n', '\n\n']]
+            MD_REPLACEMENTS.insert(0, ['\n', '\n\n'])
 
         try:
 
             for r in MD_REPLACEMENTS:
                 text = text.replace(r[0], r[1])
 
-            # Remove highlighting, alignment,
-            # and underline tags.
-
             text = re.sub('\[\/*[h|c|r|u]\d*\]', '', text)
+            # Remove highlighting, alignment, and underline tags
 
         except AttributeError:
             text = ''
 
-        return(text)
+        return text
 
     def convert_to_yw(self, text):
         """Convert Markdown to yw7 markup.
@@ -113,7 +111,7 @@ class NwdNovelFile(NwdFile):
         MD_REPLACEMENTS = []
 
         if self.doubleLinebreaks:
-            MD_REPLACEMENTS[:0] = [['\n\n', '\n']]
+            MD_REPLACEMENTS.insert(0, ['\n\n', '\n'])
 
         try:
 
@@ -123,7 +121,7 @@ class NwdNovelFile(NwdFile):
         except AttributeError:
             text = ''
 
-        return(text)
+        return text
 
     def read(self):
         """Parse the files and store selected properties.

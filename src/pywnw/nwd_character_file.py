@@ -118,7 +118,6 @@ class NwdCharacterFile(NwdFile):
         else:
             self.prj.characters[crId].isMajor = False
 
-        self.prj.crIdsByTitle[self.prj.characters[crId].title] = crId
         self.prj.srtCharacters.append(crId)
 
         return('SUCCESS')
