@@ -77,7 +77,7 @@ suppress error messages and the request to confirm overwriting
 | Location name              | Location name                                  | Text prefixed by *@tag :*                 |
 | Location alternative name  | Location aka                                   | Text prefixed by *%aka :*                 |
 | Location description       | Location description                           | Text body below the first heading         |
-| Location reference         | Scene location entry                           | Text prefixed by *@loc :*                 |
+| Location reference         | Scene location entry                           | Text prefixed by *@location :*            |
 | Item 				         | Item                                           | Item (tagged)                             |
 | Item name                  | Item name                                      | Text prefixed by *@tag :*                 |
 | Item alternative name      | Item aka                                       | Text prefixed by *%aka :*                 |
@@ -122,7 +122,7 @@ suppress error messages and the request to confirm overwriting
   
 #### Tags
 
-- *novelWriter*'s **pov**, **char**, **location** tags are supported. Others are lost. 
+- *novelWriter*'s **pov**, **char**, **location**, and **object** tags are supported. Others are lost. 
 - Only scene tags are converted from *novelWriter* to *yWriter*. Part and chapter tags are lost.
 - *yWriter* scene/character/location tags are converted to *novelWriter* comments with customizable 
   keywords. They can be re-converted back to *yWriter*.
