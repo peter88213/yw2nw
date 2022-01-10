@@ -153,8 +153,8 @@ class NwdNovelFile(NwdFile):
 
         chType = None
         isNotesScene = None
-        isUnused = None
         status = None
+        isUnused = False
 
         if self.nwItem.nwLayout == 'DOCUMENT':
             chType = 0
@@ -166,6 +166,9 @@ class NwdNovelFile(NwdFile):
             isNotesScene = True
 
         else:
+            isUnused = True
+
+        if not self.nwItem.nwExported == 'True':
             isUnused = True
 
         if self.nwItem.nwStatus in self.outlineStatus:
@@ -303,6 +306,7 @@ class NwdNovelFile(NwdFile):
                 self.prj.scenes[scId].isNotesScene = isNotesScene
                 self.prj.chapters[self.prj.chId].srtScenes.append(scId)
                 self.prj.scenes[scId].appendToPrev = appendToPrev
+                self.prj.scenes[scId].isUnused = isUnused
                 contentLines = [line]
 
             elif scId is not None:

@@ -4,6 +4,12 @@
 
 ## Changelog
 
+### v0.4.2 alpha release
+
+- Fix a bug where an exception is thrown if a project has no objects.
+- Convert unused scenes to not exported and vice versa.
+
+Based on PyWriter v3.32.1
 
 ### v0.4.1 alpha release
 

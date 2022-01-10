@@ -61,6 +61,7 @@ suppress error messages and the request to confirm overwriting
 | "Section" (novelWriter)    | Scene appended to the previous without divider | Text with a fourth level heading          |
 | Section synopsis           | Scene description                              | Text prefixed by *% synopsis :*           |
 | **State of completion**    | Scene status                                   | Status (max. 6 conv., sect./scenes only)  |
+| **Validity**               | Scene is used/unused                           | Scene is exported/not exported            |
 | **Characters**             |                                                |                                           |
 | Character				     | Character                                      | Character (tagged)                        |
 | Character full name        | Character full name                            | First level heading in the character file |
@@ -93,7 +94,6 @@ suppress error messages and the request to confirm overwriting
 -  Body text after a 1st or 2nd level heading in *novelWriter* is converted into a auto-named scene in *yWriter*.
 -  When generating a *novelWriter* project, *yw2nw* puts each each scene in its own file.
 -  Root folders other than **Novel**, **Characters**, **Locations**, and **Items** in *novelWriter* are lost when converting to *yWriter*.
--  Chapters and Scenes marked as "Unused" or "To do list" in *yWriter* are not exported to *novelWriter*.
 -  Items in *novelWriter*'s "Outtakes" folder are not exported to *yWriter*.
 -  The "Trash" folders are ignored when converting to both directions.
 
