@@ -59,6 +59,12 @@ class NwdNovelFile(NwdFile):
         # Convert italics, bold, and strikethrough.
 
         MD_REPLACEMENTS = [
+            ['[i] ', ' [i]'],
+            ['[b] ', ' [b]'],
+            ['[s] ', ' [s]'],
+            [' [/i]', '[/i] '],
+            [' [/b]', '[/b] '],
+            [' [/s]', '[/s] '],
             ['[i]', '_'],
             ['[/i]', '_'],
             ['[b]', '**'],

@@ -88,7 +88,10 @@ suppress error messages and the request to confirm overwriting
 
 ### Novel structure
 
+-  When generating a *novelWriter* project, *yw2nw* puts each chapter in its own folder
+   and creates a file containing the chapter's header and synopsis.
 -  Body text after a 1st or 2nd level heading in *novelWriter* is converted into a auto-named scene in *yWriter*.
+-  When generating a *novelWriter* project, *yw2nw* puts each each scene in its own file.
 -  Custom trees in *novelWriter* are lost when converting to *yWriter*.
 -  Chapters and Scenes marked as "Unused" or "To do list" in *yWriter* are not exported to *novelWriter*.
 -  Items in *novelWriter*'s "Outtakes" folder are not exported to *yWriter*.
