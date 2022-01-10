@@ -92,7 +92,7 @@ suppress error messages and the request to confirm overwriting
    and creates a file containing the chapter's heading and synopsis.
 -  Body text after a 1st or 2nd level heading in *novelWriter* is converted into a auto-named scene in *yWriter*.
 -  When generating a *novelWriter* project, *yw2nw* puts each each scene in its own file.
--  Custom trees in *novelWriter* are lost when converting to *yWriter*.
+-  Root folders other than **Novel**, **Characters**, **Locations**, and **Items** in *novelWriter* are lost when converting to *yWriter*.
 -  Chapters and Scenes marked as "Unused" or "To do list" in *yWriter* are not exported to *novelWriter*.
 -  Items in *novelWriter*'s "Outtakes" folder are not exported to *yWriter*.
 -  The "Trash" folders are ignored when converting to both directions.
@@ -114,7 +114,7 @@ suppress error messages and the request to confirm overwriting
 - Paragraph alignment such as centering or right-aligning is not supported. *novelWriter* 
   markup is treated like regular text when converting to *yWriter*. *yWriter* markup is lost.
 - Inline RTF, TEX and HTML markup in yWriter scenes is treated like regular text when converting to *novelWriter*.
-- *yWriter*'s global and text variables are not expanded when converting to *novelWriter*.
+- *yWriter*'s global and project variables are not expanded when converting to *novelWriter*.
 - *novelWriter*'s auto replacement (if any) is not supported.
 
 ### Comments
