@@ -4,6 +4,12 @@
 
 ## Changelog
 
+### v0.4.3 alpha release
+
+- Fix a bug where lists in the configuration file are processed the wrong way.
+
+Based on PyWriter v3.32.2
+
 ### v0.4.2 alpha release
 
 - Fix a bug where an exception is thrown if a project has no objects.

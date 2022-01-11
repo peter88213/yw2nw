@@ -14,7 +14,7 @@ from pathlib import Path
 
 from pywriter.ui.ui import Ui
 from pywriter.ui.ui_cmd import UiCmd
-from pywriter.config.configuration import Configuration
+from pywnw.nw_configuration import NwConfiguration
 
 from pywnw.nw_converter import NwConverter
 
@@ -66,7 +66,7 @@ def run(sourcePath, doubleLinebreaks=False, silentMode=True, installDir=''):
     iniFileName = APPNAME + '.ini'
     iniFiles = [installDir + iniFileName]
 
-    configuration = Configuration(SETTINGS, OPTIONS)
+    configuration = NwConfiguration(SETTINGS, OPTIONS)
 
     for iniFile in iniFiles:
         configuration.read(iniFile)
