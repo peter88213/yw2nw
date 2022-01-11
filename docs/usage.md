@@ -144,13 +144,22 @@ The setup script installs a sample configuration file containing yw2nw's default
 
 The yw2nw distribution comes with a sample configuration file located in the `sample` subfolder. It contains yw2nw's default settings and options. This file is also automatically copied to the global configuration folder during installation. You best make a copy and edit it.
 
-- The SETTINGS section comprises the program "constants". If you change them, the program might behave differently than described in the documentation. So only touch them if you are clear about the consequences.
 - The OPTIONS section comprises options for regular program execution. 
+- The SETTINGS section comprises the program "constants". If you change them, the program might behave differently than described in the documentation. So only touch them if you are clear about the consequences. Lists must be written as literal Python lists with brackets and quotes.
 - Comment lines begin with a `#` number sign. In the example, they refer to the code line immediately above.
 
 This is the configuration explained: 
 
 ```
+[OPTIONS]
+double_linebreaks = Yes
+
+# "Yes" -- In novelWriter, paragraphs are separated by double line breaks,
+#          as is supported by novelWriter's document export.
+# "No"  -- In novelWriter, paragraphs are separated by single line breaks,
+#          as is common in prose texts.
+# Note: "No" is overridden by the "-d" command line parameter.
+
 [SETTINGS]
 outline_status = ['Outline', 'New', 'Notes']
 
@@ -216,15 +225,6 @@ ywriter_tag_keyword = tag
 # a yWriter tag. 
 # Usage: "%tag: <character, location, or scene tag>"
 # If there are multiple tags assigned, put each one on its own line.
-
-[OPTIONS]
-double_linebreaks = Yes
-
-# "Yes" -- In novelWriter, paragraphs are separated by double line breaks,
-#          as is supported by novelWriter's document export.
-# "No"  -- In novelWriter, paragraphs are separated by single line breaks,
-#          as is common in prose texts.
-# Note: "No" is overridden by the "-d" command line parameter.
 
 
 ```
