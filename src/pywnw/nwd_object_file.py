@@ -19,7 +19,7 @@ class NwdObjectFile(NwdFile):
         """Extend the superclass constructor,
         defining instance variables.
         """
-        NwdFile.__init__(self, prj, nwItem)
+        super().__init__(prj, nwItem)
 
         # Customizable tags for characters and items.
 
@@ -31,7 +31,7 @@ class NwdObjectFile(NwdFile):
         Return a message beginning with SUCCESS or ERROR.
         Extend the superclass method.
         """
-        message = NwdFile.read(self)
+        message = super().read()
 
         if message.startswith('ERROR'):
             return message
@@ -113,4 +113,4 @@ class NwdObjectFile(NwdFile):
         if item.desc:
             self.lines.append('\n' + item.desc)
 
-        return NwdFile.write(self)
+        return super().write()

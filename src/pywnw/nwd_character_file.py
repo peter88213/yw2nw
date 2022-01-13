@@ -19,7 +19,7 @@ class NwdCharacterFile(NwdFile):
         """Extend the superclass constructor,
         defining instance variables.
         """
-        NwdFile.__init__(self, prj, nwItem)
+        super().__init__(prj, nwItem)
 
         # Customizable Character importance.
 
@@ -41,7 +41,7 @@ class NwdCharacterFile(NwdFile):
         Return a message beginning with SUCCESS or ERROR.
         Extend the superclass method.
         """
-        message = NwdFile.read(self)
+        message = super().read()
 
         if message.startswith('ERROR'):
             return message

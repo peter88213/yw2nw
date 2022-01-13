@@ -4,6 +4,12 @@
 
 ## Changelog
 
+### v0.4.4 alpha release
+
+- Refactor the code.
+
+Based on PyWriter v3.32.3
+
 ### v0.4.3 alpha release
 
 - Fix a bug where lists in the configuration file are processed the wrong way.

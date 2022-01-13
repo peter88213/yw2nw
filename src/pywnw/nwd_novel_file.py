@@ -28,7 +28,7 @@ class NwdNovelFile(NwdFile):
         """Extend the superclass constructor,
         defining instance variables.
         """
-        NwdFile.__init__(self, prj, nwItem)
+        super().__init__(prj, nwItem)
 
         # Conversion options.
 
@@ -144,7 +144,7 @@ class NwdNovelFile(NwdFile):
 
         scId = None
 
-        message = NwdFile.read(self)
+        message = super().read()
 
         if message.startswith('ERROR'):
             return message
