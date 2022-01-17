@@ -1,9 +1,9 @@
-"""Modules for novelWriter/yWriter conversion.
+"""Package for novelWriter/yWriter conversion.
 
 Modules:
 
 handles -- Provide a class to manage novelWriter handles.
-nw_configuration -- Provide a Configuration class for reading and writing INI files.
+nw_configuration -- Provide a configuration class for reading and writing INI files.
 nw_converter -- Provide an novelWriter converter class for yWriter.
 nw_item -- Provide a class for novelWriter items.
 nwx_file -- Provide a class for novelWriter project file representation.
@@ -14,6 +14,6 @@ nwd_world_file -- Provide a class for novelWriter world file representation.
 nwd_object_file -- Provide a class for novelWriter object file representation.
 
 Copyright (c) 2022 Peter Triesberger
-For further information see https://github.com/peter88213/PyWriter
+For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """

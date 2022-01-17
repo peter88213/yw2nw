@@ -1,4 +1,4 @@
-"""Provide a Configuration class for reading and writing INI files.
+"""Provide a configuration class for reading and writing INI files.
 
 Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
