@@ -43,7 +43,7 @@ class Handles():
         return True
 
     def create_member(self, text):
-        """Create a create_member handle derived from text and add_member it to the list.
+        """Create a handle derived from text and add it to the list.
         Return the handle.
         Use a non-random algorithm in order to faciliate testing.
         """
