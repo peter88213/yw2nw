@@ -1,4 +1,4 @@
-The *yw2nw* Python script converts [yWriter 7](http://spacejock.com/yWriter7.html) projects to new [novelWriter](https://novelwriter.readthedocs.io/en/stable/) projects and vice versa.
+The *yw2nw* Python script converts [yWriter 7](http://spacejock.com/yWriter7.html) projects to new [novelWriter](https://novelwriter.io/) projects and vice versa.
 
 
 ## Requirements
