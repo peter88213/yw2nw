@@ -104,7 +104,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     try:
-        installDir = str(Path.home()).replace('\\', '/') + '/.pywriter/' + APPNAME + '/config/'
+        installDir = '{}/.pywriter/{}/config/'.format(str(Path.home()).replace('\\', '/'), APPNAME)
 
     except:
         installDir = ''
