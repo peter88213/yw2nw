@@ -21,7 +21,7 @@ class NwConverter(YwCnvUi):
         """
 
         if not os.path.isfile(sourcePath):
-            self.ui.set_info_how('ERROR: File "{}" not found.'.format(os.path.normpath(sourcePath)))
+            self.ui.set_info_how(f'ERROR: File "{os.path.normpath(sourcePath)}" not found.')
             return
 
         fileName, fileExtension = os.path.splitext(sourcePath.replace('\\', '/'))
@@ -30,14 +30,14 @@ class NwConverter(YwCnvUi):
         if srcDir == '':
             srcDir = '.'
 
-        srcDir += '/'
+        srcDir = f'{srcDir}/'
 
         if fileExtension == Yw7File.EXTENSION:
             sourceFile = Yw7File(sourcePath, **kwargs)
             title = fileName.replace(srcDir, '')
-            prjDir = srcDir + title + '.nw'
+            prjDir = f'{srcDir}{title}.nw'
 
-            if os.path.isfile('{}/nwProject.lock'.format(prjDir)):
+            if os.path.isfile('{prjDir}/nwProject.lock'):
                 self.ui.set_info_how('ERROR: Please exit novelWriter.')
                 return
 
@@ -49,7 +49,7 @@ class NwConverter(YwCnvUi):
                 i = 0
 
                 while os.path.isdir(prjDir + extension):
-                    extension = '.bk{:03d}'.format(i)
+                    extension = f'.bk{i:03}'
                     i += 1
 
                     if i > 999:
@@ -57,16 +57,16 @@ class NwConverter(YwCnvUi):
                         return
 
                 os.replace(prjDir, prjDir + extension)
-                self.ui.set_info_what('Backup folder "{}{}" saved.'.format(os.path.normpath(prjDir), extension))
+                self.ui.set_info_what(f'Backup folder "{os.path.normpath(prjDir)}{extension}" saved.')
                 os.makedirs(prjDir + NwxFile.CONTENT_DIR)
 
-            targetFile = NwxFile('{}/nwProject.nwx'.format(prjDir), **kwargs)
+            targetFile = NwxFile(f'{prjDir}/nwProject.nwx', **kwargs)
             self.export_from_yw(sourceFile, targetFile)
 
         elif fileExtension == NwxFile.EXTENSION:
             sourceFile = NwxFile(sourcePath, **kwargs)
 
-            prjDir = '{}/../'.format(srcDir)
+            prjDir = f'{srcDir}/../'
             message = sourceFile.read_xml_file()
 
             if message.startswith('ERROR'):
@@ -84,13 +84,13 @@ class NwConverter(YwCnvUi):
             else:
                 title = 'NewProject'
 
-            fileName = prjDir + title + Yw7File.EXTENSION
+            fileName = f'{prjDir}{title}{Yw7File.EXTENSION}'
 
             if os.path.isfile(fileName):
 
                 if self.confirm_overwrite(fileName):
-                    os.replace(fileName, '{}.bak'.format(fileName))
-                    self.ui.set_info_what('Backup file "{}.bak" saved.'.format(os.path.normpath(sourcePath)))
+                    os.replace(fileName, f'{fileName}.bak')
+                    self.ui.set_info_what(f'Backup file "{os.path.normpath(sourcePath)}.bak" saved.')
 
                 else:
                     self.ui.set_info_what('Action canceled by user.')
@@ -100,4 +100,4 @@ class NwConverter(YwCnvUi):
             self.create_yw7(sourceFile, targetFile)
 
         else:
-            self.ui.set_info_how('ERROR: File type of "{}" not supported.'.format(os.path.normpath(sourcePath)))
+            self.ui.set_info_how(f'ERROR: File type of "{os.path.normpath(sourcePath)}" not supported.')

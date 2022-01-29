@@ -34,15 +34,15 @@ class NwdFile():
             return 'SUCCESS'
 
         except:
-            return 'ERROR: Can not read "' + os.path.normpath(self.filePath) + '".'
+            return f'ERROR: Can not read "{os.path.normpath(self.filePath)}".'
 
     def write(self):
         """Write a content file. 
         Return a message beginning with SUCCESS or ERROR.
         """
-        lines = ['%%~name: {}'.format(self.nwItem.nwName),
-                 '%%~path: {}/{}'.format(self.nwItem.nwParent, self.nwItem.nwHandle),
-                 '%%~kind: {}/{}'.format(self.nwItem.nwClass, self.nwItem.nwLayout),
+        lines = [f'%%~name: {self.nwItem.nwName}',
+                 f'%%~path: {self.nwItem.nwParent}/{self.nwItem.nwHandle}',
+                 f'%%~kind: {self.nwItem.nwClass}/{self.nwItem.nwLayout}',
                  ]
         lines.extend(self.lines)
         text = '\n'.join(lines)
@@ -54,4 +54,4 @@ class NwdFile():
             return 'SUCCESS'
 
         except:
-            return 'ERROR: Can not write "{}".'.format(os.path.normpath(self.filePath))
+            return f'ERROR: Can not write "{os.path.normpath(self.filePath)}".'

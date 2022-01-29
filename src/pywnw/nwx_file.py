@@ -66,7 +66,7 @@ class NwxFile(Novel):
             self.tree = ET.parse(self.filePath)
 
         except:
-            return 'ERROR: Can not process "{}".'.format(os.path.normpath(self.filePath))
+            return f'ERROR: Can not process "{os.path.normpath(self.filePath)}".'
 
         return 'SUCCESS'
 
@@ -794,4 +794,4 @@ class NwxFile(Novel):
         self.tree = ET.ElementTree(root)
         self.tree.write(self.filePath, xml_declaration=True, encoding='utf-8')
 
-        return 'SUCCESS: "{}" written.'.format(os.path.normpath(self.filePath))
+        return f'SUCCESS: "{os.path.normpath(self.filePath)}" written.'
