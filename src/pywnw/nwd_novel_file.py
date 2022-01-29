@@ -44,7 +44,7 @@ class NwdNovelFile(NwdFile):
 
         # Customizable tags for general use.
 
-        self.ywTagKeyword = '%' + prj.kwargs['ywriter_tag_keyword'] + ': '
+        self.ywTagKeyword = '%{}: '.format(prj.kwargs['ywriter_tag_keyword'])
 
         # Headings that divide the file into parts, chapters and scenes.
 
@@ -280,7 +280,7 @@ class NwdNovelFile(NwdFile):
                 locations = []
                 items = []
                 tags = []
-                sceneTitle = 'Scene ' + str(self.prj.scCount + 1)
+                sceneTitle = 'Scene {:d}'.format(self.prj.scCount + 1)
                 inScene = False
 
             elif scId is None and not line:
@@ -328,10 +328,10 @@ class NwdNovelFile(NwdFile):
         scene = self.prj.scenes[scId]
 
         if scene.appendToPrev:
-            self.lines.append('#### ' + scene.title + '\n')
+            self.lines.append('#### {}\n'.format(scene.title))
 
         else:
-            self.lines.append('### ' + scene.title + '\n')
+            self.lines.append('### {}\n'.format(scene.title))
 
         # Set point of view and characters.
 
@@ -371,7 +371,7 @@ class NwdNovelFile(NwdFile):
         # Set synopsis.
 
         if scene.desc:
-            self.lines.append('\n% ' + self.SYNOPSIS_KEYWORD + ' ' + scene.desc)
+            self.lines.append('\n% {} {}'.format(self.SYNOPSIS_KEYWORD, scene.desc))
 
         # Separate the text body by a blank line.
 
@@ -390,12 +390,12 @@ class NwdNovelFile(NwdFile):
         chapter = self.prj.chapters[chId]
 
         if chapter.chLevel == 0:
-            self.lines.append('## ' + chapter.title + '\n')
+            self.lines.append('## {}\n'.format(chapter.title))
 
         else:
-            self.lines.append('# ' + chapter.title + '\n')
+            self.lines.append('# {}\n'.format(chapter.title))
 
         # Set yWriter chapter description.
 
         if chapter.desc:
-            self.lines.append('\n% ' + self.SYNOPSIS_KEYWORD + ' ' + chapter.desc + '\n')
+            self.lines.append('\n% {} {}\n'.format(self.SYNOPSIS_KEYWORD, chapter.desc))

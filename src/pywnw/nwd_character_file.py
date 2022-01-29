@@ -33,8 +33,8 @@ class NwdCharacterFile(NwdFile):
 
         # Customizable tags for characters and locations.
 
-        self.ywAkaKeyword = '%' + prj.kwargs['ywriter_aka_keyword'] + ': '
-        self.ywTagKeyword = '%' + prj.kwargs['ywriter_tag_keyword'] + ': '
+        self.ywAkaKeyword = '%{}: '.format(prj.kwargs['ywriter_aka_keyword'])
+        self.ywTagKeyword = '%{}: '.format(prj.kwargs['ywriter_tag_keyword'])
 
     def read(self):
         """Parse the files and store selected properties.
@@ -135,11 +135,11 @@ class NwdCharacterFile(NwdFile):
         else:
             title = character.title
 
-        self.lines.append('# ' + title + '\n')
+        self.lines.append('# {}\n'.format(title))
 
         # Set tag.
 
-        self.lines.append('@tag: ' + character.title.replace(' ', '_'))
+        self.lines.append('@tag: {}'.format(character.title.replace(' ', '_')))
 
         # Set yWriter AKA.
 
@@ -156,22 +156,22 @@ class NwdCharacterFile(NwdFile):
         # Set yWriter description.
 
         if character.desc:
-            self.lines.append('\n' + character.desc)
+            self.lines.append('\n{}'.format(character.desc))
 
         # Set yWriter bio.
 
         if character.bio:
-            self.lines.append('\n' + self.characterBioHeading)
+            self.lines.append('\n{}'.format(self.characterBioHeading))
             self.lines.append(character.bio)
 
         # Set yWriter goals.
 
         if character.goals:
-            self.lines.append('\n' + self.characterGoalsHeading)
+            self.lines.append('\n{}'.format(self.characterGoalsHeading))
             self.lines.append(character.goals)
 
         # Set yWriter notes.
 
         if character.notes:
-            self.lines.append('\n' + self.characterNotesHeading)
+            self.lines.append('\n{}'.format(self.characterNotesHeading))
             self.lines.append(character.notes)

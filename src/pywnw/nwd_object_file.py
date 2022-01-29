@@ -23,8 +23,8 @@ class NwdObjectFile(NwdFile):
 
         # Customizable tags for characters and items.
 
-        self.ywAkaKeyword = '%' + prj.kwargs['ywriter_aka_keyword'] + ': '
-        self.ywTagKeyword = '%' + prj.kwargs['ywriter_tag_keyword'] + ': '
+        self.ywAkaKeyword = '%{}: '.format(prj.kwargs['ywriter_aka_keyword'])
+        self.ywTagKeyword = '%{}: '.format(prj.kwargs['ywriter_tag_keyword'])
 
     def read(self):
         """Parse the files and store selected properties.
@@ -90,11 +90,11 @@ class NwdObjectFile(NwdFile):
 
         # Set Heading.
 
-        self.lines.append('# ' + item.title + '\n')
+        self.lines.append('# {}\n'.format(item.title))
 
         # Set tag.
 
-        self.lines.append('@tag: ' + item.title.replace(' ', '_'))
+        self.lines.append('@tag: {}'.format(item.title.replace(' ', '_')))
 
         # Set yWriter AKA.
 
@@ -111,6 +111,6 @@ class NwdObjectFile(NwdFile):
         # Set yWriter description.
 
         if item.desc:
-            self.lines.append('\n' + item.desc)
+            self.lines.append('\n{}'.format(item.desc))
 
         return super().write()

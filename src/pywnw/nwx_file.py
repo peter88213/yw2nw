@@ -66,9 +66,9 @@ class NwxFile(Novel):
             self.tree = ET.parse(self.filePath)
 
         except:
-            return 'ERROR: Can not process "' + os.path.normpath(self.filePath) + '".'
+            return 'ERROR: Can not process "{}".'.format(os.path.normpath(self.filePath))
 
-        return 'SUCCESS: XML element tree read in.'
+        return 'SUCCESS'
 
     def read(self):
         """Parse the files and store selected properties.
@@ -116,7 +116,7 @@ class NwxFile(Novel):
             return 'ERROR: This seems not to bee a novelWriter project file.'
 
         if root.attrib.get('fileVersion') != self.NWX_ATTR['fileVersion']:
-            return 'ERROR: Wrong file version (must be ' + self.NWX_VERSION + ').'
+            return 'ERROR: Wrong file version (must be {}).'.format(self.NWX_VERSION)
 
         #--- Read project metadata from the xml element tree.
 
@@ -153,7 +153,7 @@ class NwxFile(Novel):
             handle = item.read(node)
 
             if not self.nwHandles.add_member(handle):
-                return 'ERROR: Invalid handle: ' + handle
+                return 'ERROR: Invalid handle: {}'.format(handle)
 
             nwItems[handle] = item
 
@@ -468,7 +468,7 @@ class NwxFile(Novel):
 
                 #--- Write a new folder for this chapter.
 
-                chapterFolderHandle = self.nwHandles.create_member(chId + self.chapters[chId].title + 'Folder')
+                chapterFolderHandle = self.nwHandles.create_member('{}{}Folder'.format(chId, self.chapters[chId].title))
                 chapterFolder = NwItem()
                 chapterFolder.nwHandle = chapterFolderHandle
                 chapterFolder.nwOrder = order[-1]
@@ -543,7 +543,7 @@ class NwxFile(Novel):
                     title = self.scenes[scId].title
 
                 else:
-                    title = 'Scene ' + str(order[-1] + 1)
+                    title = 'Scene {:d}'.format(order[-1] + 1)
 
                 scene.nwName = title
                 scene.nwType = 'FILE'
@@ -633,7 +633,7 @@ class NwxFile(Novel):
                 character.nwName = self.characters[crId].title
 
             else:
-                character.nwName = 'Character ' + str(order[-1] + 1)
+                character.nwName = 'Character {:d}'.format(order[-1] + 1)
 
             character.nwType = 'FILE'
             character.nwClass = 'CHARACTER'
@@ -700,7 +700,7 @@ class NwxFile(Novel):
                 title = self.locations[lcId].title
 
             else:
-                title = 'Place ' + str(order[-1] + 1)
+                title = 'Place {:d}'.format(order[-1] + 1)
 
             location.nwName = title
             location.nwType = 'FILE'
@@ -761,7 +761,7 @@ class NwxFile(Novel):
                 title = self.items[itId].title
 
             else:
-                title = 'Place ' + str(order[-1] + 1)
+                title = 'Object {:d}'.format(order[-1] + 1)
 
             item.nwName = title
             item.nwType = 'FILE'
@@ -794,4 +794,4 @@ class NwxFile(Novel):
         self.tree = ET.ElementTree(root)
         self.tree.write(self.filePath, xml_declaration=True, encoding='utf-8')
 
-        return 'SUCCESS: "' + os.path.normpath(self.filePath) + '" written.'
+        return 'SUCCESS: "{}" written.'.format(os.path.normpath(self.filePath))

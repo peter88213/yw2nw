@@ -21,7 +21,7 @@ class NwConverter(YwCnvUi):
         """
 
         if not os.path.isfile(sourcePath):
-            self.ui.set_info_how('ERROR: File "' + os.path.normpath(sourcePath) + '" not found.')
+            self.ui.set_info_how('ERROR: File "{}" not found.'.format(os.path.normpath(sourcePath)))
             return
 
         fileName, fileExtension = os.path.splitext(sourcePath.replace('\\', '/'))
@@ -37,7 +37,7 @@ class NwConverter(YwCnvUi):
             title = fileName.replace(srcDir, '')
             prjDir = srcDir + title + '.nw'
 
-            if os.path.isfile(prjDir + '/nwProject.lock'):
+            if os.path.isfile('{}/nwProject.lock'.format(prjDir)):
                 self.ui.set_info_how('ERROR: Please exit novelWriter.')
                 return
 
@@ -49,7 +49,7 @@ class NwConverter(YwCnvUi):
                 i = 0
 
                 while os.path.isdir(prjDir + extension):
-                    extension = '.bk' + str(i).zfill(3)
+                    extension = '.bk{:03d}'.format(i)
                     i += 1
 
                     if i > 999:
@@ -57,16 +57,16 @@ class NwConverter(YwCnvUi):
                         return
 
                 os.replace(prjDir, prjDir + extension)
-                self.ui.set_info_what('Backup folder "' + os.path.normpath(prjDir) + extension + '" saved.')
+                self.ui.set_info_what('Backup folder "{}{}" saved.'.format(os.path.normpath(prjDir), extension))
                 os.makedirs(prjDir + NwxFile.CONTENT_DIR)
 
-            targetFile = NwxFile(prjDir + '/nwProject.nwx', **kwargs)
+            targetFile = NwxFile('{}/nwProject.nwx'.format(prjDir), **kwargs)
             self.export_from_yw(sourceFile, targetFile)
 
         elif fileExtension == NwxFile.EXTENSION:
             sourceFile = NwxFile(sourcePath, **kwargs)
 
-            prjDir = srcDir + '/../'
+            prjDir = '{}/../'.format(srcDir)
             message = sourceFile.read_xml_file()
 
             if message.startswith('ERROR'):
@@ -89,8 +89,8 @@ class NwConverter(YwCnvUi):
             if os.path.isfile(fileName):
 
                 if self.confirm_overwrite(fileName):
-                    os.replace(fileName, fileName + '.bak')
-                    self.ui.set_info_what('Backup file "' + os.path.normpath(sourcePath) + '.bak" saved.')
+                    os.replace(fileName, '{}.bak'.format(fileName))
+                    self.ui.set_info_what('Backup file "{}.bak" saved.'.format(os.path.normpath(sourcePath)))
 
                 else:
                     self.ui.set_info_what('Action canceled by user.')
@@ -100,4 +100,4 @@ class NwConverter(YwCnvUi):
             self.create_yw7(sourceFile, targetFile)
 
         else:
-            self.ui.set_info_how('ERROR: File type of "' + os.path.normpath(sourcePath) + '" not supported.')
+            self.ui.set_info_how('ERROR: File type of "{}" not supported.'.format(os.path.normpath(sourcePath)))

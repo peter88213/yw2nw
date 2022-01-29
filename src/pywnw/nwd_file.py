@@ -40,9 +40,9 @@ class NwdFile():
         """Write a content file. 
         Return a message beginning with SUCCESS or ERROR.
         """
-        lines = ['%%~name: ' + self.nwItem.nwName,
-                 '%%~path: ' + self.nwItem.nwParent + '/' + self.nwItem.nwHandle,
-                 '%%~kind: ' + self.nwItem.nwClass + '/' + self.nwItem.nwLayout,
+        lines = ['%%~name: {}'.format(self.nwItem.nwName),
+                 '%%~path: {}/{}'.format(self.nwItem.nwParent, self.nwItem.nwHandle),
+                 '%%~kind: {}/{}'.format(self.nwItem.nwClass, self.nwItem.nwLayout),
                  ]
         lines.extend(self.lines)
         text = '\n'.join(lines)
@@ -54,4 +54,4 @@ class NwdFile():
             return 'SUCCESS'
 
         except:
-            return 'ERROR: Can not write "' + os.path.normpath(self.filePath) + '".'
+            return 'ERROR: Can not write "{}".'.format(os.path.normpath(self.filePath))
