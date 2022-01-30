@@ -4,6 +4,7 @@ Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
+from pywriter.pywriter_globals import ERROR
 from pywriter.model.world_element import WorldElement
 
 from pywnw.nwd_file import NwdFile
@@ -23,8 +24,8 @@ class NwdWorldFile(NwdFile):
 
         # Customizable tags for characters and locations.
 
-        self.ywAkaKeyword = '%{}: '.format(prj.kwargs['ywriter_aka_keyword'])
-        self.ywTagKeyword = '%{}: '.format(prj.kwargs['ywriter_tag_keyword'])
+        self.ywAkaKeyword = f'%{prj.kwargs["ywriter_aka_keyword"]}: '
+        self.ywTagKeyword = f'%{prj.kwargs["ywriter_tag_keyword"]}: '
 
     def read(self):
         """Parse the files and store selected properties.
@@ -33,7 +34,7 @@ class NwdWorldFile(NwdFile):
         """
         message = super().read()
 
-        if message.startswith('ERROR'):
+        if message.startswith(ERROR):
             return message
 
         self.prj.lcCount += 1
@@ -90,11 +91,11 @@ class NwdWorldFile(NwdFile):
 
         # Set Heading.
 
-        self.lines.append('# {}\n'.format(location.title))
+        self.lines.append(f'# {location.title}\n')
 
         # Set tag.
 
-        self.lines.append('@tag: {}'.format(location.title.replace(' ', '_')))
+        self.lines.append(f'@tag: {location.title.replace(" ", "_")}')
 
         # Set yWriter AKA.
 
@@ -111,6 +112,6 @@ class NwdWorldFile(NwdFile):
         # Set yWriter description.
 
         if location.desc:
-            self.lines.append('\n{}'.format(location.desc))
+            self.lines.append(f'\n{location.desc}')
 
         return super().write()

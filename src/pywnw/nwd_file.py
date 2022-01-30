@@ -6,6 +6,8 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 """
 import os
 
+from pywriter.pywriter_globals import ERROR
+
 
 class NwdFile():
     """novelWriter item file representation.
@@ -34,7 +36,7 @@ class NwdFile():
             return 'SUCCESS'
 
         except:
-            return f'ERROR: Can not read "{os.path.normpath(self.filePath)}".'
+            return f'{ERROR}: Can not read "{os.path.normpath(self.filePath)}".'
 
     def write(self):
         """Write a content file. 
@@ -54,4 +56,4 @@ class NwdFile():
             return 'SUCCESS'
 
         except:
-            return f'ERROR: Can not write "{os.path.normpath(self.filePath)}".'
+            return f'{ERROR}: Can not write "{os.path.normpath(self.filePath)}".'

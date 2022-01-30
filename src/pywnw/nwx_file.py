@@ -8,12 +8,12 @@ import os
 import xml.etree.ElementTree as ET
 from datetime import datetime
 
+from pywriter.pywriter_globals import ERROR
 from pywriter.model.novel import Novel
 from pywriter.yw.xml_indent import indent
 
 from pywnw.handles import Handles
 from pywnw.nw_item import NwItem
-
 from pywnw.nwd_character_file import NwdCharacterFile
 from pywnw.nwd_novel_file import NwdNovelFile
 from pywnw.nwd_world_file import NwdWorldFile
@@ -66,7 +66,7 @@ class NwxFile(Novel):
             self.tree = ET.parse(self.filePath)
 
         except:
-            return f'ERROR: Can not process "{os.path.normpath(self.filePath)}".'
+            return f'{ERROR}: Can not process "{os.path.normpath(self.filePath)}".'
 
         return 'SUCCESS'
 
@@ -105,7 +105,7 @@ class NwxFile(Novel):
         if self.tree is None:
             message = self.read_xml_file()
 
-            if message.startswith('ERROR'):
+            if message.startswith(ERROR):
                 return message
 
         root = self.tree.getroot()
@@ -113,10 +113,10 @@ class NwxFile(Novel):
         # Check file type and version.
 
         if root.tag != self.NWX_TAG:
-            return 'ERROR: This seems not to bee a novelWriter project file.'
+            return f'{ERROR}: This seems not to bee a novelWriter project file.'
 
         if root.attrib.get('fileVersion') != self.NWX_ATTR['fileVersion']:
-            return 'ERROR: Wrong file version (must be {}).'.format(self.NWX_VERSION)
+            return f'{ERROR}: Wrong file version (must be {self.NWX_VERSION}).'
 
         #--- Read project metadata from the xml element tree.
 
@@ -153,7 +153,7 @@ class NwxFile(Novel):
             handle = item.read(node)
 
             if not self.nwHandles.add_member(handle):
-                return 'ERROR: Invalid handle: {}'.format(handle)
+                return f'{ERROR}: Invalid handle: {handle}'
 
             nwItems[handle] = item
 
@@ -186,7 +186,7 @@ class NwxFile(Novel):
             nwdFile = NwdCharacterFile(self, nwItems[handle])
             message = nwdFile.read()
 
-            if message.startswith('ERROR'):
+            if message.startswith(ERROR):
                 return message
 
         for crId in self.characters:
@@ -200,7 +200,7 @@ class NwxFile(Novel):
             nwdFile = NwdWorldFile(self, nwItems[handle])
             message = nwdFile.read()
 
-            if message.startswith('ERROR'):
+            if message.startswith(ERROR):
                 return message
 
         for lcId in self.locations:
@@ -214,7 +214,7 @@ class NwxFile(Novel):
             nwdFile = NwdObjectFile(self, nwItems[handle])
             message = nwdFile.read()
 
-            if message.startswith('ERROR'):
+            if message.startswith(ERROR):
                 return message
 
         for itId in self.items:
@@ -226,7 +226,7 @@ class NwxFile(Novel):
             nwdFile = NwdNovelFile(self, nwItems[handle])
             message = nwdFile.read()
 
-            if message.startswith('ERROR'):
+            if message.startswith(ERROR):
                 return message
 
         # Fix scene references.
@@ -468,7 +468,7 @@ class NwxFile(Novel):
 
                 #--- Write a new folder for this chapter.
 
-                chapterFolderHandle = self.nwHandles.create_member('{}{}Folder'.format(chId, self.chapters[chId].title))
+                chapterFolderHandle = self.nwHandles.create_member(f'{chId}{self.chapters[chId].title}Folder')
                 chapterFolder = NwItem()
                 chapterFolder.nwHandle = chapterFolderHandle
                 chapterFolder.nwOrder = order[-1]
@@ -543,7 +543,7 @@ class NwxFile(Novel):
                     title = self.scenes[scId].title
 
                 else:
-                    title = 'Scene {:d}'.format(order[-1] + 1)
+                    title = f'Scene {order[-1] + 1}'
 
                 scene.nwName = title
                 scene.nwType = 'FILE'
@@ -633,7 +633,7 @@ class NwxFile(Novel):
                 character.nwName = self.characters[crId].title
 
             else:
-                character.nwName = 'Character {:d}'.format(order[-1] + 1)
+                character.nwName = f'Character {order[-1] + 1}'
 
             character.nwType = 'FILE'
             character.nwClass = 'CHARACTER'
@@ -700,7 +700,7 @@ class NwxFile(Novel):
                 title = self.locations[lcId].title
 
             else:
-                title = 'Place {:d}'.format(order[-1] + 1)
+                title = f'Place {order[-1] + 1}'
 
             location.nwName = title
             location.nwType = 'FILE'
@@ -761,7 +761,7 @@ class NwxFile(Novel):
                 title = self.items[itId].title
 
             else:
-                title = 'Object {:d}'.format(order[-1] + 1)
+                title = f'Object {order[-1] + 1}'
 
             item.nwName = title
             item.nwType = 'FILE'

@@ -6,8 +6,8 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 """
 import os
 
+from pywriter.pywriter_globals import ERROR
 from pywriter.converter.yw_cnv_ui import YwCnvUi
-from pywriter.ui.ui import Ui
 from pywriter.yw.yw7_file import Yw7File
 from pywnw.nwx_file import NwxFile
 
@@ -69,7 +69,7 @@ class NwConverter(YwCnvUi):
             prjDir = f'{srcDir}/../'
             message = sourceFile.read_xml_file()
 
-            if message.startswith('ERROR'):
+            if message.startswith(ERROR):
                 return message
 
             root = sourceFile.tree.getroot()

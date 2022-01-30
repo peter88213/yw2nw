@@ -6,6 +6,7 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 """
 import re
 
+from pywriter.pywriter_globals import ERROR
 from pywriter.model.scene import Scene
 from pywriter.model.chapter import Chapter
 
@@ -44,7 +45,7 @@ class NwdNovelFile(NwdFile):
 
         # Customizable tags for general use.
 
-        self.ywTagKeyword = '%{}: '.format(prj.kwargs['ywriter_tag_keyword'])
+        self.ywTagKeyword = f'%{prj.kwargs["ywriter_tag_keyword"]}: '
 
         # Headings that divide the file into parts, chapters and scenes.
 
@@ -146,7 +147,7 @@ class NwdNovelFile(NwdFile):
 
         message = super().read()
 
-        if message.startswith('ERROR'):
+        if message.startswith(ERROR):
             return message
 
         # Determine the attibutes for all chapters and scenes included.
@@ -280,7 +281,7 @@ class NwdNovelFile(NwdFile):
                 locations = []
                 items = []
                 tags = []
-                sceneTitle = 'Scene {:d}'.format(self.prj.scCount + 1)
+                sceneTitle = f'Scene {self.prj.scCount + 1}'
                 inScene = False
 
             elif scId is None and not line:
@@ -328,10 +329,10 @@ class NwdNovelFile(NwdFile):
         scene = self.prj.scenes[scId]
 
         if scene.appendToPrev:
-            self.lines.append('#### {}\n'.format(scene.title))
+            self.lines.append(f'#### {scene.title}\n')
 
         else:
-            self.lines.append('### {}\n'.format(scene.title))
+            self.lines.append(f'### {scene.title}\n')
 
         # Set point of view and characters.
 
@@ -371,7 +372,7 @@ class NwdNovelFile(NwdFile):
         # Set synopsis.
 
         if scene.desc:
-            self.lines.append('\n% {} {}'.format(self.SYNOPSIS_KEYWORD, scene.desc))
+            self.lines.append(f'\n% {self.SYNOPSIS_KEYWORD} {scene.desc}')
 
         # Separate the text body by a blank line.
 
@@ -390,12 +391,12 @@ class NwdNovelFile(NwdFile):
         chapter = self.prj.chapters[chId]
 
         if chapter.chLevel == 0:
-            self.lines.append('## {}\n'.format(chapter.title))
+            self.lines.append(f'## {chapter.title}\n')
 
         else:
-            self.lines.append('# {}\n'.format(chapter.title))
+            self.lines.append(f'# {chapter.title}\n')
 
         # Set yWriter chapter description.
 
         if chapter.desc:
-            self.lines.append('\n% {} {}\n'.format(self.SYNOPSIS_KEYWORD, chapter.desc))
+            self.lines.append(f'\n% {self.SYNOPSIS_KEYWORD} {chapter.desc}\n')

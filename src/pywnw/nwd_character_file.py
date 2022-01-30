@@ -4,6 +4,7 @@ Copyright (c) 2022 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
+from pywriter.pywriter_globals import ERROR
 from pywriter.model.character import Character
 
 from pywnw.nwd_file import NwdFile
@@ -33,8 +34,8 @@ class NwdCharacterFile(NwdFile):
 
         # Customizable tags for characters and locations.
 
-        self.ywAkaKeyword = '%{}: '.format(prj.kwargs['ywriter_aka_keyword'])
-        self.ywTagKeyword = '%{}: '.format(prj.kwargs['ywriter_tag_keyword'])
+        self.ywAkaKeyword = f'%{prj.kwargs["ywriter_aka_keyword"]}: '
+        self.ywTagKeyword = f'%{prj.kwargs["ywriter_tag_keyword"]}: '
 
     def read(self):
         """Parse the files and store selected properties.
@@ -43,7 +44,7 @@ class NwdCharacterFile(NwdFile):
         """
         message = super().read()
 
-        if message.startswith('ERROR'):
+        if message.startswith(ERROR):
             return message
 
         self.prj.crCount += 1
@@ -135,11 +136,11 @@ class NwdCharacterFile(NwdFile):
         else:
             title = character.title
 
-        self.lines.append('# {}\n'.format(title))
+        self.lines.append(f'# {title}\n')
 
         # Set tag.
 
-        self.lines.append('@tag: {}'.format(character.title.replace(' ', '_')))
+        self.lines.append(f'@tag: {character.title.replace(" ", "_")}')
 
         # Set yWriter AKA.
 
@@ -156,22 +157,22 @@ class NwdCharacterFile(NwdFile):
         # Set yWriter description.
 
         if character.desc:
-            self.lines.append('\n{}'.format(character.desc))
+            self.lines.append(f'\n{character.desc}')
 
         # Set yWriter bio.
 
         if character.bio:
-            self.lines.append('\n{}'.format(self.characterBioHeading))
+            self.lines.append(f'\n{self.characterBioHeading}')
             self.lines.append(character.bio)
 
         # Set yWriter goals.
 
         if character.goals:
-            self.lines.append('\n{}'.format(self.characterGoalsHeading))
+            self.lines.append(f'\n{self.characterGoalsHeading}')
             self.lines.append(character.goals)
 
         # Set yWriter notes.
 
         if character.notes:
-            self.lines.append('\n{}'.format(self.characterNotesHeading))
+            self.lines.append(f'\n{self.characterNotesHeading}')
             self.lines.append(character.notes)
