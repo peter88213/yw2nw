@@ -26,21 +26,20 @@ class NwdFile():
 
     def read(self):
         """Read a content file. 
-        Return a message beginning with SUCCESS or ERROR.
+        Return a message beginning with the ERROR constant in case of error.
         """
 
         try:
             with open(self.filePath, 'r', encoding='utf-8') as f:
                 self.lines = f.read().split('\n')
-
-            return 'SUCCESS'
+                return 'Item data read in.'
 
         except:
-            return f'{ERROR}: Can not read "{os.path.normpath(self.filePath)}".'
+            return f'{ERROR}Can not read "{os.path.normpath(self.filePath)}".'
 
     def write(self):
         """Write a content file. 
-        Return a message beginning with SUCCESS or ERROR.
+        Return a message beginning with the ERROR constant in case of error.
         """
         lines = [f'%%~name: {self.nwItem.nwName}',
                  f'%%~path: {self.nwItem.nwParent}/{self.nwItem.nwHandle}',
@@ -52,8 +51,7 @@ class NwdFile():
         try:
             with open(self.filePath, 'w', encoding='utf-8') as f:
                 f.write(text)
-
-            return 'SUCCESS'
+                return 'nwd file saved.'
 
         except:
-            return f'{ERROR}: Can not write "{os.path.normpath(self.filePath)}".'
+            return f'{ERROR}Can not write "{os.path.normpath(self.filePath)}".'

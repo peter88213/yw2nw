@@ -21,7 +21,7 @@ class NwConverter(YwCnvUi):
         """
 
         if not os.path.isfile(sourcePath):
-            self.ui.set_info_how(f'ERROR: File "{os.path.normpath(sourcePath)}" not found.')
+            self.ui.set_info_how(f'{ERROR}File "{os.path.normpath(sourcePath)}" not found.')
             return
 
         fileName, fileExtension = os.path.splitext(sourcePath.replace('\\', '/'))
@@ -38,7 +38,7 @@ class NwConverter(YwCnvUi):
             prjDir = f'{srcDir}{title}.nw'
 
             if os.path.isfile('{prjDir}/nwProject.lock'):
-                self.ui.set_info_how('ERROR: Please exit novelWriter.')
+                self.ui.set_info_how(f'{ERROR}Please exit novelWriter.')
                 return
 
             try:
@@ -53,7 +53,7 @@ class NwConverter(YwCnvUi):
                     i += 1
 
                     if i > 999:
-                        self.ui.set_info_how('ERROR: Unable to back up the project.')
+                        self.ui.set_info_how(f'{ERROR}Unable to back up the project.')
                         return
 
                 os.replace(prjDir, prjDir + extension)
@@ -90,7 +90,7 @@ class NwConverter(YwCnvUi):
 
                 if self.confirm_overwrite(fileName):
                     os.replace(fileName, f'{fileName}.bak')
-                    self.ui.set_info_what(f'Backup file "{os.path.normpath(sourcePath)}.bak" saved.')
+                    self.ui.set_info_what(f'Backup file "{os.path.normpath(fileName)}.bak" saved.')
 
                 else:
                     self.ui.set_info_what('Action canceled by user.')
@@ -100,4 +100,4 @@ class NwConverter(YwCnvUi):
             self.create_yw7(sourceFile, targetFile)
 
         else:
-            self.ui.set_info_how(f'ERROR: File type of "{os.path.normpath(sourcePath)}" not supported.')
+            self.ui.set_info_how(f'{ERROR}File type of "{os.path.normpath(sourcePath)}" not supported.')

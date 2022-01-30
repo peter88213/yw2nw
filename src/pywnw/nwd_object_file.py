@@ -29,7 +29,7 @@ class NwdObjectFile(NwdFile):
 
     def read(self):
         """Parse the files and store selected properties.
-        Return a message beginning with SUCCESS or ERROR.
+        Return a message beginning with the ERROR constant in case of error.
         Extend the superclass method.
         """
         message = super().read()
@@ -82,7 +82,7 @@ class NwdObjectFile(NwdFile):
 
         self.prj.items[itId].desc = '\n'.join(desc)
         self.prj.srtItems.append(itId)
-        return('SUCCESS')
+        return 'Item data read in.'
 
     def add_element(self, itId):
         """Add an element of the story world to the lines list.

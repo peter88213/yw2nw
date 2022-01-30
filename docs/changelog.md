@@ -4,6 +4,14 @@
 
 ## Changelog
 
+### v0.6.0 beta release
+
+- Fix a bug where a wrong backup file name is displayed when overwriting yw7.
+- Rework the command line messages. 
+- Refactor the code.
+
+Based on PyWriter v5.0.0
+
 ### v0.4.4 alpha release
 
 - Refactor the code.

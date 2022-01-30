@@ -59,20 +59,20 @@ class NwxFile(Novel):
 
     def read_xml_file(self):
         """Read the novelWriter XML project file.
-        Return a message beginning with SUCCESS or ERROR.
+        Return a message beginning with the ERROR constant in case of error.
         """
 
         try:
             self.tree = ET.parse(self.filePath)
 
         except:
-            return f'{ERROR}: Can not process "{os.path.normpath(self.filePath)}".'
+            return f'{ERROR}Can not process "{os.path.normpath(self.filePath)}".'
 
-        return 'SUCCESS'
+        return 'novelWriter XML file read in.'
 
     def read(self):
         """Parse the files and store selected properties.
-        Return a message beginning with SUCCESS or ERROR.
+        Return a message beginning with the ERROR constant in case of error.
         Override the superclass method.
         """
 
@@ -113,10 +113,10 @@ class NwxFile(Novel):
         # Check file type and version.
 
         if root.tag != self.NWX_TAG:
-            return f'{ERROR}: This seems not to bee a novelWriter project file.'
+            return f'{ERROR}This seems not to bee a novelWriter project file.'
 
         if root.attrib.get('fileVersion') != self.NWX_ATTR['fileVersion']:
-            return f'{ERROR}: Wrong file version (must be {self.NWX_VERSION}).'
+            return f'{ERROR}Wrong file version (must be {self.NWX_VERSION}).'
 
         #--- Read project metadata from the xml element tree.
 
@@ -153,7 +153,7 @@ class NwxFile(Novel):
             handle = item.read(node)
 
             if not self.nwHandles.add_member(handle):
-                return f'{ERROR}: Invalid handle: {handle}'
+                return f'{ERROR}Invalid handle: {handle}'
 
             nwItems[handle] = item
 
@@ -253,11 +253,11 @@ class NwxFile(Novel):
 
             self.scenes[scId].items = items
 
-        return('SUCCESS')
+        return 'novelWriter data converted to novel structure.'
 
     def merge(self, source):
         """Copy the yWriter project parts that can be mapped to the novelWriter project.
-        Return a message beginning with SUCCESS or ERROR.
+        Return a message beginning with the ERROR constant in case of error.
         Override the superclass method.
         """
         if source.title is not None:
@@ -297,12 +297,12 @@ class NwxFile(Novel):
             self.srtItems = source.srtItems
             self.items = source.items
 
-        return 'SUCCESS'
+        return 'Updated from novel.'
 
     def write(self):
         """Write the novelFolder attributes to a new novelWriter project
         consisting of a set of different files.
-        Return a message beginning with SUCCESS or ERROR.
+        Return a message beginning with the ERROR constant in case of error.
         Override the superclass method.
         """
 
@@ -794,4 +794,4 @@ class NwxFile(Novel):
         self.tree = ET.ElementTree(root)
         self.tree.write(self.filePath, xml_declaration=True, encoding='utf-8')
 
-        return f'SUCCESS: "{os.path.normpath(self.filePath)}" written.'
+        return f'"{os.path.normpath(self.filePath)}" written.'

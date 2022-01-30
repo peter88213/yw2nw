@@ -126,7 +126,7 @@ class NwdNovelFile(NwdFile):
 
     def read(self):
         """Parse the files and store selected properties.
-        Return a message beginning with SUCCESS or ERROR.
+        Return a message beginning with the ERROR constant in case of error.
         Extend the superclass method.
         """
 
@@ -321,7 +321,7 @@ class NwdNovelFile(NwdFile):
         elif synopsis != []:
             self.prj.chapters[self.prj.chId].desc = '\n'.join(synopsis)
 
-        return('SUCCESS')
+        return 'Chapters and scenes read in.'
 
     def add_scene(self, scId):
         """Add a scene to the lines list.

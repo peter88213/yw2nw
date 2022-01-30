@@ -29,7 +29,7 @@ class NwdWorldFile(NwdFile):
 
     def read(self):
         """Parse the files and store selected properties.
-        Return a message beginning with SUCCESS or ERROR.
+        Return a message beginning with the ERROR constant in case of error.
         Extend the superclass method.
         """
         message = super().read()
@@ -82,7 +82,7 @@ class NwdWorldFile(NwdFile):
 
         self.prj.locations[lcId].desc = '\n'.join(desc)
         self.prj.srtLocations.append(lcId)
-        return('SUCCESS')
+        return 'Location data read in.'
 
     def add_element(self, lcId):
         """Add an element of the story world to the lines list.

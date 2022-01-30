@@ -39,7 +39,7 @@ class NwdCharacterFile(NwdFile):
 
     def read(self):
         """Parse the files and store selected properties.
-        Return a message beginning with SUCCESS or ERROR.
+        Return a message beginning with the ERROR constant in case of error.
         Extend the superclass method.
         """
         message = super().read()
@@ -120,8 +120,7 @@ class NwdCharacterFile(NwdFile):
             self.prj.characters[crId].isMajor = False
 
         self.prj.srtCharacters.append(crId)
-
-        return('SUCCESS')
+        return 'Character data read in.'
 
     def add_character(self, crId):
         """Add a character to the lines list.
