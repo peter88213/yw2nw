@@ -147,4 +147,4 @@ if __name__ == '__main__':
     # Show options: open installation folders or quit.
 
     if input('Open installation folder? (y/n)').lower() == 'y':
-        open_folder(pywriterPath + APPNAME)
+        open_folder(f'{homePath}/.pywriter/' + APPNAME)
