@@ -25,7 +25,7 @@ def run(iniFile):
     configuration = Configuration(SETTINGS, OPTIONS)
     configuration.write(iniFile)
 
-    print(iniFile + ' written.')
+    print(f'{iniFile} written.')
 
 
 if __name__ == '__main__':
@@ -34,6 +34,6 @@ if __name__ == '__main__':
         iniFile = sys.argv[1]
 
     except:
-        iniFile = './' + APPNAME + '.ini'
+        iniFile = f'./{APPNAME}.ini'
 
     run(iniFile)

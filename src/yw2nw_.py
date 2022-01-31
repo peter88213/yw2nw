@@ -61,10 +61,10 @@ def run(sourcePath, doubleLinebreaks=False, silentMode=True, installDir=''):
         sourceDir = './'
 
     else:
-        sourceDir += '/'
+        sourceDir = f'{sourceDir}/'
 
-    iniFileName = APPNAME + '.ini'
-    iniFiles = [installDir + iniFileName]
+    iniFileName = f'{APPNAME}.ini'
+    iniFiles = [f'{installDir}{iniFileName}']
 
     configuration = NwConfiguration(SETTINGS, OPTIONS)
 

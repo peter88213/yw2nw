@@ -17,8 +17,8 @@ from string import Template
 APPNAME = 'yw2nw'
 
 VERSION = ' @release'
-APP = APPNAME + '.py'
-INI_FILE = APPNAME + '.ini'
+APP = f'{APPNAME}.py'
+INI_FILE = f'{APPNAME}.ini'
 INI_PATH = '/config/'
 SAMPLE_PATH = 'sample/'
 SUCCESS_MESSAGE = '''
@@ -70,10 +70,10 @@ def install(pywriterPath):
     # Create a general PyWriter installation directory, if necessary.
 
     os.makedirs(pywriterPath, exist_ok=True)
-    installDir = pywriterPath + APPNAME
-    cnfDir = installDir + INI_PATH
+    installDir = f'{pywriterPath}{APPNAME}'
+    cnfDir = f'{installDir}{INI_PATH}'
 
-    if os.path.isfile(installDir + '/' + APP):
+    if os.path.isfile(f'{installDir}/{APP}'):
         simpleUpdate = True
 
     else:
@@ -82,9 +82,10 @@ def install(pywriterPath):
     try:
         # Move an existing installation to the new place, if necessary.
 
-        oldInstDir = os.getenv('APPDATA').replace('\\', '/') + '/pyWriter/' + APPNAME
+        oldHome = os.getenv('APPDATA').replace('\\', '/')
+        oldInstDir = f'{oldHome}/pyWriter/{APPNAME}'
         os.replace(oldInstDir, installDir)
-        output('Moving "' + oldInstDir + '" to "' + installDir + '"')
+        output(f'Moving "{oldInstDir}" to "{installDir}"')
 
     except:
         pass
@@ -99,34 +100,34 @@ def install(pywriterPath):
 
             if not 'config' in file.name:
                 os.remove(file)
-                output('Removing "' + file.name + '"')
+                output(f'Removing "{file.name}"')
 
     # Install the new version.
 
-    copyfile(APP, installDir + '/' + APP)
-    output('Copying "' + APP + '"')
+    copyfile(APP, f'{installDir}/{APP}')
+    output(f'Copying "{APP}"')
 
     # Make the script executable under Linux.
 
-    st = os.stat(installDir + '/' + APP)
-    os.chmod(installDir + '/' + APP, st.st_mode | stat.S_IEXEC)
+    st = os.stat(f'{installDir}/{APP}')
+    os.chmod(f'{installDir}/{APP}', st.st_mode | stat.S_IEXEC)
 
     # Install a configuration file, if needed.
 
     try:
-        if not os.path.isfile(cnfDir + INI_FILE):
-            copyfile(SAMPLE_PATH + INI_FILE, cnfDir + INI_FILE)
-            output('Copying "' + INI_FILE + '"')
+        if not os.path.isfile(f'{cnfDir}{file.name}'):
+            copyfile(f'{SAMPLE_PATH}{file.name}', f'{cnfDir}{file.name}')
+            output(f'Copying "{INI_FILE}"')
 
         else:
-            output('Keeping "' + INI_FILE + '"')
+            output(f'Keeping "{INI_FILE}"')
 
     except:
         pass
 
     # Display a success message.
 
-    mapping = {'Appname': APPNAME, 'Apppath': installDir + '/' + APP}
+    mapping = {'Appname': APPNAME, 'Apppath': f'{installDir}/{APP}'}
 
     output(Template(SUCCESS_MESSAGE).safe_substitute(mapping))
 
@@ -140,8 +141,8 @@ if __name__ == '__main__':
 
     # Run the installation.
 
-    pywriterPath = str(Path.home()).replace('\\', '/') + '/.pywriter/'
-    install(pywriterPath)
+    homePath = str(Path.home()).replace('\\', '/')
+    install(f'{homePath}/.pywriter/')
 
     # Show options: open installation folders or quit.
 

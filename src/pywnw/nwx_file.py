@@ -405,7 +405,7 @@ class NwxFile(Novel):
 
                 #--- Write a new folder for this part.
 
-                partFolderHandle = self.nwHandles.create_member(chId + self.chapters[chId].title + 'Folder')
+                partFolderHandle = self.nwHandles.create_member(f'{chId + self.chapters[chId].title}Folder')
                 partFolder = NwItem()
                 partFolder.nwHandle = partFolderHandle
                 partFolder.nwOrder = order[-1]
@@ -426,7 +426,7 @@ class NwxFile(Novel):
 
                 # Put the heading into the part folder.
 
-                partHeadingHandle = self.nwHandles.create_member(chId + self.chapters[chId].title)
+                partHeadingHandle = self.nwHandles.create_member(f'{chId + self.chapters[chId].title}')
                 partHeading = NwItem()
                 partHeading.nwHandle = partHeadingHandle
                 partHeading.nwOrder = order[-1]
@@ -494,7 +494,7 @@ class NwxFile(Novel):
 
                 # Put the heading into the folder.
 
-                chapterHeadingHandle = self.nwHandles.create_member(chId + self.chapters[chId].title)
+                chapterHeadingHandle = self.nwHandles.create_member(f'{chId}{self.chapters[chId].title}')
                 chapterHeading = NwItem()
                 chapterHeading.nwHandle = chapterHeadingHandle
                 chapterHeading.nwOrder = order[-1]
@@ -528,7 +528,7 @@ class NwxFile(Novel):
 
                 #--- Put a scene into the folder.
 
-                sceneHandle = self.nwHandles.create_member(scId + self.scenes[scId].title)
+                sceneHandle = self.nwHandles.create_member(f'{scId}{self.scenes[scId].title}')
                 scene = NwItem()
                 scene.nwHandle = sceneHandle
                 scene.nwOrder = order[-1]
@@ -620,7 +620,7 @@ class NwxFile(Novel):
 
             #--- Put a character into the folder.
 
-            characterHandle = self.nwHandles.create_member(crId + self.characters[crId].title)
+            characterHandle = self.nwHandles.create_member(f'{crId}{self.characters[crId].title}')
             character = NwItem()
             character.nwHandle = characterHandle
             character.nwOrder = order[-1]
@@ -690,7 +690,7 @@ class NwxFile(Novel):
 
             #--- Put a location into the folder.
 
-            locationHandle = self.nwHandles.create_member(lcId + self.locations[lcId].title)
+            locationHandle = self.nwHandles.create_member(f'{lcId}{self.locations[lcId].title}')
             location = NwItem()
             location.nwHandle = locationHandle
             location.nwOrder = order[-1]
@@ -751,7 +751,7 @@ class NwxFile(Novel):
 
             #--- Put a item into the folder.
 
-            itemHandle = self.nwHandles.create_member(itId + self.items[itId].title)
+            itemHandle = self.nwHandles.create_member(f'{itId}{self.items[itId].title}')
             item = NwItem()
             item.nwHandle = itemHandle
             item.nwOrder = order[-1]
