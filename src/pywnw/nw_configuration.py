@@ -23,9 +23,9 @@ class NwConfiguration(Configuration):
         config = ConfigParser()
         config.read(iniFile)
 
-        if config.has_section(self.sLabel):
+        if config.has_section(self._sLabel):
 
-            section = config[self.sLabel]
+            section = config[self._sLabel]
 
             for setting in self.settings:
                 fallback = self.settings[setting]
@@ -43,9 +43,9 @@ class NwConfiguration(Configuration):
 
                 self.settings[setting] = entry
 
-        if config.has_section(self.oLabel):
+        if config.has_section(self._oLabel):
 
-            section = config[self.oLabel]
+            section = config[self._oLabel]
 
             for option in self.options:
                 fallback = self.options[option]
