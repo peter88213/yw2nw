@@ -54,7 +54,7 @@ class NwdNovelFile(NwdFile):
         # self.sceneHeadingPrefix = prj.kwargs['scene_heading_prefix']
         # self.sectionHeadingPrefix = prj.kwargs['section_heading_prefix']
 
-    def convert_from_yw(self, text):
+    def _convert_from_yw(self, text):
         """Convert yw7 markup to Markdown.
         """
         # Convert italics, bold, and strikethrough.
@@ -91,7 +91,7 @@ class NwdNovelFile(NwdFile):
 
         return text
 
-    def convert_to_yw(self, text):
+    def _convert_to_yw(self, text):
         """Convert Markdown to yw7 markup.
         """
         # Convert bold, italics, and strikethrough.
@@ -134,7 +134,7 @@ class NwdNovelFile(NwdFile):
 
             if scId is not None:
                 text = '\n'.join(contentLines)
-                self.prj.scenes[scId].sceneContent = self.convert_to_yw(text)
+                self.prj.scenes[scId].sceneContent = self._convert_to_yw(text)
                 self.prj.scenes[scId].desc = '\n'.join(synopsis)
                 self.prj.scenes[scId].characters = characters
                 self.prj.scenes[scId].locations = locations
@@ -380,7 +380,7 @@ class NwdNovelFile(NwdFile):
 
         # Set scene content.
 
-        text = self.convert_from_yw(scene.sceneContent)
+        text = self._convert_from_yw(scene.sceneContent)
 
         if text:
             self.lines.append(text)

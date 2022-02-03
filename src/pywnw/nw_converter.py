@@ -72,7 +72,7 @@ class NwConverter(YwCnvUi):
             if message.startswith(ERROR):
                 return message
 
-            root = sourceFile.tree.getroot()
+            root = sourceFile._tree.getroot()
             prj = root.find('project')
 
             if prj.find('title') is not None:
@@ -88,7 +88,7 @@ class NwConverter(YwCnvUi):
 
             if os.path.isfile(fileName):
 
-                if self.confirm_overwrite(fileName):
+                if self._confirm_overwrite(fileName):
                     os.replace(fileName, f'{fileName}.bak')
                     self.ui.set_info_what(f'Backup file "{os.path.normpath(fileName)}.bak" saved.')
 

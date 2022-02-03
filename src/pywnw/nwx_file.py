@@ -44,7 +44,7 @@ class NwxFile(Novel):
         """
         super().__init__(filePath, **kwargs)
 
-        self.tree = None
+        self._tree = None
         self.kwargs = kwargs
         self.nwHandles = Handles()
 
@@ -63,7 +63,7 @@ class NwxFile(Novel):
         """
 
         try:
-            self.tree = ET.parse(self.filePath)
+            self._tree = ET.parse(self.filePath)
 
         except:
             return f'{ERROR}Can not process "{os.path.normpath(self.filePath)}".'
@@ -77,7 +77,7 @@ class NwxFile(Novel):
         """
 
         def add_nodes(node):
-            """Add nodes to the novelWriter project tree of handles.
+            """Add nodes to the novelWriter project _tree of handles.
             """
 
             for item in content.iter('item'):
@@ -102,13 +102,13 @@ class NwxFile(Novel):
 
         #--- Read the XML file, if necessary.
 
-        if self.tree is None:
+        if self._tree is None:
             message = self.read_xml_file()
 
             if message.startswith(ERROR):
                 return message
 
-        root = self.tree.getroot()
+        root = self._tree.getroot()
 
         # Check file type and version.
 
@@ -118,7 +118,7 @@ class NwxFile(Novel):
         if root.attrib.get('fileVersion') != self.NWX_ATTR['fileVersion']:
             return f'{ERROR}Wrong file version (must be {self.NWX_VERSION}).'
 
-        #--- Read project metadata from the xml element tree.
+        #--- Read project metadata from the xml element _tree.
 
         prj = root.find('project')
 
@@ -135,11 +135,11 @@ class NwxFile(Novel):
 
         self.author = ', '.join(authors)
 
-        #--- Read project content from the xml element tree.
+        #--- Read project content from the xml element _tree.
 
         content = root.find('content')
 
-        # Build a tree of handles.
+        # Build a _tree of handles.
 
         nwTree = {'None': {}}
         add_nodes(nwTree)
@@ -157,7 +157,7 @@ class NwxFile(Novel):
 
             nwItems[handle] = item
 
-        #--- Re-serialize the project tree to get lists of file handles.
+        #--- Re-serialize the project _tree to get lists of file handles.
 
         charList = []
         worldList = []
@@ -788,10 +788,10 @@ class NwxFile(Novel):
 
         content.set('count', str(attrCount))
 
-        #--- Format and write the XML tree.
+        #--- Format and write the XML _tree.
 
         indent(root)
-        self.tree = ET.ElementTree(root)
-        self.tree.write(self.filePath, xml_declaration=True, encoding='utf-8')
+        self._tree = ET.ElementTree(root)
+        self._tree.write(self.filePath, xml_declaration=True, encoding='utf-8')
 
         return f'"{os.path.normpath(self.filePath)}" written.'
