@@ -27,7 +27,7 @@ class NwConverter(YwCnvUi):
         fileName, fileExtension = os.path.splitext(sourcePath.replace('\\', '/'))
         srcDir = os.path.dirname(sourcePath).replace('\\', '/')
 
-        if srcDir == '':
+        if not srcDir:
             srcDir = '.'
 
         srcDir = f'{srcDir}/'

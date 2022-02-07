@@ -61,7 +61,7 @@ class NwdCharacterFile(NwdFile):
 
         for line in self.lines:
 
-            if line == '':
+            if not line:
                 continue
 
             elif line.startswith('%%'):
