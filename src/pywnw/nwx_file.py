@@ -281,19 +281,19 @@ class NwxFile(Novel):
         if source.scenes is not None:
             self.scenes = source.scenes
 
-        if source.srtChapters != []:
+        if source.srtChapters:
             self.srtChapters = source.srtChapters
             self.chapters = source.chapters
 
-        if source.srtCharacters != []:
+        if source.srtCharacters:
             self.srtCharacters = source.srtCharacters
             self.characters = source.characters
 
-        if source.srtLocations != []:
+        if source.srtLocations:
             self.srtLocations = source.srtLocations
             self.locations = source.locations
 
-        if source.srtItems != []:
+        if source.srtItems:
             self.srtItems = source.srtItems
             self.items = source.items
 

@@ -301,7 +301,7 @@ class NwdNovelFile(NwdFile):
 
                 # Write chapter synopsis.
 
-                if not inScene and synopsis != []:
+                if synopsis and not inScene:
                     self.prj.chapters[self.prj.chId].desc = '\n'.join(synopsis)
                     synopsis = []
 
@@ -328,7 +328,7 @@ class NwdNovelFile(NwdFile):
         if scId is not None:
             write_scene_content(scId, contentLines, characters, locations, items, synopsis, tags)
 
-        elif synopsis != []:
+        elif synopsis:
             self.prj.chapters[self.prj.chId].desc = '\n'.join(synopsis)
 
         return 'Chapters and scenes read in.'
