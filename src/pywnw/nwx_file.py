@@ -133,7 +133,7 @@ class NwxFile(Novel):
         for author in prj.iter('author'):
             authors.append(author.text)
 
-        self.author = ', '.join(authors)
+        self.authorName = ', '.join(authors)
 
         #--- Read project content from the xml element _tree.
 
@@ -272,11 +272,11 @@ class NwxFile(Novel):
         else:
             self.desc = ''
 
-        if source.author is not None:
-            self.author = source.author
+        if source.authorName is not None:
+            self.authorName = source.authorName
 
         else:
-            self.author = ''
+            self.authorName = ''
 
         if source.scenes is not None:
             self.scenes = source.scenes
@@ -331,14 +331,14 @@ class NwxFile(Novel):
         ET.SubElement(xmlPrj, 'name').text = title
         ET.SubElement(xmlPrj, 'title').text = title
 
-        if self.author:
-            authors = self.author.split(',')
+        if self.authorName:
+            authors = self.authorName.split(',')
 
         else:
             authors = ['']
 
         for author in authors:
-            ET.SubElement(xmlPrj, 'author').text = author.strip()
+            ET.SubElement(xmlPrj, 'authorName').text = author.strip()
 
         #--- Write settings.
 
