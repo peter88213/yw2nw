@@ -35,7 +35,7 @@ class NwxFile(Novel):
         'appVersion': '1.6-alpha0',
         'hexVersion': '0x010600a0',
         'fileVersion': '1.3',
-        'timeStamp': datetime.now().replace(microsecond=0).isoformat(sep=' '),
+        'timeStamp': datetime.today().replace(microsecond=0).isoformat(sep=' '),
     }
 
     def __init__(self, filePath, **kwargs):
