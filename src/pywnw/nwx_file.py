@@ -338,7 +338,7 @@ class NwxFile(Novel):
             authors = ['']
 
         for author in authors:
-            ET.SubElement(xmlPrj, 'authorName').text = author.strip()
+            ET.SubElement(xmlPrj, 'author').text = author.strip()
 
         #--- Write settings.
 

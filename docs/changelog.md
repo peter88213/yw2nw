@@ -6,6 +6,7 @@
 
 ### v0.6.0 beta release
 
+- Fix a bug where "single linebreak" mode cannot be set via command line argument.
 - Fix a bug where a wrong backup file name is displayed when overwriting yw7.
 - Rework the command line messages. 
 - Refactor the code.

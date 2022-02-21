@@ -79,6 +79,9 @@ def run(sourcePath, doubleLinebreaks=False, silentMode=True, installDir=''):
     if doubleLinebreaks:
         kwargs['double_linebreaks'] = True
 
+    else:
+        kwargs['double_linebreaks'] = False
+
     converter = NwConverter()
     converter.ui = ui
     converter.run(sourcePath, **kwargs)
