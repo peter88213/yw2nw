@@ -7,9 +7,9 @@ The *yw2nw* Python script converts [yWriter 7](http://spacejock.com/yWriter7.htm
 
 ## Download and install
 
-[Download the latest release (version 0.5.6)](https://raw.githubusercontent.com/peter88213/yw2nw/main/dist/yw2nw_v0.5.6.zip)
+[Download the latest release (version 0.5.7)](https://raw.githubusercontent.com/peter88213/yw2nw/main/dist/yw2nw_v0.5.7.zip)
 
-- Unzip the downloaded zipfile "yw2nw_v0.5.6.zip" into a new folder.
+- Unzip the downloaded zipfile "yw2nw_v0.5.7.zip" into a new folder.
 - Move into this new folder and launch **setup.py** to install the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.

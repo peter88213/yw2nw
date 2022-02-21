@@ -12,53 +12,88 @@ from pywriter.pywriter_globals import ERROR
 from pywriter.model.novel import Novel
 from pywriter.yw.xml_indent import indent
 
-from pywnw.handles import Handles
-from pywnw.nw_item import NwItem
-from pywnw.nwd_character_file import NwdCharacterFile
-from pywnw.nwd_novel_file import NwdNovelFile
-from pywnw.nwd_world_file import NwdWorldFile
-from pywnw.nwd_object_file import NwdObjectFile
+from yw2nwlib.handles import Handles
+from yw2nwlib.nw_item import NwItem
+from yw2nwlib.nwd_character_file import NwdCharacterFile
+from yw2nwlib.nwd_novel_file import NwdNovelFile
+from yw2nwlib.nwd_world_file import NwdWorldFile
+from yw2nwlib.nwd_object_file import NwdObjectFile
 
 
 class NwxFile(Novel):
     """novelWriter project representation.
-    """
+    
+    Public methods: 
+        read() -- parse the novelWriter xml and md files and get the instance variables.
+        merge(source) -- update instance variables from a source instance.
+        write() -- write instance variables to the novelWriter files.
+    
+    Public class variables:
+        EXTENSION -- str: file extension of the novelWriter xml file. 
+        DESCRIPTION -- str: file description that can be displayed.
+        SUFFIX -- str: file name suffix (not applicable).
+        CONTENT_DIR -- str: relative path to the "content" directory.
+        CONTENT_EXTENSION -- str: extension of the novelWriter markdown files.
 
+    Public instance variables:
+        nwHandles -- Handles instance (list of handles with methods).
+        kwargs -- keyword arguments, holding settings and options.
+        lcCount -- int: number of locations. 
+        crCount -- int: number of characters.
+        itCount -- int: number of items.
+        scCount -- int: number of scenes.
+        chCount -- int: number of characters.
+        chId -- str: ID of the chapter currently processed.
+    
+    Required keyword arguments:
+        scene_status -- list of scene status (emulating an enumeration).    
+    """
     EXTENSION = '.nwx'
     DESCRIPTION = 'novelWriter project'
     SUFFIX = ''
     CONTENT_DIR = '/content/'
     CONTENT_EXTENSION = '.nwd'
 
-    NWX_TAG = 'novelWriterXML'
-    NWX_ATTR = {
+    _NWX_TAG = 'novelWriterXML'
+    _NWX_ATTR = {
         'appVersion': '1.6-alpha0',
         'hexVersion': '0x010600a0',
         'fileVersion': '1.3',
         'timeStamp': datetime.today().replace(microsecond=0).isoformat(sep=' '),
     }
+    _NWX_ATTR_NEXT = {
+        'appVersion': '1.7-alpha0',
+        'hexVersion': '0x010700a0',
+        'fileVersion': '1.4',
+        'timeStamp': datetime.today().replace(microsecond=0).isoformat(sep=' '),
+    }
 
     def __init__(self, filePath, **kwargs):
-        """Extend the superclass constructor,
-        defining instance variables.
+        """Initialize instance variables.
+        
+        Positional arguments:
+            filePath -- str: path to the yw7 file.
+            
+        Optional arguments:
+            kwargs -- keyword arguments (not used here).            
+        
+        Extends the superclass constructor.
         """
         super().__init__(filePath, **kwargs)
-
         self._tree = None
         self.kwargs = kwargs
         self.nwHandles = Handles()
-
         self.lcCount = 0
         self.crCount = 0
         self.itCount = 0
         self.scCount = 0
         self.chCount = 0
         self.chId = None
-
-        self.sceneStatus = kwargs['scene_status']
+        self._sceneStatus = kwargs['scene_status']
 
     def read_xml_file(self):
         """Read the novelWriter XML project file.
+        
         Return a message beginning with the ERROR constant in case of error.
         """
 
@@ -71,13 +106,17 @@ class NwxFile(Novel):
         return 'novelWriter XML file read in.'
 
     def read(self):
-        """Parse the files and store selected properties.
+        """Parse the files and and get the instance variables.
+        
         Return a message beginning with the ERROR constant in case of error.
-        Override the superclass method.
+        Overrides the superclass method.
         """
 
         def add_nodes(node):
-            """Add nodes to the novelWriter project _tree of handles.
+            """Add nodes to the novelWriter project tree of handles.
+            
+            Positional arguments:
+                node -- node of a tree of handles.
             """
 
             for item in content.iter('item'):
@@ -89,6 +128,9 @@ class NwxFile(Novel):
 
         def get_nodes(handle, handles, subtree):
             """Get a list of file handles, passed as a parameter.
+            
+            
+            
             This is for serializing a project subtree.
             """
 
@@ -112,10 +154,10 @@ class NwxFile(Novel):
 
         # Check file type and version.
 
-        if root.tag != self.NWX_TAG:
+        if root.tag != self._NWX_TAG:
             return f'{ERROR}This seems not to bee a novelWriter project file.'
 
-        if root.attrib.get('fileVersion') != self.NWX_ATTR['fileVersion']:
+        if root.attrib.get('fileVersion') != self._NWX_ATTR['fileVersion']:
             return f'{ERROR}Wrong file version (must be {self.NWX_VERSION}).'
 
         #--- Read project metadata from the xml element _tree.
@@ -135,11 +177,11 @@ class NwxFile(Novel):
 
         self.authorName = ', '.join(authors)
 
-        #--- Read project content from the xml element _tree.
+        #--- Read project content from the xml element tree.
 
         content = root.find('content')
 
-        # Build a _tree of handles.
+        # Build a tree of handles.
 
         nwTree = {'None': {}}
         add_nodes(nwTree)
@@ -157,7 +199,7 @@ class NwxFile(Novel):
 
             nwItems[handle] = item
 
-        #--- Re-serialize the project _tree to get lists of file handles.
+        #--- Re-serialize the project tree to get lists of file handles.
 
         charList = []
         worldList = []
@@ -316,7 +358,7 @@ class NwxFile(Novel):
             }
             ET.SubElement(parent, 'entry', attrib).text = entry
 
-        root = ET.Element(self.NWX_TAG, self.NWX_ATTR)
+        root = ET.Element(self._NWX_TAG, self._NWX_ATTR)
 
         #--- Write project metadata.
 
@@ -346,12 +388,12 @@ class NwxFile(Novel):
         status = ET.SubElement(settings, 'status')
 
         try:
-            write_entry(status, self.sceneStatus[0], 230, 230, 230)
-            write_entry(status, self.sceneStatus[1], 0, 0, 0)
-            write_entry(status, self.sceneStatus[2], 170, 40, 0)
-            write_entry(status, self.sceneStatus[3], 240, 140, 0)
-            write_entry(status, self.sceneStatus[4], 250, 190, 90)
-            write_entry(status, self.sceneStatus[5], 58, 180, 58)
+            write_entry(status, self._sceneStatus[0], 230, 230, 230)
+            write_entry(status, self._sceneStatus[1], 0, 0, 0)
+            write_entry(status, self._sceneStatus[2], 170, 40, 0)
+            write_entry(status, self._sceneStatus[3], 240, 140, 0)
+            write_entry(status, self._sceneStatus[4], 250, 190, 90)
+            write_entry(status, self._sceneStatus[5], 58, 180, 58)
 
         except IndexError:
             pass
@@ -552,10 +594,10 @@ class NwxFile(Novel):
                 if self.scenes[scId].status is not None:
 
                     try:
-                        scene.nwStatus = self.sceneStatus[self.scenes[scId].status]
+                        scene.nwStatus = self._sceneStatus[self.scenes[scId].status]
 
                     except IndexError:
-                        scene.nwStatus = self.sceneStatus[-1]
+                        scene.nwStatus = self._sceneStatus[-1]
 
                 if self.scenes[scId].isUnused:
                     scene.nwExported = 'False'
@@ -788,7 +830,7 @@ class NwxFile(Novel):
 
         content.set('count', str(attrCount))
 
-        #--- Format and write the XML _tree.
+        #--- Format and write the XML tree.
 
         indent(root)
         self._tree = ET.ElementTree(root)

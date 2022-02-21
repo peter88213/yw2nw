@@ -9,7 +9,7 @@ import os
 from pywriter.pywriter_globals import ERROR
 from pywriter.converter.yw_cnv_ui import YwCnvUi
 from pywriter.yw.yw7_file import Yw7File
-from pywnw.nwx_file import NwxFile
+from yw2nwlib.nwx_file import NwxFile
 
 
 class NwConverter(YwCnvUi):

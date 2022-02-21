@@ -7,7 +7,7 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 from pywriter.pywriter_globals import ERROR
 from pywriter.model.character import Character
 
-from pywnw.nwd_file import NwdFile
+from yw2nwlib.nwd_file import NwdFile
 
 
 class NwdCharacterFile(NwdFile):

@@ -11,12 +11,19 @@ import ast
 
 class NwConfiguration(Configuration):
     """Read/write the program configuration.
-    Special version for configuration files
-    that contain literal Python lists. 
+
+    Public methods:
+        read(iniFile) -- read a configuration file.
+    
+    Special version for configuration files that contain literal Python lists. 
     """
 
     def read(self, iniFile):
         """Read a configuration file.
+        
+        Positional arguments:
+            iniFile -- str: path configuration file path.
+            
         Settings and options that can not be read in, remain unchanged.
         Override the superclass, adding list support. 
         """
@@ -24,7 +31,6 @@ class NwConfiguration(Configuration):
         config.read(iniFile)
 
         if config.has_section(self._sLabel):
-
             section = config[self._sLabel]
 
             for setting in self.settings:
@@ -44,7 +50,6 @@ class NwConfiguration(Configuration):
                 self.settings[setting] = entry
 
         if config.has_section(self._oLabel):
-
             section = config[self._oLabel]
 
             for option in self.options:

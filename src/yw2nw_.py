@@ -13,9 +13,9 @@ from pathlib import Path
 
 from pywriter.ui.ui import Ui
 from pywriter.ui.ui_cmd import UiCmd
-from pywnw.nw_configuration import NwConfiguration
+from yw2nwlib.nw_configuration import NwConfiguration
 
-from pywnw.nw_converter import NwConverter
+from yw2nwlib.nw_converter import NwConverter
 
 SUFFIX = ''
 APPNAME = 'yw2nw'
@@ -74,13 +74,11 @@ def run(sourcePath, doubleLinebreaks=False, silentMode=True, installDir=''):
     kwargs.update(configuration.settings)
     kwargs.update(configuration.options)
 
-    # Override the paragraph break convention by command line parameter.
+    # Override the paragraph break configuration by command line parameter.
+    # This is only to enforce the standard behavior if desired.
 
     if doubleLinebreaks:
         kwargs['double_linebreaks'] = True
-
-    else:
-        kwargs['double_linebreaks'] = False
 
     converter = NwConverter()
     converter.ui = ui

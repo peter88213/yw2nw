@@ -243,7 +243,7 @@ You can change the converter's behavior by changing the *double_linebreaks* sett
 the configuration file to "No". Then single line breaks are considered paragraph breaks,
 as is common in prose texts.
 
-NOTE: *double_linebreaks = No* is not compliant with novelWriter's standard (version 1.6alpha),
+NOTE: *double_linebreaks = No* is not compliant with novelWriter's standard,
 so you better don't use this option if you want to use *novelWriter*'s built-in document export. 
 
 Standard Markdown behavior can be enforced by setting the command line parameter *-d*. 

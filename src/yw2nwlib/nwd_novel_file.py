@@ -10,7 +10,7 @@ from pywriter.pywriter_globals import ERROR
 from pywriter.model.scene import Scene
 from pywriter.model.chapter import Chapter
 
-from pywnw.nwd_file import NwdFile
+from yw2nwlib.nwd_file import NwdFile
 
 
 class NwdNovelFile(NwdFile):
