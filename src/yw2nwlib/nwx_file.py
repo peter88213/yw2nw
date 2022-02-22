@@ -13,7 +13,8 @@ from pywriter.model.novel import Novel
 from pywriter.yw.xml_indent import indent
 
 from yw2nwlib.handles import Handles
-from yw2nwlib.nw_item import NwItem
+from yw2nwlib.nw_item_v1_3 import NwItemV13
+from yw2nwlib.nw_item_v1_4 import NwItemV14
 from yw2nwlib.nwd_character_file import NwdCharacterFile
 from yw2nwlib.nwd_novel_file import NwdNovelFile
 from yw2nwlib.nwd_world_file import NwdWorldFile
@@ -47,6 +48,9 @@ class NwxFile(Novel):
     
     Required keyword arguments:
         scene_status -- list of scene status (emulating an enumeration).    
+        
+    Reads and writes file format version 1.3.
+    Reads file format version 1.4.
     """
     EXTENSION = '.nwx'
     DESCRIPTION = 'novelWriter project'
@@ -55,13 +59,13 @@ class NwxFile(Novel):
     CONTENT_EXTENSION = '.nwd'
 
     _NWX_TAG = 'novelWriterXML'
-    _NWX_ATTR = {
+    _NWX_ATTR_V1_3 = {
         'appVersion': '1.6-alpha0',
         'hexVersion': '0x010600a0',
         'fileVersion': '1.3',
         'timeStamp': datetime.today().replace(microsecond=0).isoformat(sep=' '),
     }
-    _NWX_ATTR_NEXT = {
+    _NWX_ATTR_V1_4 = {
         'appVersion': '1.7-alpha0',
         'hexVersion': '0x010700a0',
         'fileVersion': '1.4',
@@ -152,13 +156,19 @@ class NwxFile(Novel):
 
         root = self._tree.getroot()
 
-        # Check file type and version.
+        #--- Check file type and version; apply strategy pattern for the NwItem class.
 
         if root.tag != self._NWX_TAG:
             return f'{ERROR}This seems not to bee a novelWriter project file.'
 
-        if root.attrib.get('fileVersion') != self._NWX_ATTR['fileVersion']:
-            return f'{ERROR}Wrong file version (must be {self.NWX_VERSION}).'
+        if root.attrib.get('fileVersion') == self._NWX_ATTR_V1_3['fileVersion']:
+            NwItem = NwItemV13
+            
+        elif root.attrib.get('fileVersion') == self._NWX_ATTR_V1_4['fileVersion']:
+            NwItem = NwItemV14
+        
+        else:
+            return f'{ERROR}Wrong file version (must be {self._NWX_ATTR_V1_3["fileVersion"]} or {self._NWX_ATTR_V1_4["fileVersion"]}).'
 
         #--- Read project metadata from the xml element _tree.
 
@@ -358,7 +368,7 @@ class NwxFile(Novel):
             }
             ET.SubElement(parent, 'entry', attrib).text = entry
 
-        root = ET.Element(self._NWX_TAG, self._NWX_ATTR)
+        root = ET.Element(self._NWX_TAG, self._NWX_ATTR_V1_3)
 
         #--- Write project metadata.
 
@@ -414,7 +424,7 @@ class NwxFile(Novel):
         #--- Write novel folder.
 
         novelFolderHandle = self.nwHandles.create_member('novelFolderHandle')
-        novelFolder = NwItem()
+        novelFolder = NwItemV13()
         novelFolder.nwHandle = novelFolderHandle
         novelFolder.nwOrder = order[-1]
         novelFolder.nwParent = 'None'
@@ -448,7 +458,7 @@ class NwxFile(Novel):
                 #--- Write a new folder for this part.
 
                 partFolderHandle = self.nwHandles.create_member(f'{chId + self.chapters[chId].title}Folder')
-                partFolder = NwItem()
+                partFolder = NwItemV13()
                 partFolder.nwHandle = partFolderHandle
                 partFolder.nwOrder = order[-1]
                 partFolder.nwParent = novelFolderHandle
@@ -469,7 +479,7 @@ class NwxFile(Novel):
                 # Put the heading into the part folder.
 
                 partHeadingHandle = self.nwHandles.create_member(f'{chId + self.chapters[chId].title}')
-                partHeading = NwItem()
+                partHeading = NwItemV13()
                 partHeading.nwHandle = partHeadingHandle
                 partHeading.nwOrder = order[-1]
                 partHeading.nwParent = partFolderHandle
@@ -511,7 +521,7 @@ class NwxFile(Novel):
                 #--- Write a new folder for this chapter.
 
                 chapterFolderHandle = self.nwHandles.create_member(f'{chId}{self.chapters[chId].title}Folder')
-                chapterFolder = NwItem()
+                chapterFolder = NwItemV13()
                 chapterFolder.nwHandle = chapterFolderHandle
                 chapterFolder.nwOrder = order[-1]
 
@@ -537,7 +547,7 @@ class NwxFile(Novel):
                 # Put the heading into the folder.
 
                 chapterHeadingHandle = self.nwHandles.create_member(f'{chId}{self.chapters[chId].title}')
-                chapterHeading = NwItem()
+                chapterHeading = NwItemV13()
                 chapterHeading.nwHandle = chapterHeadingHandle
                 chapterHeading.nwOrder = order[-1]
                 chapterHeading.nwParent = chapterFolderHandle
@@ -571,7 +581,7 @@ class NwxFile(Novel):
                 #--- Put a scene into the folder.
 
                 sceneHandle = self.nwHandles.create_member(f'{scId}{self.scenes[scId].title}')
-                scene = NwItem()
+                scene = NwItemV13()
                 scene.nwHandle = sceneHandle
                 scene.nwOrder = order[-1]
 
@@ -638,7 +648,7 @@ class NwxFile(Novel):
         #--- Write character folder.
 
         characterFolderHandle = self.nwHandles.create_member('characterFolderHandle')
-        characterFolder = NwItem()
+        characterFolder = NwItemV13()
         characterFolder.nwHandle = characterFolderHandle
         characterFolder.nwOrder = order[-1]
         characterFolder.nwParent = 'None'
@@ -663,7 +673,7 @@ class NwxFile(Novel):
             #--- Put a character into the folder.
 
             characterHandle = self.nwHandles.create_member(f'{crId}{self.characters[crId].title}')
-            character = NwItem()
+            character = NwItemV13()
             character.nwHandle = characterHandle
             character.nwOrder = order[-1]
             character.nwParent = characterFolderHandle
@@ -707,7 +717,7 @@ class NwxFile(Novel):
         #--- Write world folder.
 
         worldFolderHandle = self.nwHandles.create_member('worldFolderHandle')
-        worldFolder = NwItem()
+        worldFolder = NwItemV13()
         worldFolder.nwHandle = worldFolderHandle
         worldFolder.nwOrder = order[-1]
         worldFolder.nwParent = 'None'
@@ -733,7 +743,7 @@ class NwxFile(Novel):
             #--- Put a location into the folder.
 
             locationHandle = self.nwHandles.create_member(f'{lcId}{self.locations[lcId].title}')
-            location = NwItem()
+            location = NwItemV13()
             location.nwHandle = locationHandle
             location.nwOrder = order[-1]
             location.nwParent = worldFolderHandle
@@ -768,7 +778,7 @@ class NwxFile(Novel):
         #--- Write object folder.
 
         objectFolderHandle = self.nwHandles.create_member('objectFolderHandle')
-        objectFolder = NwItem()
+        objectFolder = NwItemV13()
         objectFolder.nwHandle = objectFolderHandle
         objectFolder.nwOrder = order[-1]
         objectFolder.nwParent = 'None'
@@ -794,7 +804,7 @@ class NwxFile(Novel):
             #--- Put a item into the folder.
 
             itemHandle = self.nwHandles.create_member(f'{itId}{self.items[itId].title}')
-            item = NwItem()
+            item = NwItemV13()
             item.nwHandle = itemHandle
             item.nwOrder = order[-1]
             item.nwParent = objectFolderHandle

@@ -5,11 +5,15 @@ The *yw2nw* Python script converts [yWriter 7](http://spacejock.com/yWriter7.htm
 
 - [Python 3.6+](https://www.python.org).
 
+Supports the following novelWriter files: 
+- read and write file format version 1.3 created with novelWriter 1.5 and 1.6
+- read file format version 1.4 created with novelWriter 1.7
+
 ## Download and install
 
-[Download the latest release (version 0.5.7)](https://raw.githubusercontent.com/peter88213/yw2nw/main/dist/yw2nw_v0.5.7.zip)
+[Download the latest release (version 0.5.8)](https://raw.githubusercontent.com/peter88213/yw2nw/main/dist/yw2nw_v0.5.8.zip)
 
-- Unzip the downloaded zipfile "yw2nw_v0.5.7.zip" into a new folder.
+- Unzip the downloaded zipfile "yw2nw_v0.5.8.zip" into a new folder.
 - Move into this new folder and launch **setup.py** to install the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.

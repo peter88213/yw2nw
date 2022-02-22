@@ -26,8 +26,10 @@ TEST_EXEC_PATH = f'{TEST_PATH}/yw7/'
 # Test data
 YW7_GENERATED = 'generated.yw7'
 YW7_EDITED = 'edited.yw7'
-NW_NORMAL = 'normal.nw'
-NW_EDITED = 'edited.nw'
+NW_NORMAL_V1_3 = 'normal_v1_3.nw'
+NW_EDITED_V1_3 = 'edited_v1_3.nw'
+YW7_EDITED_V1_4 = 'edited_v1_4.yw7'
+NW_NORMAL_V1_4 = 'normal_v1_4.nw'
 PROJECT = 'Sample Project'
 
 
@@ -73,8 +75,18 @@ class NormalOperation(unittest.TestCase):
 
         remove_all_testfiles()
 
-    def test_nw_to_yw7(self):
-        copytree(f'{TEST_DATA_PATH}{NW_NORMAL}',
+    def test_nw_to_yw7_v1_3(self):
+        copytree(f'{TEST_DATA_PATH}{NW_NORMAL_V1_3}',
+                 f'{TEST_EXEC_PATH}{PROJECT}.nw')
+        os.chdir(TEST_EXEC_PATH)
+
+        yw2nw_.run(f'{TEST_EXEC_PATH}{PROJECT}.nw/nwProject.nwx', doubleLinebreaks=True)
+
+        self.assertEqual(read_file(f'{TEST_EXEC_PATH}{PROJECT}.yw7'),
+                         read_file(f'{TEST_DATA_PATH}{YW7_GENERATED}'))
+
+    def test_nw_to_yw7_v1_4(self):
+        copytree(f'{TEST_DATA_PATH}{NW_NORMAL_V1_4}',
                  f'{TEST_EXEC_PATH}{PROJECT}.nw')
         os.chdir(TEST_EXEC_PATH)
 
@@ -90,13 +102,13 @@ class NormalOperation(unittest.TestCase):
         yw2nw_.run(f'{TEST_EXEC_PATH}{PROJECT}.yw7', doubleLinebreaks=True)
 
         self.assertEqual(adjust_timestamp(read_file(f'{TEST_EXEC_PATH}{PROJECT}.nw/nwProject.nwx')), 
-                                            read_file(f'{TEST_DATA_PATH}{NW_EDITED}/nwProject.nwx'))
+                                            read_file(f'{TEST_DATA_PATH}{NW_EDITED_V1_3}/nwProject.nwx'))
         
         contentFiles = os.listdir(f'{TEST_EXEC_PATH}{PROJECT}.nw/content')
             
         for contentFile in contentFiles:
             self.assertEqual(read_file(f'{TEST_EXEC_PATH}{PROJECT}.nw/content/{contentFile}'), read_file(
-                                        f'{TEST_DATA_PATH}{NW_EDITED}/content/{contentFile}'))
+                                        f'{TEST_DATA_PATH}{NW_EDITED_V1_3}/content/{contentFile}'))
 
     def tearDown(self):
         remove_all_testfiles()

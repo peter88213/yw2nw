@@ -1,0 +1,10 @@
+%%~name: Scene 14
+%%~path: e447e5b9ec226/6712d66560e47
+%%~kind: NOVEL/NOTE
+### Scene 14
+
+
+
+You can link files and notes together by assigning tags to them, and then reference them from other files. The file class of a file determines which reference keywords apply to each file. For instance a file in the Characters root folder can be referenced using either the @char keyword or the @pov keyword.
+
+If you want to see the content of the file the reference points to, you can click Ctrl+Enter with the cursor on top of the reference, and the view pane will show you the file. In the view pane, all references are clickable, so you can navigate further. At the bottom of the view pane, a list of files referencing the one your viewing will appear. This panel updates when you navigate, unless you make it sticky by clicking the sticky checkbox.

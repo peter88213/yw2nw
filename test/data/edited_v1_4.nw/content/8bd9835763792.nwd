@@ -1,0 +1,16 @@
+%%~name: Text Alignment
+%%~path: 3f1fe89752aaf/8bd9835763792
+%%~kind: NOVEL/DOCUMENT
+#### Text Alignment
+
+
+% synopsis: How to align text.
+
+
+The text by default will have the left or justified alignment in the main text files in your project. You can also specify alignment for a specific paragraph by “pushing” it away from an edge with a set of ‘>>’ or ‘<<’ symbols, like so:
+
+This text is left-aligned. <<
+
+>> This text is right-aligned.
+
+>> This text is centred. <<
