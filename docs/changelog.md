@@ -8,6 +8,7 @@
 
 - Add support of novelWriter file format version 1.4.
 - Fix a bug where a wrong backup file name is displayed when overwriting yw7.
+- Fix a bug where "To do" chapters cause an exception.
 - Rework the command line messages. 
 - Refactor the code.
 
