@@ -22,7 +22,8 @@ from yw2nwlib.nwd_object_file import NwdObjectFile
 class NwxFile(Novel):
     """novelWriter project representation.
     
-    Public methods: 
+    Public methods:
+        read_xml_file() -- read the novelWriter XML project file to the project tree.
         read() -- parse the novelWriter xml and md files and get the instance variables.
         merge(source) -- copy the yWriter project parts that can be mapped to the novelWriter project.
         write() -- write instance variables to the novelWriter files.

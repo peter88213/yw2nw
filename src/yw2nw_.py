@@ -84,5 +84,4 @@ if __name__ == '__main__':
         installDir = f'{homeDir}/.pywriter/{APPNAME}/config'
     except:
         installDir = '.'
-
     run(args.sourcePath, args.double_linebreaks, args.silent, installDir)
