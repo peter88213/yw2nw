@@ -4,6 +4,15 @@
 
 ## Changelog
 
+### v0.8.0 Beta release
+
+- Change the configuration: replace lists by tuples.
+- Fix a bug in the setup script where the sample configuration file is not installed.
+- Update the documentation.
+- Improve code quality by refactoring and formatting.
+
+Based on PyWriter v5.0.2
+
 ### v0.6.0 beta release
 
 - Add support of novelWriter file format version 1.4.

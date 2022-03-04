@@ -7,7 +7,7 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 from hashlib import pbkdf2_hmac
 
 
-class Handles():
+class Handles:
     """Hold a list of novelWriter compatible handles.
     
     The only purpose of this list is to use unique handles.
@@ -37,7 +37,6 @@ class Handles():
             return False
 
         for c in handle:
-
             if not c in self.HANDLE_CHARS:
                 return False
 
@@ -61,28 +60,22 @@ class Handles():
             Positional arguments:
                 text -- string from which the handle is derived.
                 salt -- additional string to make the handle unique. 
-            
             """
             text = text.encode('utf-8')
             key = pbkdf2_hmac('sha1', text, bytes(salt), 1)
             keyInt = int.from_bytes(key, byteorder='big')
             handle = ''
-
             while len(handle) < self.SIZE and keyInt > 0:
                 handle += self.HANDLE_CHARS[keyInt % len(self.HANDLE_CHARS)]
                 keyInt //= len(self.HANDLE_CHARS)
-
             return handle
 
         i = 0
         handle = create_handle(text, i)
-
         while not self.add_member(handle):
             i += 1
-
             if i > 1000:
                 raise ValueError('Unable to create a proper handle.')
 
             handle = create_handle(text, i)
-
         return(handle)

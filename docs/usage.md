@@ -145,7 +145,7 @@ The setup script installs a sample configuration file containing yw2nw's default
 The yw2nw distribution comes with a sample configuration file located in the `sample` subfolder. It contains yw2nw's default settings and options. This file is also automatically copied to the global configuration folder during installation. You best make a copy and edit it.
 
 - The OPTIONS section comprises options for regular program execution. 
-- The SETTINGS section comprises the program "constants". If you change them, the program might behave differently than described in the documentation. So only touch them if you are clear about the consequences. Lists must be written as literal Python lists with brackets and quotes.
+- The SETTINGS section comprises the program "constants". If you change them, the program might behave differently than described in the documentation. So only touch them if you are clear about the consequences. Tuples must be written as literal Python tuples with parentheses and quotes.
 - Comment lines begin with a `#` number sign. In the example, they refer to the code line immediately above.
 
 This is the configuration explained: 
@@ -161,38 +161,38 @@ double_linebreaks = Yes
 # Note: "No" is overridden by the "-d" command line parameter.
 
 [SETTINGS]
-outline_status = ['Outline', 'New', 'Notes']
+outline_status = ('Outline', 'New', 'Notes')
 
 # This novelWriter status are converted to yWriter "Outline"
 # scene status.
 
-draft_status = ['Draft', 'Started', '1st Draft']
+draft_status = ('Draft', 'Started', '1st Draft')
 
 # This novelWriter status are converted to yWriter "Draft"
 # scene status.
 
-first_edit_status = ['1st Edit', '2nd Draft']
+first_edit_status = ('1st Edit', '2nd Draft')
 
 # This novelWriter status are converted to yWriter "1st Edit"
 # scene status.
 
-second_edit_status = ['2nd Edit', '3rd Draft']
+second_edit_status = ('2nd Edit', '3rd Draft')
 
 # This novelWriter status are converted to yWriter "2nd Edit"
 # scene status.
 
-done_status = ['Done', 'Finished']
+done_status = ('Done', 'Finished')
 
 # This novelWriter status are converted to yWriter "Done"
 # scene status.
 
-scene_status = ['None', 'Outline', 'Draft', '1st Edit', '2nd Edit', 'Done']
+scene_status = ('None', 'Outline', 'Draft', '1st Edit', '2nd Edit', 'Done')
 
 # This status are used when creating a new novelWriter project from
 # yWriter.
-# You can rename them, but the number of list entries must not change.
+# You can rename them, but the number of tuple entries must not change.
 
-major_character_status = ['Major', 'Main']
+major_character_status = ('Major', 'Main')
 
 # This novelWriter status are converted to yWriter "Major" character
 # importance.

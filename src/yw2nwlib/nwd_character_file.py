@@ -6,61 +6,69 @@ Published under the MIT License (https://opensource.org/licenses/mit-license.php
 """
 from pywriter.pywriter_globals import ERROR
 from pywriter.model.character import Character
-
 from yw2nwlib.nwd_file import NwdFile
 
 
 class NwdCharacterFile(NwdFile):
     """novelWriter character file representation.
-    Read yWriter characters from a .nwd file.
-    Write yWriter characters to a .nwd file.    
+    
+    Public methods:
+        read() -- read a content file.
+        add_element(crId) -- add a character to the file content.
+        
+    Required keyword arguments:
+        major_character_status -- tuple of str: novelWriter status meaning "Major" character importance in yWriter.
+        character_notes_heading -- str: heading for novelWriter text that is converted to yWriter character notes.
+        character_goals_heading -- str: heading for novelWriter text that is converted to yWriter character goals.
+        character_bio_heading -- str: heading for novelWriter text that is converted to yWriter character bio.
+        ywriter_aka_keyword -- str: keyword for 'aka' pseudo tag in novelWriter, signifying an alternative name.
+        ywriter_tag_keyword -- str: keyword for 'tag' pseudo tag in novelWriter, signifying a yWriter tag.
     """
 
     def __init__(self, prj, nwItem):
-        """Extend the superclass constructor,
-        defining instance variables.
+        """Define instance variables.
+        
+        Positional arguments:
+            prj -- NwxFile instance: the novelWriter project represenation.
+            nwItem -- NwItem instance associated with the .nwd file.        
+
+        Extends the superclass constructor.
         """
         super().__init__(prj, nwItem)
 
         # Customizable Character importance.
-
-        self.majorCharacterStatus = prj.kwargs['major_character_status']
+        self._majorCharacterStatus = prj.kwargs['major_character_status']
 
         # Headings that divide the character sheet into sections.
-
-        self.characterNotesHeading = prj.kwargs['character_notes_heading']
-        self.characterGoalsHeading = prj.kwargs['character_goals_heading']
-        self.characterBioHeading = prj.kwargs['character_bio_heading']
+        self._characterNotesHeading = prj.kwargs['character_notes_heading']
+        self._characterGoalsHeading = prj.kwargs['character_goals_heading']
+        self._characterBioHeading = prj.kwargs['character_bio_heading']
 
         # Customizable tags for characters and locations.
-
-        self.ywAkaKeyword = f'%{prj.kwargs["ywriter_aka_keyword"]}: '
-        self.ywTagKeyword = f'%{prj.kwargs["ywriter_tag_keyword"]}: '
+        self._ywAkaKeyword = f'%{prj.kwargs["ywriter_aka_keyword"]}: '
+        self._ywTagKeyword = f'%{prj.kwargs["ywriter_tag_keyword"]}: '
 
     def read(self):
-        """Parse the files and store selected properties.
+        """Read a content file.
+        
         Return a message beginning with the ERROR constant in case of error.
-        Extend the superclass method.
+        Extends the superclass method.
         """
         message = super().read()
-
         if message.startswith(ERROR):
             return message
 
-        self.prj.crCount += 1
-        crId = str(self.prj.crCount)
-        self.prj.characters[crId] = Character()
-        self.prj.characters[crId].fullName = self.nwItem.nwName
-        self.prj.characters[crId].title = self.nwItem.nwName
+        self._prj.crCount += 1
+        crId = str(self._prj.crCount)
+        self._prj.characters[crId] = Character()
+        self._prj.characters[crId].fullName = self._nwItem.nwName
+        self._prj.characters[crId].title = self._nwItem.nwName
         desc = []
         bio = []
         goals = []
         notes = []
-
         section = 'desc'
-
-        for line in self.lines:
-
+        for line in self._lines:
             if not line:
                 continue
 
@@ -69,109 +77,83 @@ class NwdCharacterFile(NwdFile):
 
             elif line.startswith('#'):
                 section = 'desc'
-
-                if line.startswith(self.characterBioHeading):
+                if line.startswith(self._characterBioHeading):
                     section = 'bio'
-
-                elif line.startswith(self.characterGoalsHeading):
+                elif line.startswith(self._characterGoalsHeading):
                     section = 'goals'
-
-                elif line.startswith(self.characterNotesHeading):
+                elif line.startswith(self._characterNotesHeading):
                     section = 'notes'
-
             elif line.startswith('@'):
-
                 if line.startswith('@tag'):
-                    self.prj.characters[crId].title = line.split(':')[1].strip().replace('_', ' ')
-
+                    self._prj.characters[crId].title = line.split(':')[1].strip().replace('_', ' ')
             elif line.startswith('%'):
-
-                if line.startswith(self.ywAkaKeyword):
-                    self.prj.characters[crId].aka = line.split(':')[1].strip()
-
-                elif line.startswith(self.ywTagKeyword):
-
-                    if self.prj.characters[crId].tags is None:
-                        self.prj.characters[crId].tags = []
-
-                    self.prj.characters[crId].tags.append(line.split(':')[1].strip())
-
+                if line.startswith(self._ywAkaKeyword):
+                    self._prj.characters[crId].aka = line.split(':')[1].strip()
+                elif line.startswith(self._ywTagKeyword):
+                    if self._prj.characters[crId].tags is None:
+                        self._prj.characters[crId].tags = []
+                    self._prj.characters[crId].tags.append(line.split(':')[1].strip())
             elif section == 'desc':
                 desc.append(line)
-
             elif section == 'bio':
                 bio.append(line)
-
             elif section == 'goals':
                 goals.append(line)
-
             elif section == 'notes':
                 notes.append(line)
-
-        self.prj.characters[crId].desc = '\n'.join(desc)
-        self.prj.characters[crId].bio = '\n'.join(bio)
-        self.prj.characters[crId].goals = '\n'.join(goals)
-        self.prj.characters[crId].notes = '\n'.join(notes)
-
-        if self.nwItem.nwStatus in self.majorCharacterStatus:
-            self.prj.characters[crId].isMajor = True
-
+        self._prj.characters[crId].desc = '\n'.join(desc)
+        self._prj.characters[crId].bio = '\n'.join(bio)
+        self._prj.characters[crId].goals = '\n'.join(goals)
+        self._prj.characters[crId].notes = '\n'.join(notes)
+        if self._nwItem.nwStatus in self._majorCharacterStatus:
+            self._prj.characters[crId].isMajor = True
         else:
-            self.prj.characters[crId].isMajor = False
-
-        self.prj.srtCharacters.append(crId)
+            self._prj.characters[crId].isMajor = False
+        self._prj.srtCharacters.append(crId)
         return 'Character data read in.'
 
     def add_character(self, crId):
-        """Add a character to the lines list.
+        """Add a character to the file content.
+        
+        Positional arguments:
+            crId -- str: character ID.
         """
-        character = self.prj.characters[crId]
+        character = self._prj.characters[crId]
 
         # Set Heading.
-
         if character.fullName:
             title = character.fullName
-
         else:
             title = character.title
-
-        self.lines.append(f'# {title}\n')
+        self._lines.append(f'# {title}\n')
 
         # Set tag.
-
-        self.lines.append(f'@tag: {character.title.replace(" ", "_")}')
+        self._lines.append(f'@tag: {character.title.replace(" ", "_")}')
 
         # Set yWriter AKA.
-
         if character.aka:
-            self.lines.append(self.ywAkaKeyword + character.aka)
+            self._lines.append(self._ywAkaKeyword + character.aka)
 
         # Set yWriter tags.
-
         if character.tags is not None:
-
             for tag in character.tags:
-                self.lines.append(self.ywTagKeyword + tag)
+                self._lines.append(self._ywTagKeyword + tag)
 
         # Set yWriter description.
-
         if character.desc:
-            self.lines.append(f'\n{character.desc}')
+            self._lines.append(f'\n{character.desc}')
 
         # Set yWriter bio.
-
         if character.bio:
-            self.lines.append(f'\n{self.characterBioHeading}')
-            self.lines.append(character.bio)
+            self._lines.append(f'\n{self._characterBioHeading}')
+            self._lines.append(character.bio)
 
         # Set yWriter goals.
-
         if character.goals:
-            self.lines.append(f'\n{self.characterGoalsHeading}')
-            self.lines.append(character.goals)
+            self._lines.append(f'\n{self._characterGoalsHeading}')
+            self._lines.append(character.goals)
 
         # Set yWriter notes.
-
         if character.notes:
-            self.lines.append(f'\n{self.characterNotesHeading}')
-            self.lines.append(character.notes)
+            self._lines.append(f'\n{self._characterNotesHeading}')
+            self._lines.append(character.notes)

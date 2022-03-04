@@ -15,7 +15,7 @@ class NwConfiguration(Configuration):
     Public methods:
         read(iniFile) -- read a configuration file.
     
-    Special version for configuration files that contain literal Python lists. 
+    Special version for configuration files that contain literal Python tuples. 
     """
 
     def read(self, iniFile):
@@ -25,33 +25,25 @@ class NwConfiguration(Configuration):
             iniFile -- str: path configuration file path.
             
         Settings and options that can not be read in, remain unchanged.
-        Override the superclass, adding list support. 
+        Overrides the superclass, adding list support. 
         """
         config = ConfigParser()
         config.read(iniFile)
-
         if config.has_section(self._sLabel):
             section = config[self._sLabel]
-
             for setting in self.settings:
                 fallback = self.settings[setting]
                 entry = section.get(setting, fallback)
 
                 # convert lists.
-
-                if isinstance(entry, str) and entry.startswith('['):
-
+                if isinstance(entry, str) and entry.startswith('('):
                     try:
                         entry = ast.literal_eval(entry)
-
                     except:
                         entry = fallback
-
                 self.settings[setting] = entry
-
         if config.has_section(self._oLabel):
             section = config[self._oLabel]
-
             for option in self.options:
                 fallback = self.options[option]
                 self.options[option] = section.getboolean(option, fallback)

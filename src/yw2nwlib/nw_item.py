@@ -5,8 +5,23 @@ For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 
-class NwItem():
+class NwItem:
     """Abstract novelWriter item representation.
+    
+    Public instance variables:
+        nwName -- str: name or title.
+        nwType -- str: type (ROOT/FOLDER/FILE).
+        nwClass -- str: class (NOVEL/CHARACTER/WORLD/OBJECT).
+        nwStatus -- str: status (may be scene editing status, or major/minor character).
+        nwExported -- bool: if True, the item is exported by the application.
+        nwLayout -- str: layout (DOCUMENT/NOTE).
+        nwCharCount -- int: character count.
+        nwWordCount -- int: word count.
+        nwParaCount -- (not used for conversion).
+        nwCursorPos -- (not used for conversion).
+        nwHandle -- str: this item's handle.
+        nwOrder -- int: sort order.
+        nwParent -- str: the parent item's handle.
     
     File format specific classes inherit from this.
     """
