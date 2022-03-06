@@ -15,10 +15,6 @@ class NwdObjectFile(NwdFile):
     Public methods:
         read() -- read a content file.
         add_element(itId) -- add an element of the story world to the file content.
-        
-    Required keyword arguments:
-        ywriter_aka_keyword -- str: keyword for 'aka' pseudo tag in novelWriter, signifying an alternative name.
-        ywriter_tag_keyword -- str: keyword for 'tag' pseudo tag in novelWriter, signifying a yWriter tag.
     """
 
     def __init__(self, prj, nwItem):
@@ -27,6 +23,10 @@ class NwdObjectFile(NwdFile):
         Positional arguments:
             prj -- NwxFile instance: the novelWriter project represenation.
             nwItem -- NwItem instance associated with the .nwd file.        
+
+        Required keyword arguments from prj:
+            ywriter_aka_keyword -- str: keyword for 'aka' pseudo tag in novelWriter, signifying an alternative name.
+            ywriter_tag_keyword -- str: keyword for 'tag' pseudo tag in novelWriter, signifying a yWriter tag.
 
         Extends the superclass constructor.
         """

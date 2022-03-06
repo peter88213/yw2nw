@@ -18,14 +18,6 @@ class NwdNovelFile(NwdFile):
         read() -- read a content file.
         add_scene(scId) -- add a scene to the file content.
         add_chapter(chId) -- add a chapter to the file content.
-        
-    Required keyword arguments:
-        outline_status -- tuple of str: novelWriter status to be converted to yWriter "Outline" scene status.
-        draft_status -- tuple of str: novelWriter status to be converted to yWriter "Draft" scene status.
-        first_edit_status -- tuple of str: novelWriter status to be converted to yWriter "1st Edit" scene status.
-        second_edit_status -- tuple of str: novelWriter status to be converted to yWriter "2nd Edit" scene status.
-        done_status -- tuple of str: novelWriter status to be converted to yWriter "Done" scene status.
-        ywriter_tag_keyword -- str: keyword for 'tag' pseudo tag in novelWriter, signifying a yWriter tag.     
     """
     _POV_TAG = '@pov: '
     _CHARACTER_TAG = '@char: '
@@ -39,6 +31,14 @@ class NwdNovelFile(NwdFile):
         Positional arguments:
             prj -- NwxFile instance: the novelWriter project represenation.
             nwItem -- NwItem instance associated with the .nwd file.        
+
+        Required keyword arguments from prj:
+            outline_status -- tuple of str: novelWriter status to be converted to yWriter "Outline" scene status.
+            draft_status -- tuple of str: novelWriter status to be converted to yWriter "Draft" scene status.
+            first_edit_status -- tuple of str: novelWriter status to be converted to yWriter "1st Edit" scene status.
+            second_edit_status -- tuple of str: novelWriter status to be converted to yWriter "2nd Edit" scene status.
+            done_status -- tuple of str: novelWriter status to be converted to yWriter "Done" scene status.
+            ywriter_tag_keyword -- str: keyword for 'tag' pseudo tag in novelWriter, signifying a yWriter tag.     
 
         Extends the superclass constructor.
         """

@@ -45,9 +45,6 @@ class NwxFile(Novel):
         chCount -- int: number of characters.
         chId -- str: ID of the chapter currently processed.
     
-    Required keyword arguments:
-        scene_status -- tuple of scene status (emulating an enumeration).    
-        
     Reads and writes file format version 1.3.
     Reads file format version 1.4.
     """
@@ -76,6 +73,20 @@ class NwxFile(Novel):
         Positional arguments:
             filePath -- str: path to the yw7 file.
         
+        Required keyword arguments:
+            scene_status -- tuple of scene status (emulating an enumeration).    
+            major_character_status -- tuple of str: novelWriter status meaning "Major" character importance in yWriter.
+            character_notes_heading -- str: heading for novelWriter text that is converted to yWriter character notes.
+            character_goals_heading -- str: heading for novelWriter text that is converted to yWriter character goals.
+            character_bio_heading -- str: heading for novelWriter text that is converted to yWriter character bio.
+            ywriter_aka_keyword -- str: keyword for 'aka' pseudo tag in novelWriter, signifying an alternative name.
+            ywriter_tag_keyword -- str: keyword for 'tag' pseudo tag in novelWriter, signifying a yWriter tag.
+            outline_status -- tuple of str: novelWriter status to be converted to yWriter "Outline" scene status.
+            draft_status -- tuple of str: novelWriter status to be converted to yWriter "Draft" scene status.
+            first_edit_status -- tuple of str: novelWriter status to be converted to yWriter "1st Edit" scene status.
+            second_edit_status -- tuple of str: novelWriter status to be converted to yWriter "2nd Edit" scene status.
+            done_status -- tuple of str: novelWriter status to be converted to yWriter "Done" scene status.
+    
         Extends the superclass constructor.
         """
         super().__init__(filePath, **kwargs)
