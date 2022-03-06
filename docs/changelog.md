@@ -11,7 +11,7 @@
 - Update the documentation.
 - Improve code quality by refactoring and formatting.
 
-Based on PyWriter v5.0.2
+Based on PyWriter v5.0.3
 
 ### v0.6.0 beta release
 
