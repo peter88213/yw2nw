@@ -4,6 +4,18 @@
 
 ## Changelog
 
+### v0.8.1 Beta release
+
+Optimize the code.
+When reading the NWX file, process the flat XML structure
+without evaluating the items' child/parent relations.
+
+This works under the following assumptions:
+- The NOVEL items are arranged in the correct order.
+- ARCHIVE and TRASH sections are located at the end. 
+
+Based on PyWriter v5.0.3
+
 ### v0.8.0 Beta release
 
 - Change the configuration: replace lists by tuples.

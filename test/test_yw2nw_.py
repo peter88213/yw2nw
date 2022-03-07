@@ -9,7 +9,6 @@ import os
 import unittest
 from shutil import copyfile, rmtree, copytree
 import re
-
 import yw2nw_
 
 # Test environment
@@ -47,7 +46,6 @@ def adjust_timestamp(text):
         
 
 def remove_all_testfiles():
-
     try:
         os.remove(f'{TEST_EXEC_PATH}{PROJECT}.yw7')
     except:
@@ -66,22 +64,17 @@ class NormalOperation(unittest.TestCase):
     """Test case: Normal operation."""
 
     def setUp(self):
-
         try:
             os.mkdir(TEST_EXEC_PATH)
-
         except:
             pass
-
         remove_all_testfiles()
 
     def test_nw_to_yw7_v1_3(self):
         copytree(f'{TEST_DATA_PATH}{NW_NORMAL_V1_3}',
                  f'{TEST_EXEC_PATH}{PROJECT}.nw')
         os.chdir(TEST_EXEC_PATH)
-
         yw2nw_.run(f'{TEST_EXEC_PATH}{PROJECT}.nw/nwProject.nwx', doubleLinebreaks=True)
-
         self.assertEqual(read_file(f'{TEST_EXEC_PATH}{PROJECT}.yw7'),
                          read_file(f'{TEST_DATA_PATH}{YW7_GENERATED}'))
 
@@ -89,23 +82,17 @@ class NormalOperation(unittest.TestCase):
         copytree(f'{TEST_DATA_PATH}{NW_NORMAL_V1_4}',
                  f'{TEST_EXEC_PATH}{PROJECT}.nw')
         os.chdir(TEST_EXEC_PATH)
-
         yw2nw_.run(f'{TEST_EXEC_PATH}{PROJECT}.nw/nwProject.nwx', doubleLinebreaks=True)
-
         self.assertEqual(read_file(f'{TEST_EXEC_PATH}{PROJECT}.yw7'),
                          read_file(f'{TEST_DATA_PATH}{YW7_GENERATED}'))
 
     def test_yw7_to_nw(self):
         copyfile(f'{TEST_DATA_PATH}{YW7_EDITED}', f'{TEST_EXEC_PATH}{PROJECT}.yw7')
         os.chdir(TEST_EXEC_PATH)
-
         yw2nw_.run(f'{TEST_EXEC_PATH}{PROJECT}.yw7', doubleLinebreaks=True)
-
         self.assertEqual(adjust_timestamp(read_file(f'{TEST_EXEC_PATH}{PROJECT}.nw/nwProject.nwx')), 
                                             read_file(f'{TEST_DATA_PATH}{NW_EDITED_V1_3}/nwProject.nwx'))
-        
         contentFiles = os.listdir(f'{TEST_EXEC_PATH}{PROJECT}.nw/content')
-            
         for contentFile in contentFiles:
             self.assertEqual(read_file(f'{TEST_EXEC_PATH}{PROJECT}.nw/content/{contentFile}'), read_file(
                                         f'{TEST_DATA_PATH}{NW_EDITED_V1_3}/content/{contentFile}'))

@@ -66,6 +66,13 @@ class NwxFile(Novel):
         'fileVersion': '1.4',
         'timeStamp': datetime.today().replace(microsecond=0).isoformat(sep=' '),
     }
+    _NWD_CLASSES = {
+        'CHARACTER':NwdCharacterFile,
+        'WORLD':NwdWorldFile,
+        'OBJECT':NwdObjectFile,
+        'NOVEL':NwdNovelFile
+        }
+    _TRAILER = ('ARCHIVE', 'TRASH')
 
     def __init__(self, filePath, **kwargs):
         """Initialize instance variables.
@@ -120,34 +127,6 @@ class NwxFile(Novel):
         Overrides the superclass method.
         """
 
-        def add_nodes(node):
-            """Add nodes to the novelWriter project tree of handles.
-            
-            Positional arguments:
-                node -- node of a tree of handles.
-            """
-            for item in content.iter('item'):
-                parent = item.attrib.get('parent')
-                if parent in node:
-                    node[parent][item.attrib.get('handle')] = {}
-                    add_nodes(node[parent])
-
-        def get_nodes(handle, handles, subtree):
-            """Get a list of file handles, passed as a parameter.
-            
-            Positional arguments:
-                handle -- start node in the file handle tree.
-                handles -- serialization of the file handle tree (in/out).
-                subtree -- file handles subtree to serialize.
-            
-            This is for serializing a project subtree.
-            """
-            if nwItems[handle].nwType == 'FILE':
-                handles.append(handle)
-            else:
-                for node in subtree[handle]:
-                    get_nodes(node, handles, subtree[handle])
-
         #--- Read the XML file, if necessary.
         if self._tree is None:
             message = self.read_xml_file()
@@ -179,78 +158,42 @@ class NwxFile(Novel):
         self.authorName = ', '.join(authors)
 
         #--- Read project content from the xml element tree.
+        # This is a simple variant that processes the flat XML structure
+        # without evaluating the items' child/parent relations.
+        # Assumptions: 
+        # - The NOVEL items are arranged in the correct order.
+        # - ARCHIVE and TRASH sections are located at the end. 
         content = root.find('content')
-
-        # Build a tree of handles.
-        nwTree = {'None': {}}
-        add_nodes(nwTree)
-
-        # Collect items:
-        nwItems = {}
         for node in content.iter('item'):
-            item = NwItem()
-            handle = item.read(node)
+            nwItem = NwItem()
+            handle = nwItem.read(node)
             if not self.nwHandles.add_member(handle):
                 return f'{ERROR}Invalid handle: {handle}'
+            
+            if nwItem.nwClass in self._TRAILER:
+                # Discard the rest of the scenes, if any.
+                break
 
-            nwItems[handle] = item
-
-        #--- Re-serialize the project tree to get lists of file handles.
-        charList = []
-        worldList = []
-        objectList = []
-        novList = []
-        for handle in nwTree['None']:
-            if nwItems[handle].nwClass == 'CHARACTER':
-                get_nodes(handle, charList, nwTree['None'])
-            if nwItems[handle].nwClass == 'WORLD':
-                get_nodes(handle, worldList, nwTree['None'])
-            if nwItems[handle].nwClass == 'OBJECT':
-                get_nodes(handle, objectList, nwTree['None'])
-            if nwItems[handle].nwClass == 'NOVEL':
-                get_nodes(handle, novList, nwTree['None'])
-
-        #--- Get characters.
-        crIdsByTitle = {}
-        for handle in charList:
-            nwdFile = NwdCharacterFile(self, nwItems[handle])
+            if nwItem.nwType != 'FILE':
+                continue
+            
+            nwdFile = self._NWD_CLASSES[nwItem.nwClass](self, nwItem)
             message = nwdFile.read()
             if message.startswith(ERROR):
                 return message
-
+        
+        # Create reference lists.
+        crIdsByTitle = {}
         for crId in self.characters:
             crIdsByTitle[self.characters[crId].title] = crId
-
-        #--- Get locations.
         lcIdsByTitle = {}
-        for handle in worldList:
-            nwdFile = NwdWorldFile(self, nwItems[handle])
-            message = nwdFile.read()
-            if message.startswith(ERROR):
-                return message
-
         for lcId in self.locations:
             lcIdsByTitle[self.locations[lcId].title] = lcId
-
-        #--- Get items.
         itIdsByTitle = {}
-        for handle in objectList:
-            nwdFile = NwdObjectFile(self, nwItems[handle])
-            message = nwdFile.read()
-            if message.startswith(ERROR):
-                return message
-
         for itId in self.items:
             itIdsByTitle[self.items[itId].title] = itId
 
-        #--- Get chapters and scenes.
-        for handle in novList:
-            nwdFile = NwdNovelFile(self, nwItems[handle])
-            message = nwdFile.read()
-            if message.startswith(ERROR):
-                return message
-
-        # Fix scene references.
+        # Fix scene references, replacing titles by IDs.
         for scId in self.scenes:
             characters = []
             for crId in self.scenes[scId].characters:
