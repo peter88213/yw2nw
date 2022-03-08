@@ -50,7 +50,7 @@ suppress error messages and the request to confirm overwriting
 | -------------------------- | ---------------------------------------------- | ----------------------------------------- |
 | **Novel 1st level**        |                                                |                                           |
 | "Part" (novelWriter)       | Chapter marked as beginning of a new section   | Text with a first level heading           |
-| Part synopsis              | Chapter description                            | Text prefixed by "*% synopsis :*"         |
+| Part synopsis              | Chapter description                            | Text prefixed by *% synopsis :*         |
 | **Novel 2nd level**        |                                                |                                           |
 | Chapter                    | Chapter                                        | Text with a second level heading          |
 | Chapter synopsis           | Chapter description                            | Text prefixed by *% synopsis :*           |
@@ -123,7 +123,7 @@ suppress error messages and the request to confirm overwriting
 - Commented-out lines in the *novelWriter* text body (except ones that begin with a supported keyword)
   are lost when converting to *yWriter*.
   
-#### Tags
+### Tags
 
 - *novelWriter*'s **pov**, **char**, **location**, and **object** tags are supported. Others are lost. 
 - Only scene tags are converted from *novelWriter* to *yWriter*. Part and chapter tags are lost.
