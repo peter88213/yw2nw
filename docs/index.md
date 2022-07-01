@@ -11,9 +11,9 @@ Supports the following novelWriter files:
 
 ## Download and install
 
-[Download the latest release (version 0.8.1)](https://raw.githubusercontent.com/peter88213/yw2nw/main/dist/yw2nw_v0.8.1.zip)
+[Download the latest release (version 0.8.2)](https://raw.githubusercontent.com/peter88213/yw2nw/main/dist/yw2nw_v0.8.2.zip)
 
-- Unzip the downloaded zipfile "yw2nw_v0.8.1.zip" into a new folder.
+- Unzip the downloaded zipfile "yw2nw_v0.8.2.zip" into a new folder.
 - Move into this new folder and launch **setup.py** to install the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.

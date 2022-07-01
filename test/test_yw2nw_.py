@@ -41,9 +41,10 @@ def read_file(inputFile):
         with open(inputFile, 'r') as f:
             return f.read()
 
+
 def adjust_timestamp(text):
     return re.sub('timeStamp=".*?"', 'timeStamp="2022-02-21 10:50:41"', text)
-        
+
 
 def remove_all_testfiles():
     try:
@@ -90,7 +91,7 @@ class NormalOperation(unittest.TestCase):
         copyfile(f'{TEST_DATA_PATH}{YW7_EDITED}', f'{TEST_EXEC_PATH}{PROJECT}.yw7')
         os.chdir(TEST_EXEC_PATH)
         yw2nw_.run(f'{TEST_EXEC_PATH}{PROJECT}.yw7', doubleLinebreaks=True)
-        self.assertEqual(adjust_timestamp(read_file(f'{TEST_EXEC_PATH}{PROJECT}.nw/nwProject.nwx')), 
+        self.assertEqual(adjust_timestamp(read_file(f'{TEST_EXEC_PATH}{PROJECT}.nw/nwProject.nwx')),
                                             read_file(f'{TEST_DATA_PATH}{NW_EDITED_V1_3}/nwProject.nwx'))
         contentFiles = os.listdir(f'{TEST_EXEC_PATH}{PROJECT}.nw/content')
         for contentFile in contentFiles:
