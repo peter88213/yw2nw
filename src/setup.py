@@ -36,8 +36,10 @@ On Linux, create a launcher on your desktop. With xfce for instance, the launche
 python3 '$Apppath' %F
 '''
 
+
 def output(text):
     print(text)
+
 
 def open_folder(installDir):
     """Open an installation folder window in the file manager."""
@@ -54,6 +56,7 @@ def open_folder(installDir):
                 # Mac
             except:
                 pass
+
 
 def install(pywriterPath):
     """Install the script."""
@@ -114,7 +117,11 @@ if __name__ == '__main__':
 
     # Run the installation.
     homePath = str(Path.home()).replace('\\', '/')
-    install(f'{homePath}/.pywriter/')
+    pywriterPath = f'{homePath}/.pywriter/'
+    try:
+        install(pywriterPath)
+    except Exception as ex:
+        output(str(ex))
 
     # Show options: open installation folders or quit.
     if input('Open installation folder? (y/n)').lower() == 'y':
