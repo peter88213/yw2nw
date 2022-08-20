@@ -9,9 +9,6 @@ must be located on the same directory level as the yw2nw project.
 For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
-import os
-import sys
-sys.path.insert(0, f'{os.getcwd()}/../../PyWriter/src')
 import inliner
 
 SRC = '../src/'
