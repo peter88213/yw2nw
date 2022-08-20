@@ -4,6 +4,14 @@
 
 ## Changelog
 
+### v0.8.6
+
+- Fix Chapter "Type" and "ChapterType" inconsistencies when writing .yw7 files.
+- Fix a bug in the pywriter Novel class: Initialize "public" instance variables the correct way.
+- The pywriter library is prepared for internationalization with GNU gettext.
+
+Based on Pywriter v6.0.0
+
 ### v0.8.5 Update setup script
 
 - Change the working dir to the script dir on startup in order to avoid "file not found" error.

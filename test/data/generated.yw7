@@ -351,6 +351,7 @@ If you want to see the content of the file the reference points to, you can clic
       <Title><![CDATA[My Novel]]></Title>
       <SectionStart>-1</SectionStart>
       <ChapterType>0</ChapterType>
+      <Type>0</Type>
       <Scenes>
         <ScID>1</ScID>
       </Scenes>
@@ -361,6 +362,7 @@ If you want to see the content of the file the reference points to, you can clic
       <Title><![CDATA[Part One]]></Title>
       <SectionStart>-1</SectionStart>
       <ChapterType>0</ChapterType>
+      <Type>0</Type>
       <Scenes>
         <ScID>2</ScID>
       </Scenes>
@@ -371,6 +373,7 @@ If you want to see the content of the file the reference points to, you can clic
       <Title><![CDATA[So it Begins]]></Title>
       <Desc><![CDATA[We can add a chapter file, but keep the scene files separate. In the chapter file we can set the meta data that applies to the whole chapter if we wish to.]]></Desc>
       <ChapterType>0</ChapterType>
+      <Type>0</Type>
       <Scenes>
         <ScID>3</ScID>
         <ScID>4</ScID>
@@ -386,6 +389,7 @@ If you want to see the content of the file the reference points to, you can clic
       <SortOrder>4</SortOrder>
       <Title><![CDATA[Interlude]]></Title>
       <ChapterType>0</ChapterType>
+      <Type>0</Type>
       <Scenes>
         <ScID>10</ScID>
       </Scenes>
@@ -396,6 +400,7 @@ If you want to see the content of the file the reference points to, you can clic
       <Title><![CDATA[A Note on Structure]]></Title>
       <SectionStart>-1</SectionStart>
       <ChapterType>1</ChapterType>
+      <Type>1</Type>
       <Unused>-1</Unused>
       <Scenes>
         <ScID>11</ScID>
@@ -406,6 +411,7 @@ If you want to see the content of the file the reference points to, you can clic
       <SortOrder>6</SortOrder>
       <Title><![CDATA[Headers in Notes]]></Title>
       <ChapterType>1</ChapterType>
+      <Type>1</Type>
       <Unused>-1</Unused>
       <Scenes>
         <ScID>12</ScID>
@@ -416,6 +422,7 @@ If you want to see the content of the file the reference points to, you can clic
       <SortOrder>7</SortOrder>
       <Title><![CDATA[Folders in the Tree View]]></Title>
       <ChapterType>1</ChapterType>
+      <Type>1</Type>
       <Unused>-1</Unused>
       <Scenes>
         <ScID>13</ScID>
@@ -426,6 +433,7 @@ If you want to see the content of the file the reference points to, you can clic
       <SortOrder>8</SortOrder>
       <Title><![CDATA[Linking Files and Notes]]></Title>
       <ChapterType>1</ChapterType>
+      <Type>1</Type>
       <Unused>-1</Unused>
       <Scenes>
         <ScID>14</ScID>
@@ -436,6 +444,7 @@ If you want to see the content of the file the reference points to, you can clic
       <SortOrder>9</SortOrder>
       <Title><![CDATA[Where has John Gone?]]></Title>
       <ChapterType>0</ChapterType>
+      <Type>0</Type>
       <Scenes>
         <ScID>15</ScID>
         <ScID>16</ScID>
