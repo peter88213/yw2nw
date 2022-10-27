@@ -3,7 +3,7 @@ The *yw2nw* Python script converts [yWriter 7](http://spacejock.com/yWriter7.htm
 
 ## Requirements
 
-- [Python 3.6+](https://www.python.org).
+- [Python](https://www.python.org/) 3.6 =< version <= 3.10.
 
 Supports the following novelWriter files: 
 - read and write file format version 1.3 created with novelWriter 1.5 and 1.6
