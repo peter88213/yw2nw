@@ -13,6 +13,7 @@ from pywriter.yw.xml_indent import indent
 from yw2nwlib.handles import Handles
 from yw2nwlib.nw_item_v1_3 import NwItemV13
 from yw2nwlib.nw_item_v1_4 import NwItemV14
+from yw2nwlib.nw_item_v1_5 import NwItemV15
 from yw2nwlib.nwd_character_file import NwdCharacterFile
 from yw2nwlib.nwd_novel_file import NwdNovelFile
 from yw2nwlib.nwd_world_file import NwdWorldFile
@@ -64,6 +65,12 @@ class NwxFile(Novel):
         'appVersion': '1.7-alpha0',
         'hexVersion': '0x010700a0',
         'fileVersion': '1.4',
+        'timeStamp': datetime.today().replace(microsecond=0).isoformat(sep=' '),
+    }
+    _NWX_ATTR_V1_5 = {
+        'appVersion': '2.0.2',
+        'hexVersion': '0x020002f0',
+        'fileVersion': '1.5',
         'timeStamp': datetime.today().replace(microsecond=0).isoformat(sep=' '),
     }
     _NWD_CLASSES = {
@@ -139,7 +146,9 @@ class NwxFile(Novel):
         if root.tag != self._NWX_TAG:
             return f'{ERROR}This seems not to bee a novelWriter project file.'
 
-        if root.attrib.get('fileVersion') == self._NWX_ATTR_V1_3['fileVersion']:
+        if root.attrib.get('fileVersion') == self._NWX_ATTR_V1_5['fileVersion']:
+            NwItem = NwItemV15
+        elif root.attrib.get('fileVersion') == self._NWX_ATTR_V1_3['fileVersion']:
             NwItem = NwItemV13
         elif root.attrib.get('fileVersion') == self._NWX_ATTR_V1_4['fileVersion']:
             NwItem = NwItemV14
@@ -160,28 +169,28 @@ class NwxFile(Novel):
         #--- Read project content from the xml element tree.
         # This is a simple variant that processes the flat XML structure
         # without evaluating the items' child/parent relations.
-        # Assumptions: 
+        # Assumptions:
         # - The NOVEL items are arranged in the correct order.
-        # - ARCHIVE and TRASH sections are located at the end. 
+        # - ARCHIVE and TRASH sections are located at the end.
         content = root.find('content')
         for node in content.iter('item'):
             nwItem = NwItem()
             handle = nwItem.read(node)
             if not self.nwHandles.add_member(handle):
                 return f'{ERROR}Invalid handle: {handle}'
-            
+
             if nwItem.nwClass in self._TRAILER:
                 # Discard the rest of the scenes, if any.
                 break
 
             if nwItem.nwType != 'FILE':
                 continue
-            
+
             nwdFile = self._NWD_CLASSES[nwItem.nwClass](self, nwItem)
             message = nwdFile.read()
             if message.startswith(ERROR):
                 return message
-        
+
         # Create reference lists.
         crIdsByTitle = {}
         for crId in self.characters:
@@ -263,6 +272,7 @@ class NwxFile(Novel):
                 'red': str(red)
             }
             ET.SubElement(parent, 'entry', attrib).text = entry
+
         root = ET.Element(self._NWX_TAG, self._NWX_ATTR_V1_3)
 
         #--- Write project metadata.

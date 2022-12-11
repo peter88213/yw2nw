@@ -1,0 +1,12 @@
+%%~name: Some Section Here
+%%~path: 3f1fe89752aaf/5e6bce298d084
+%%~kind: NOVEL/DOCUMENT
+#### Some Section Here
+
+
+% synopsis: How to make scenes.
+
+
+If you need to split a scene file up into further pieces, you can do so with the level four heading, like the one above this paragraph. This is referred to as a “section” in the documentation.
+
+Both scene and section titles can be left out of the final exported document. The formatting of titles can be selected from the Build Novel Project dialog. You can also have them replaced with scene separators like “* * *”.
