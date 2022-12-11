@@ -12,7 +12,6 @@ from pywriter.model.novel import Novel
 from pywriter.yw.xml_indent import indent
 from yw2nwlib.handles import Handles
 from yw2nwlib.nw_item_v1_3 import NwItemV13
-from yw2nwlib.nw_item_v1_4 import NwItemV14
 from yw2nwlib.nw_item_v1_5 import NwItemV15
 from yw2nwlib.nwd_character_file import NwdCharacterFile
 from yw2nwlib.nwd_novel_file import NwdNovelFile
@@ -55,22 +54,16 @@ class NwxFile(Novel):
     CONTENT_DIR = '/content/'
     CONTENT_EXTENSION = '.nwd'
     _NWX_TAG = 'novelWriterXML'
-    _NWX_ATTR_V1_3 = {
-        'appVersion': '1.6-alpha0',
-        'hexVersion': '0x010600a0',
-        'fileVersion': '1.3',
-        'timeStamp': datetime.today().replace(microsecond=0).isoformat(sep=' '),
-    }
-    _NWX_ATTR_V1_4 = {
-        'appVersion': '1.7-alpha0',
-        'hexVersion': '0x010700a0',
-        'fileVersion': '1.4',
-        'timeStamp': datetime.today().replace(microsecond=0).isoformat(sep=' '),
-    }
     _NWX_ATTR_V1_5 = {
         'appVersion': '2.0.2',
         'hexVersion': '0x020002f0',
         'fileVersion': '1.5',
+        'timeStamp': datetime.today().replace(microsecond=0).isoformat(sep=' '),
+    }
+    _NWX_ATTR_V1_3 = {
+        'appVersion': '1.6-alpha0',
+        'hexVersion': '0x010600a0',
+        'fileVersion': '1.3',
         'timeStamp': datetime.today().replace(microsecond=0).isoformat(sep=' '),
     }
     _NWD_CLASSES = {
@@ -114,6 +107,7 @@ class NwxFile(Novel):
         self.chCount = 0
         self.chId = None
         self._sceneStatus = kwargs['scene_status']
+        self.statusLookup = {}
 
     def read_xml_file(self):
         """Read the novelWriter XML project file to the project tree.
@@ -148,10 +142,16 @@ class NwxFile(Novel):
 
         if root.attrib.get('fileVersion') == self._NWX_ATTR_V1_5['fileVersion']:
             NwItem = NwItemV15
+            self.statusLookup = {}
+            xmlStatus = root.find('settings').find('status')
+            for xmlStatusEntry in xmlStatus.findall('entry'):
+                self.statusLookup[xmlStatusEntry.attrib.get('key')] = xmlStatusEntry.text
+            self.importanceLookup = {}
+            xmlImportance = root.find('settings').find('importance')
+            for xmlImportanceEntry in xmlImportance.findall('entry'):
+                self.importanceLookup[xmlImportanceEntry.attrib.get('key')] = xmlImportanceEntry.text
         elif root.attrib.get('fileVersion') == self._NWX_ATTR_V1_3['fileVersion']:
             NwItem = NwItemV13
-        elif root.attrib.get('fileVersion') == self._NWX_ATTR_V1_4['fileVersion']:
-            NwItem = NwItemV14
         else:
             return f'{ERROR}Wrong file version (must be {self._NWX_ATTR_V1_3["fileVersion"]} or {self._NWX_ATTR_V1_4["fileVersion"]}).'
 
@@ -175,7 +175,7 @@ class NwxFile(Novel):
         content = root.find('content')
         for node in content.iter('item'):
             nwItem = NwItem()
-            handle = nwItem.read(node)
+            handle = nwItem.read(node, self)
             if not self.nwHandles.add_member(handle):
                 return f'{ERROR}Invalid handle: {handle}'
 

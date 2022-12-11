@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
-<novelWriterXML appVersion="2.0.2" hexVersion="0x020002f0" fileVersion="1.5" timeStamp="2022-12-07 15:52:51">
-  <project id="22170a36-9ab6-48b2-9a36-0ed8f8deba69" saveCount="1305" autoCount="199" editTime="64633">
+<novelWriterXML appVersion="2.0.2" hexVersion="0x020002f0" fileVersion="1.5" timeStamp="2022-12-07 15:47:43">
+  <project id="f6429345-b09a-41e7-9bff-60da855a7f8f" saveCount="1266" autoCount="198" editTime="62074">
     <name>Sample Project</name>
     <title>Sample Project</title>
     <author>Jay Doh</author>
   </project>
   <settings>
     <doBackup>no</doBackup>
-    <language>en_GB</language>
+    <language>en</language>
     <spellChecking auto="yes">None</spellChecking>
     <lastHandle>
       <entry key="editor">53b69b83cdafc</entry>
@@ -28,117 +28,121 @@
       <entry key="section"></entry>
     </titleFormat>
     <status>
-      <entry key="sdee95e" count="16" red="100" green="100" blue="100">New</entry>
-      <entry key="s2bd1c1" count="0" red="200" green="50" blue="0">Notes</entry>
-      <entry key="s40e69a" count="0" red="182" green="60" blue="0">Started</entry>
-      <entry key="s7d15ec" count="0" red="193" green="129" blue="0">1st Draft</entry>
-      <entry key="s2adc14" count="0" red="193" green="129" blue="0">2nd Draft</entry>
-      <entry key="s6fb71b" count="0" red="193" green="129" blue="0">3rd Draft</entry>
-      <entry key="sa38e51" count="0" red="58" green="180" blue="58">Finished</entry>
+      <entry key="sb89fc7" count="5" red="100" green="100" blue="100">New</entry>
+      <entry key="sdcafe9" count="1" red="200" green="50" blue="0">Notes</entry>
+      <entry key="s791a94" count="2" red="182" green="60" blue="0">Started</entry>
+      <entry key="sae2372" count="6" red="193" green="129" blue="0">1st Draft</entry>
+      <entry key="s7b9186" count="1" red="193" green="129" blue="0">2nd Draft</entry>
+      <entry key="s28a283" count="0" red="193" green="129" blue="0">3rd Draft</entry>
+      <entry key="sb8130f" count="0" red="58" green="180" blue="58">Finished</entry>
     </status>
     <importance>
-      <entry key="iecc114" count="8" red="100" green="100" blue="100">None</entry>
-      <entry key="ie7756e" count="0" red="0" green="122" blue="188">Minor</entry>
-      <entry key="i0ba778" count="0" red="21" green="0" blue="180">Major</entry>
-      <entry key="i4f9e0c" count="0" red="117" green="0" blue="175">Main</entry>
+      <entry key="ief3c60" count="5" red="100" green="100" blue="100">None</entry>
+      <entry key="i996546" count="2" red="0" green="122" blue="188">Minor</entry>
+      <entry key="i1e5add" count="2" red="21" green="0" blue="180">Major</entry>
+      <entry key="i997b7e" count="1" red="117" green="0" blue="175">Main</entry>
     </importance>
   </settings>
-  <content items="24" novelWords="824" notesWords="376">
+  <content items="25" novelWords="830" notesWords="376">
     <item handle="7031beac91f75" parent="None" root="7031beac91f75" order="0" type="ROOT" class="NOVEL">
       <meta expanded="yes"/>
-      <name status="sdee95e" import="iecc114">Novel</name>
+      <name status="s791a94" import="ief3c60">Novel</name>
     </item>
     <item handle="53b69b83cdafc" parent="7031beac91f75" root="7031beac91f75" order="0" type="FILE" class="NOVEL" layout="DOCUMENT">
       <meta expanded="no" heading="H1" charCount="93" wordCount="19" paraCount="2" cursorPos="2"/>
-      <name status="sdee95e" import="iecc114" active="yes">Title Page</name>
+      <name status="s791a94" import="ief3c60" active="yes">Title Page</name>
     </item>
     <item handle="974e400180a99" parent="7031beac91f75" root="7031beac91f75" order="1" type="FILE" class="NOVEL" layout="DOCUMENT">
       <meta expanded="no" heading="H0" charCount="186" wordCount="39" paraCount="2" cursorPos="212"/>
-      <name status="sdee95e" import="iecc114" active="yes">Page</name>
+      <name status="sb89fc7" import="ief3c60" active="yes">Page</name>
     </item>
     <item handle="edca4be2fcaf8" parent="7031beac91f75" root="7031beac91f75" order="2" type="FILE" class="NOVEL" layout="DOCUMENT">
       <meta expanded="no" heading="H1" charCount="26" wordCount="6" paraCount="1" cursorPos="33"/>
-      <name status="sdee95e" import="iecc114" active="yes">Part One</name>
+      <name status="sb89fc7" import="ief3c60" active="yes">Part One</name>
     </item>
     <item handle="e7ded148d6e4a" parent="7031beac91f75" root="7031beac91f75" order="3" type="FOLDER" class="NOVEL">
       <meta expanded="yes"/>
-      <name status="sdee95e" import="iecc114">A Folder</name>
+      <name status="sae2372" import="ief3c60">A Folder</name>
     </item>
     <item handle="6a2d6d5f4f401" parent="e7ded148d6e4a" root="7031beac91f75" order="0" type="FILE" class="NOVEL" layout="DOCUMENT">
       <meta expanded="no" heading="H2" charCount="75" wordCount="14" paraCount="1" cursorPos="279"/>
-      <name status="sdee95e" import="iecc114" active="yes">Chapter One</name>
+      <name status="sdcafe9" import="ief3c60" active="yes">Chapter One</name>
     </item>
     <item handle="636b6aa9b697b" parent="e7ded148d6e4a" root="7031beac91f75" order="1" type="FILE" class="NOVEL" layout="DOCUMENT">
-      <meta expanded="no" heading="H3" charCount="2429" wordCount="432" paraCount="14" cursorPos="219"/>
-      <name status="sdee95e" import="iecc114" active="yes">Making a Scene</name>
+      <meta expanded="no" heading="H3" charCount="2429" wordCount="432" paraCount="14" cursorPos="2"/>
+      <name status="sae2372" import="ief3c60" active="yes">Making a Scene</name>
     </item>
     <item handle="bc0cbd2a407f3" parent="e7ded148d6e4a" root="7031beac91f75" order="2" type="FILE" class="NOVEL" layout="DOCUMENT">
       <meta expanded="no" heading="H3" charCount="476" wordCount="93" paraCount="3" cursorPos="577"/>
-      <name status="sdee95e" import="iecc114" active="yes">Another Scene</name>
+      <name status="sae2372" import="ief3c60" active="yes">Another Scene</name>
     </item>
     <item handle="ba8a28a246524" parent="e7ded148d6e4a" root="7031beac91f75" order="3" type="FILE" class="NOVEL" layout="DOCUMENT">
       <meta expanded="no" heading="H2" charCount="617" wordCount="101" paraCount="3" cursorPos="4"/>
-      <name status="sdee95e" import="iecc114" active="yes">Interlude</name>
+      <name status="sb89fc7" import="ief3c60" active="yes">Interlude</name>
     </item>
     <item handle="96b68994dfa3d" parent="e7ded148d6e4a" root="7031beac91f75" order="4" type="FILE" class="NOVEL" layout="NOTE">
       <meta expanded="no" heading="H1" charCount="1692" wordCount="313" paraCount="6" cursorPos="1110"/>
-      <name status="sdee95e" import="iecc114" active="no">A Note on Structure</name>
+      <name status="s7b9186" import="ief3c60" active="no">A Note on Structure</name>
     </item>
     <item handle="88706ddc78b1b" parent="e7ded148d6e4a" root="7031beac91f75" order="5" type="FILE" class="NOVEL" layout="DOCUMENT">
       <meta expanded="no" heading="H2" charCount="139" wordCount="28" paraCount="1" cursorPos="343"/>
-      <name status="sdee95e" import="iecc114" active="yes">Chapter Two</name>
+      <name status="sae2372" import="ief3c60" active="yes">Chapter Two</name>
     </item>
     <item handle="ae7339df26ded" parent="e7ded148d6e4a" root="7031beac91f75" order="6" type="FILE" class="NOVEL" layout="DOCUMENT">
       <meta expanded="no" heading="H3" charCount="189" wordCount="37" paraCount="1" cursorPos="224"/>
-      <name status="sdee95e" import="iecc114" active="yes">We Found John!</name>
-    </item>
-    <item handle="b8136a5a774a0" parent="7031beac91f75" root="7031beac91f75" order="4" type="FILE" class="NOVEL" layout="DOCUMENT">
-      <meta expanded="no" heading="H0" charCount="0" wordCount="0" paraCount="0" cursorPos="0"/>
-      <name status="sdee95e" import="iecc114" active="yes">[Wiederhergestellt] Delete Me!</name>
+      <name status="sae2372" import="ief3c60" active="yes">We Found John!</name>
     </item>
     <item handle="f6622b4617424" parent="None" root="f6622b4617424" order="1" type="ROOT" class="CHARACTER">
       <meta expanded="yes"/>
-      <name status="sdee95e" import="iecc114">Characters</name>
+      <name status="sb89fc7" import="ief3c60">Characters</name>
     </item>
     <item handle="f7e2d9f330615" parent="f6622b4617424" root="f6622b4617424" order="0" type="FOLDER" class="CHARACTER">
       <meta expanded="yes"/>
-      <name status="sdee95e" import="iecc114">Main Characters</name>
+      <name status="sb89fc7" import="ief3c60">Main Characters</name>
     </item>
     <item handle="14298de4d9524" parent="f7e2d9f330615" root="f6622b4617424" order="0" type="FILE" class="CHARACTER" layout="NOTE">
       <meta expanded="no" heading="H1" charCount="49" wordCount="9" paraCount="1" cursorPos="24"/>
-      <name status="sdee95e" import="iecc114" active="yes">John Smith</name>
+      <name status="sb89fc7" import="i996546" active="yes">John Smith</name>
     </item>
     <item handle="bb2c23b3c42cc" parent="f7e2d9f330615" root="f6622b4617424" order="1" type="FILE" class="CHARACTER" layout="NOTE">
       <meta expanded="no" heading="H1" charCount="55" wordCount="9" paraCount="1" cursorPos="25"/>
-      <name status="sdee95e" import="iecc114" active="yes">Jane Smith</name>
+      <name status="sb89fc7" import="i1e5add" active="yes">Jane Smith</name>
     </item>
     <item handle="15c4492bd5107" parent="None" root="15c4492bd5107" order="2" type="ROOT" class="WORLD">
       <meta expanded="yes"/>
-      <name status="sdee95e" import="iecc114">Locations</name>
+      <name status="sb89fc7" import="ief3c60">Locations</name>
     </item>
     <item handle="b3e74dbc1f584" parent="15c4492bd5107" root="15c4492bd5107" order="0" type="FILE" class="WORLD" layout="NOTE">
       <meta expanded="no" heading="H1" charCount="76" wordCount="15" paraCount="1" cursorPos="20"/>
-      <name status="sdee95e" import="iecc114" active="yes">Earth</name>
+      <name status="sb89fc7" import="i997b7e" active="yes">Earth</name>
     </item>
     <item handle="f1471bef9f2ae" parent="15c4492bd5107" root="15c4492bd5107" order="1" type="FILE" class="WORLD" layout="NOTE">
       <meta expanded="no" heading="H1" charCount="115" wordCount="24" paraCount="1" cursorPos="133"/>
-      <name status="sdee95e" import="iecc114" active="yes">Space</name>
+      <name status="sb89fc7" import="i996546" active="yes">Space</name>
     </item>
     <item handle="5eaea4e8cdee8" parent="15c4492bd5107" root="15c4492bd5107" order="2" type="FILE" class="WORLD" layout="NOTE">
       <meta expanded="no" heading="H1" charCount="28" wordCount="6" paraCount="1" cursorPos="45"/>
-      <name status="sdee95e" import="iecc114" active="yes">Mars</name>
+      <name status="sb89fc7" import="i1e5add" active="yes">Mars</name>
     </item>
     <item handle="6827118336ac1" parent="None" root="6827118336ac1" order="3" type="ROOT" class="ARCHIVE">
       <meta expanded="yes"/>
-      <name status="sdee95e" import="iecc114">Archive</name>
+      <name status="sb89fc7" import="ief3c60">Outtakes</name>
     </item>
     <item handle="ae9bf3c3ea159" parent="6827118336ac1" root="6827118336ac1" order="0" type="FOLDER" class="ARCHIVE">
       <meta expanded="yes"/>
-      <name status="sdee95e" import="iecc114">Scenes</name>
+      <name status="sb89fc7" import="ief3c60">Scenes</name>
     </item>
     <item handle="8a5deb88c0e97" parent="ae9bf3c3ea159" root="6827118336ac1" order="0" type="FILE" class="ARCHIVE" layout="DOCUMENT">
       <meta expanded="no" heading="H3" charCount="315" wordCount="55" paraCount="1" cursorPos="322"/>
-      <name status="sdee95e" import="iecc114" active="yes">Old File</name>
+      <name status="sae2372" import="ief3c60" active="yes">Old File</name>
+    </item>
+    <item handle="98acd8c76c93a" parent="None" root="98acd8c76c93a" order="4" type="ROOT" class="TRASH">
+      <meta expanded="yes"/>
+      <name status="sb89fc7" import="ief3c60">Trash</name>
+    </item>
+    <item handle="b8136a5a774a0" parent="98acd8c76c93a" root="98acd8c76c93a" order="0" type="FILE" class="TRASH" layout="DOCUMENT">
+      <meta expanded="no" heading="H3" charCount="30" wordCount="6" paraCount="1" cursorPos="36"/>
+      <name status="sb89fc7" import="ief3c60" active="yes">Delete Me!</name>
     </item>
   </content>
 </novelWriterXML>

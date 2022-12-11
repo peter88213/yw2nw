@@ -104,7 +104,7 @@ class NwdCharacterFile(NwdFile):
         self._prj.characters[crId].bio = '\n'.join(bio)
         self._prj.characters[crId].goals = '\n'.join(goals)
         self._prj.characters[crId].notes = '\n'.join(notes)
-        if self._nwItem.nwStatus in self._majorCharacterStatus:
+        if self._nwItem.nwImportance in self._majorCharacterStatus:
             self._prj.characters[crId].isMajor = True
         else:
             self._prj.characters[crId].isMajor = False

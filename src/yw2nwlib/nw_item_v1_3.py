@@ -15,7 +15,7 @@ class NwItemV13(NwItem):
     Strategy class for file format version 1.3.
     """
 
-    def read(self, node):
+    def read(self, node, master):
         """Read a novelWriter node entry from the XML project tree.
         
         Positional arguments: 
@@ -34,6 +34,7 @@ class NwItemV13(NwItem):
             self.nwClass = node.find('class').text
         if node.find('status') is not None:
             self.nwStatus = node.find('status').text
+            self.nwImportance = self.nwStatus
         if node.find('exported') is not None:
             self.nwExported = node.find('exported').text
         if node.find('layout') is not None:

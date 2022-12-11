@@ -5,6 +5,7 @@ For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 
+
 class NwItem:
     """Abstract novelWriter item representation.
     
@@ -31,6 +32,7 @@ class NwItem:
         self.nwType = None
         self.nwClass = None
         self.nwStatus = None
+        self.nwImportance = None
         self.nwExported = None
         self.nwLayout = None
         self.nwCharCount = None

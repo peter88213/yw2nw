@@ -13,8 +13,10 @@ class NwItemV15(NwItem):
     
     Strategy class for file format version 1.5.
     """
+    _BOOL_MAP = dict(yes='True', no='False')
+    # maps the way Booleans are represented in v1.5 files to the v1.3 specification
 
-    def read(self, node):
+    def read(self, node, master):
         """Read a novelWriter node entry from the XML project tree. 
         
         Positional arguments: 
@@ -31,8 +33,9 @@ class NwItemV15(NwItem):
         if node.find('name') is not None:
             nameNode = node.find('name')
             self.nwName = nameNode.text
-            self.nwStatus = nameNode.attrib.get('status')
-            self.nwExported = nameNode.attrib.get('exported')
+            self.nwStatus = master.statusLookup[nameNode.attrib.get('status')]
+            self.nwImportance = master.importanceLookup[nameNode.attrib.get('import')]
+            self.nwExported = self._BOOL_MAP.get(nameNode.attrib.get('active'), 'False')
         return self.nwHandle
 
     def write(self, parentNode):

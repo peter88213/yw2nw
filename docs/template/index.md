@@ -7,7 +7,7 @@ The *yw2nw* Python script converts [yWriter 7](http://spacejock.com/yWriter7.htm
 
 Supports the following novelWriter files: 
 - **Read and write** file format version 1.3 created with **novelWriter 1.5 and 1.6**
-- **Read** file format version 1.4 created with **novelWriter 1.7**
+- **Read** file format version 1.5 created with **novelWriter 2.0**
 
 ## Download and install
 

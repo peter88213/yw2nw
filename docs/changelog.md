@@ -4,6 +4,13 @@
 
 ## Changelog
 
+### v0.9.0 Update to file format 1.5
+
+- Add file format 1.5 support (read only). 
+- Drop file format 1.4 support. 
+
+Based on Pywriter v6.0.0
+
 ### v0.8.6
 
 - Fix Chapter "Type" and "ChapterType" inconsistencies when writing .yw7 files.

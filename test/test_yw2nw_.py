@@ -27,8 +27,8 @@ YW7_GENERATED = 'generated.yw7'
 YW7_EDITED = 'edited.yw7'
 NW_NORMAL_V1_3 = 'normal_v1_3.nw'
 NW_EDITED_V1_3 = 'edited_v1_3.nw'
-YW7_EDITED_V1_4 = 'edited_v1_4.yw7'
-NW_NORMAL_V1_4 = 'normal_v1_4.nw'
+YW7_EDITED_V1_5 = 'edited_v1_5.yw7'
+NW_NORMAL_V1_5 = 'normal_v1_5.nw'
 PROJECT = 'Sample Project'
 
 
@@ -79,8 +79,8 @@ class NormalOperation(unittest.TestCase):
         self.assertEqual(read_file(f'{TEST_EXEC_PATH}{PROJECT}.yw7'),
                          read_file(f'{TEST_DATA_PATH}{YW7_GENERATED}'))
 
-    def test_nw_to_yw7_v1_4(self):
-        copytree(f'{TEST_DATA_PATH}{NW_NORMAL_V1_4}',
+    def test_nw_to_yw7_v1_5(self):
+        copytree(f'{TEST_DATA_PATH}{NW_NORMAL_V1_5}',
                  f'{TEST_EXEC_PATH}{PROJECT}.nw')
         os.chdir(TEST_EXEC_PATH)
         yw2nw_.run(f'{TEST_EXEC_PATH}{PROJECT}.nw/nwProject.nwx', doubleLinebreaks=True)
