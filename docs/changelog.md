@@ -4,6 +4,12 @@
 
 ## Changelog
 
+### v0.10.2
+
+- Replace linebreaks with tabs when converting scene descriptions to synopses.
+
+Based on Pywriter v6.0.0
+
 ### v0.10.1
 
 - Modify "shebang" line to make the script run with Python 3.11 under Windows.

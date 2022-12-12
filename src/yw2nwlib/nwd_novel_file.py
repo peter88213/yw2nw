@@ -332,7 +332,8 @@ class NwdNovelFile(NwdFile):
 
         # Set synopsis.
         if scene.desc:
-            self._lines.append(f'\n% {self._SYNOPSIS_KEYWORD} {scene.desc}')
+            synopsis = scene.desc.replace('\n', '\t')
+            self._lines.append(f'\n% {self._SYNOPSIS_KEYWORD} {synopsis}')
 
         # Separate the text body by a blank line.
         self._lines.append('\n')
