@@ -35,7 +35,7 @@ SETTINGS = dict(
     # section_heading_prefix='####',
 )
 OPTIONS = dict(
-    double_linebreaks=True
+    double_linebreaks=True,
 )
 
 
@@ -59,6 +59,7 @@ def run(sourcePath, doubleLinebreaks=False, silentMode=True, installDir='.'):
     # This is only to enforce the standard behavior if desired.
     if doubleLinebreaks:
         kwargs['double_linebreaks'] = True
+
     converter = NwConverter()
     converter.ui = ui
     converter.run(sourcePath, **kwargs)

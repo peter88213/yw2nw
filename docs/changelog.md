@@ -4,6 +4,13 @@
 
 ## Changelog
 
+### v0.10.0
+
+- Full file format 1.5 support (read and write). 
+- Drop file format 1.3 support. 
+
+Based on Pywriter v6.0.0
+
 ### v0.9.0 Update to file format 1.5
 
 - Add file format 1.5 support (read only). 

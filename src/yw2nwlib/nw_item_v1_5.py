@@ -13,8 +13,6 @@ class NwItemV15(NwItem):
     
     Strategy class for file format version 1.5.
     """
-    _BOOL_READ = dict(yes='True', no='False')
-    # maps the way Booleans are represented in v1.5 files to the v1.3 specification
 
     def read(self, node, master):
         """Read a novelWriter node entry from the XML project tree. 
@@ -35,7 +33,11 @@ class NwItemV15(NwItem):
             self.nwName = nameNode.text
             self.nwStatus = master.statusLookup[nameNode.attrib.get('status')]
             self.nwImportance = master.importanceLookup[nameNode.attrib.get('import')]
-            self.nwActive = self._BOOL_READ.get(nameNode.attrib.get('active'), 'False')
+            isActive = nameNode.attrib.get('active')
+            if isActive in ('yes', 'true', 'on'):
+                self.nwActive = True
+            else:
+                self.nwActive = False
         return self.nwHandle
 
     def write(self, parentNode, master):
@@ -60,7 +62,7 @@ class NwItemV15(NwItem):
         if self.nwImportance is not None:
             nameNode.set('import', master.IMPORTANCE_IDS[self.nwImportance])
         if self.nwActive is not None:
-            if self.nwActive == 'True':
+            if self.nwActive:
                 nameNode.set('active', 'yes')
             else:
                 nameNode.set('active', 'no')

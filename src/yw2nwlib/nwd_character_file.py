@@ -36,7 +36,7 @@ class NwdCharacterFile(NwdFile):
         super().__init__(prj, nwItem)
 
         # Customizable Character importance.
-        self._majorCharacterStatus = prj.kwargs['major_character_status']
+        self._majorImportance = prj.kwargs['major_character_status']
 
         # Headings that divide the character sheet into sections.
         self._characterNotesHeading = prj.kwargs['character_notes_heading']
@@ -104,7 +104,7 @@ class NwdCharacterFile(NwdFile):
         self._prj.characters[crId].bio = '\n'.join(bio)
         self._prj.characters[crId].goals = '\n'.join(goals)
         self._prj.characters[crId].notes = '\n'.join(notes)
-        if self._nwItem.nwImportance in self._majorCharacterStatus:
+        if self._nwItem.nwImportance in self._majorImportance:
             self._prj.characters[crId].isMajor = True
         else:
             self._prj.characters[crId].isMajor = False

@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='utf-8'?>
+<novelWriterXML appVersion="2.0.2" hexVersion="0x020002f0" fileVersion="1.5" timeStamp="2022-12-12 11:42:14">
+  <project>
+    <name>Sample Project</name>
+    <title>Sample Project</title>
+    <author>Jay Doh</author>
+  </project>
+  <settings>
+    <status>
+      <entry key="s000001" count="0" blue="230" green="230" red="230">None</entry>
+      <entry key="s000002" count="0" blue="0" green="0" red="0">Outline</entry>
+      <entry key="s000003" count="0" blue="0" green="40" red="170">Draft</entry>
+      <entry key="s000004" count="0" blue="0" green="140" red="240">1st Edit</entry>
+      <entry key="s000005" count="0" blue="90" green="190" red="250">2nd Edit</entry>
+      <entry key="s000006" count="0" blue="58" green="180" red="58">Done</entry>
+    </status>
+    <importance>
+      <entry key="i000001" count="0" blue="220" green="220" red="220">None</entry>
+      <entry key="i000002" count="0" blue="188" green="122" red="0">Minor</entry>
+      <entry key="i000003" count="0" blue="180" green="0" red="21">Major</entry>
+    </importance>
+  </settings>
+  <content count="43">
+    <item handle="53ca4659fb3c2" parent="None" order="0" type="ROOT" class="NOVEL">
+      <name>Novel</name>
+      <meta />
+    </item>
+    <item handle="d16744e167b16" parent="53ca4659fb3c2" order="0" type="FOLDER" class="NOVEL">
+      <name>My Novel</name>
+      <meta />
+    </item>
+    <item handle="cadde937f4ce0" parent="d16744e167b16" order="0" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000001" import="i000001" active="yes">My Novel</name>
+      <meta />
+    </item>
+    <item handle="90c515622c9f5" parent="d16744e167b16" order="0" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000003" import="i000001" active="yes">Scene 1</name>
+      <meta charCount="99" wordCount="23" />
+    </item>
+    <item handle="6f03cca328f64" parent="53ca4659fb3c2" order="1" type="FOLDER" class="NOVEL">
+      <name>Part One</name>
+      <meta />
+    </item>
+    <item handle="6f2ecf7d96895" parent="6f03cca328f64" order="0" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000001" import="i000001" active="yes">Part One</name>
+      <meta />
+    </item>
+    <item handle="5e53aeef23a75" parent="6f03cca328f64" order="0" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000002" import="i000001" active="yes">Scene 2</name>
+      <meta charCount="24" wordCount="5" />
+    </item>
+    <item handle="3f1fe89752aaf" parent="6f03cca328f64" order="1" type="FOLDER">
+      <name>So it Begins</name>
+      <meta />
+    </item>
+    <item handle="bfeb3db0c77ff" parent="3f1fe89752aaf" order="0" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000001" import="i000001" active="yes">So it Begins</name>
+      <meta />
+    </item>
+    <item handle="a130302a4a65f" parent="3f1fe89752aaf" order="1" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000005" import="i000001" active="yes">Scene 3</name>
+      <meta charCount="63" wordCount="11" />
+    </item>
+    <item handle="1d0778b6f9da4" parent="3f1fe89752aaf" order="2" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000003" import="i000001" active="yes">Making a Scene</name>
+      <meta charCount="1380" wordCount="242" />
+    </item>
+    <item handle="5e6bce298d084" parent="3f1fe89752aaf" order="3" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000003" import="i000001" active="yes">Some Section Here</name>
+      <meta charCount="415" wordCount="77" />
+    </item>
+    <item handle="8bd9835763792" parent="3f1fe89752aaf" order="4" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000003" import="i000001" active="yes">Text Alignment</name>
+      <meta charCount="322" wordCount="61" />
+    </item>
+    <item handle="1da75bef72e70" parent="3f1fe89752aaf" order="5" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000003" import="i000001" active="yes">Text Indent</name>
+      <meta charCount="244" wordCount="48" />
+    </item>
+    <item handle="f1150922e2bc4" parent="3f1fe89752aaf" order="6" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000003" import="i000001" active="yes">Another Scene</name>
+      <meta charCount="349" wordCount="68" />
+    </item>
+    <item handle="becafe6d6c3cb" parent="3f1fe89752aaf" order="7" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000003" import="i000001" active="yes">More Scenes</name>
+      <meta charCount="103" wordCount="21" />
+    </item>
+    <item handle="919379a2a061b" parent="6f03cca328f64" order="2" type="FOLDER">
+      <name>Interlude</name>
+      <meta />
+    </item>
+    <item handle="66cf7351b5ee7" parent="919379a2a061b" order="0" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000001" import="i000001" active="yes">Interlude</name>
+      <meta />
+    </item>
+    <item handle="ff58bbcc59cb0" parent="919379a2a061b" order="1" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000002" import="i000001" active="yes">Scene 10</name>
+      <meta charCount="608" wordCount="100" />
+    </item>
+    <item handle="cbf77ec70fa04" parent="53ca4659fb3c2" order="3" type="FOLDER" class="NOVEL">
+      <name>A Note on Structure</name>
+      <meta />
+    </item>
+    <item handle="01b3d9f8219d9" parent="cbf77ec70fa04" order="0" type="FILE" class="NOVEL" layout="NOTE">
+      <name status="s000001" import="i000001" active="no">A Note on Structure</name>
+      <meta />
+    </item>
+    <item handle="24281d41132c3" parent="cbf77ec70fa04" order="0" type="FILE" class="NOVEL" layout="NOTE">
+      <name status="s000004" import="i000001" active="no">Scene 11</name>
+      <meta charCount="347" wordCount="68" />
+    </item>
+    <item handle="83efeb7d63faf" parent="cbf77ec70fa04" order="1" type="FOLDER">
+      <name>Headers in Notes</name>
+      <meta />
+    </item>
+    <item handle="e1f7a2c9f62ca" parent="83efeb7d63faf" order="0" type="FILE" class="NOVEL" layout="NOTE">
+      <name status="s000001" import="i000001" active="no">Headers in Notes</name>
+      <meta />
+    </item>
+    <item handle="85b5ef16f31f1" parent="83efeb7d63faf" order="1" type="FILE" class="NOVEL" layout="NOTE">
+      <name status="s000004" import="i000001" active="no">Scene 12</name>
+      <meta charCount="153" wordCount="27" />
+    </item>
+    <item handle="3f7c4f7c21af9" parent="cbf77ec70fa04" order="2" type="FOLDER">
+      <name>Folders in the Tree View</name>
+      <meta />
+    </item>
+    <item handle="5129404076e62" parent="3f7c4f7c21af9" order="0" type="FILE" class="NOVEL" layout="NOTE">
+      <name status="s000001" import="i000001" active="no">Folders in the Tree View</name>
+      <meta />
+    </item>
+    <item handle="07d536ac89211" parent="3f7c4f7c21af9" order="1" type="FILE" class="NOVEL" layout="NOTE">
+      <name status="s000004" import="i000001" active="no">Scene 13</name>
+      <meta charCount="358" wordCount="66" />
+    </item>
+    <item handle="e447e5b9ec226" parent="cbf77ec70fa04" order="3" type="FOLDER">
+      <name>Linking Files and Notes</name>
+      <meta />
+    </item>
+    <item handle="918be2f8ee2c2" parent="e447e5b9ec226" order="0" type="FILE" class="NOVEL" layout="NOTE">
+      <name status="s000001" import="i000001" active="no">Linking Files and Notes</name>
+      <meta />
+    </item>
+    <item handle="6712d66560e47" parent="e447e5b9ec226" order="1" type="FILE" class="NOVEL" layout="NOTE">
+      <name status="s000004" import="i000001" active="no">Scene 14</name>
+      <meta charCount="750" wordCount="136" />
+    </item>
+    <item handle="b08e3be2497b7" parent="cbf77ec70fa04" order="4" type="FOLDER">
+      <name>Where has John Gone?</name>
+      <meta />
+    </item>
+    <item handle="b3485a9116f73" parent="b08e3be2497b7" order="0" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000001" import="i000001" active="yes">Where has John Gone?</name>
+      <meta />
+    </item>
+    <item handle="797d4ad1b1785" parent="b08e3be2497b7" order="1" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000003" import="i000001" active="yes">Jane Cannot Find John</name>
+      <meta charCount="104" wordCount="22" />
+    </item>
+    <item handle="c061f0f8a5bb7" parent="b08e3be2497b7" order="2" type="FILE" class="NOVEL" layout="DOCUMENT">
+      <name status="s000003" import="i000001" active="yes">We Found John!</name>
+      <meta charCount="824" wordCount="141" />
+    </item>
+    <item handle="69b26edc36d3f" parent="None" order="4" type="ROOT" class="CHARACTER">
+      <name status="s000001" import="i000001">Characters</name>
+      <meta />
+    </item>
+    <item handle="9e8b41c2a0b80" parent="69b26edc36d3f" order="0" type="FILE" class="CHARACTER" layout="NOTE">
+      <name status="s000001" import="i000002" active="yes">John Smith</name>
+      <meta />
+    </item>
+    <item handle="541ea1ecae7a5" parent="69b26edc36d3f" order="1" type="FILE" class="CHARACTER" layout="NOTE">
+      <name status="s000001" import="i000003" active="yes">Jane Smith</name>
+      <meta />
+    </item>
+    <item handle="81d9a9428ac6f" parent="None" order="5" type="ROOT" class="WORLD">
+      <name status="s000001" import="i000001">Locations</name>
+      <meta />
+    </item>
+    <item handle="14e94a4e8e7eb" parent="81d9a9428ac6f" order="0" type="FILE" class="WORLD" layout="NOTE">
+      <name status="s000001" import="i000001" active="yes">Earth</name>
+      <meta />
+    </item>
+    <item handle="f5502b20218ba" parent="81d9a9428ac6f" order="1" type="FILE" class="WORLD" layout="NOTE">
+      <name status="s000001" import="i000001" active="yes">Space</name>
+      <meta />
+    </item>
+    <item handle="e90ae03be146f" parent="81d9a9428ac6f" order="2" type="FILE" class="WORLD" layout="NOTE">
+      <name status="s000001" import="i000001" active="yes">Mars</name>
+      <meta />
+    </item>
+    <item handle="94b5734be0282" parent="None" order="6" type="ROOT" class="OBJECT">
+      <name status="s000001" import="i000001">Items</name>
+      <meta />
+    </item>
+  </content>
+</novelWriterXML>

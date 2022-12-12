@@ -50,7 +50,7 @@ suppress error messages and the request to confirm overwriting
 | -------------------------- | ---------------------------------------------- | ----------------------------------------- |
 | **Novel 1st level**        |                                                |                                           |
 | "Part" (novelWriter)       | Chapter marked as beginning of a new section   | Text with a first level heading           |
-| Part synopsis              | Chapter description                            | Text prefixed by *% synopsis :*         |
+| Part synopsis              | Chapter description                            | Text prefixed by *% synopsis :*           |
 | **Novel 2nd level**        |                                                |                                           |
 | Chapter                    | Chapter                                        | Text with a second level heading          |
 | Chapter synopsis           | Chapter description                            | Text prefixed by *% synopsis :*           |
@@ -61,7 +61,7 @@ suppress error messages and the request to confirm overwriting
 | "Section" (novelWriter)    | Scene appended to the previous without divider | Text with a fourth level heading          |
 | Section synopsis           | Scene description                              | Text prefixed by *% synopsis :*           |
 | **State of completion**    | Scene status                                   | Status (max. 6 conv., sect./scenes only)  |
-| **Validity**               | Scene is used/unused                           | Scene is exported/not exported            |
+| **Validity**               | Scene is used/unused                           | Scene is active/not active                |
 | **Characters**             |                                                |                                           |
 | Character				     | Character                                      | Character (tagged)                        |
 | Character full name        | Character full name                            | First level heading in the character file |
@@ -96,6 +96,7 @@ suppress error messages and the request to confirm overwriting
 -  Root folders other than **Novel**, **Characters**, **Locations**, and **Items** in *novelWriter* are lost when converting to *yWriter*.
 -  Items in *novelWriter*'s "Outtakes" folder are not exported to *yWriter*.
 -  The "Trash" folders are ignored when converting to both directions.
+-  *yw2nw* does not create an index. After loading the generated project into *novelWriter*, please press **F9**, or select **Tools > Rebuild Index**. 
 
 ### Metadata
 

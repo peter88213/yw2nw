@@ -11,12 +11,13 @@ from pywriter.pywriter_globals import ERROR
 from pywriter.model.novel import Novel
 from pywriter.yw.xml_indent import indent
 from yw2nwlib.handles import Handles
-from yw2nwlib.nw_item_v1_3 import NwItemV13
 from yw2nwlib.nw_item_v1_5 import NwItemV15
 from yw2nwlib.nwd_character_file import NwdCharacterFile
 from yw2nwlib.nwd_novel_file import NwdNovelFile
 from yw2nwlib.nwd_world_file import NwdWorldFile
 from yw2nwlib.nwd_object_file import NwdObjectFile
+
+WRITE_NEW_FORMAT = True
 
 
 class NwxFile(Novel):
@@ -60,12 +61,6 @@ class NwxFile(Novel):
         'fileVersion': '1.5',
         'timeStamp': datetime.today().replace(microsecond=0).isoformat(sep=' '),
     }
-    _NWX_ATTR_V1_3 = {
-        'appVersion': '1.6-alpha0',
-        'hexVersion': '0x010600a0',
-        'fileVersion': '1.3',
-        'timeStamp': datetime.today().replace(microsecond=0).isoformat(sep=' '),
-    }
     _NWD_CLASSES = {
         'CHARACTER':NwdCharacterFile,
         'WORLD':NwdWorldFile,
@@ -80,8 +75,6 @@ class NwxFile(Novel):
             '1st Edit': 's000004',
             '2nd Edit': 's000005',
             'Done': 's000006',
-            'Major': 's000007',
-            'Minor': 's000008',
             }
 
     IMPORTANCE_IDS = {
@@ -89,7 +82,6 @@ class NwxFile(Novel):
             'Minor': 'i000002',
             'Major': 'i000003',
             }
-    WRITE_NEW_FORMAT = False
 
     def __init__(self, filePath, **kwargs):
         """Initialize instance variables.
@@ -157,20 +149,18 @@ class NwxFile(Novel):
         if root.tag != self._NWX_TAG:
             return f'{ERROR}This seems not to bee a novelWriter project file.'
 
-        if root.attrib.get('fileVersion') == self._NWX_ATTR_V1_5['fileVersion']:
-            NwItem = NwItemV15
-            self.statusLookup = {}
-            xmlStatus = root.find('settings').find('status')
-            for xmlStatusEntry in xmlStatus.findall('entry'):
-                self.statusLookup[xmlStatusEntry.attrib.get('key')] = xmlStatusEntry.text
-            self.importanceLookup = {}
-            xmlImportance = root.find('settings').find('importance')
-            for xmlImportanceEntry in xmlImportance.findall('entry'):
-                self.importanceLookup[xmlImportanceEntry.attrib.get('key')] = xmlImportanceEntry.text
-        elif root.attrib.get('fileVersion') == self._NWX_ATTR_V1_3['fileVersion']:
-            NwItem = NwItemV13
-        else:
-            return f'{ERROR}Wrong file version (must be {self._NWX_ATTR_V1_3["fileVersion"]} or {self._NWX_ATTR_V1_4["fileVersion"]}).'
+        if root.attrib.get('fileVersion') != self._NWX_ATTR_V1_5['fileVersion']:
+            return f'{ERROR}Wrong file version (must be {self._NWX_ATTR_V1_5["fileVersion"]}).'
+
+        NwItem = NwItemV15
+        self.statusLookup = {}
+        xmlStatus = root.find('settings').find('status')
+        for xmlStatusEntry in xmlStatus.findall('entry'):
+            self.statusLookup[xmlStatusEntry.attrib.get('key')] = xmlStatusEntry.text
+        self.importanceLookup = {}
+        xmlImportance = root.find('settings').find('importance')
+        for xmlImportanceEntry in xmlImportance.findall('entry'):
+            self.importanceLookup[xmlImportanceEntry.attrib.get('key')] = xmlImportanceEntry.text
 
         #--- Read project metadata from the xml element _tree.
         prj = root.find('project')
@@ -284,20 +274,15 @@ class NwxFile(Novel):
             """Write an XML entry with RGB values as attributes.
             """
             attrib = {}
-            if self.WRITE_NEW_FORMAT:
-                attrib['key'] = map[entry]
-                attrib['count'] = '0'
+            attrib['key'] = map[entry]
+            attrib['count'] = '0'
             attrib['blue'] = str(blue)
             attrib['green'] = str(green)
             attrib['red'] = str(red)
             ET.SubElement(parent, 'entry', attrib).text = entry
 
-        if self.WRITE_NEW_FORMAT:
-            root = ET.Element(self._NWX_TAG, self._NWX_ATTR_V1_5)
-            NwItem = NwItemV15
-        else:
-            root = ET.Element(self._NWX_TAG, self._NWX_ATTR_V1_3)
-            NwItem = NwItemV13
+        root = ET.Element(self._NWX_TAG, self._NWX_ATTR_V1_5)
+        NwItem = NwItemV15
 
         #--- Write project metadata.
         xmlPrj = ET.SubElement(root, 'project')
@@ -389,14 +374,15 @@ class NwxFile(Novel):
                 partHeading.nwName = self.chapters[chId].title
                 partHeading.nwType = 'FILE'
                 partHeading.nwClass = 'NOVEL'
-                partHeading.nwActive = 'True'
+                partHeading.nwActive = True
                 if self.chapters[chId].chType == 0:
-                    partHeading.nwActive = 'True'
+                    partHeading.nwActive = True
                     partHeading.nwLayout = 'DOCUMENT'
                 else:
-                    partHeading.nwActive = 'False'
+                    partHeading.nwActive = False
                     partHeading.nwLayout = 'NOTE'
                 partHeading.nwStatus = 'None'
+                partHeading.nwImportance = 'None'
                 partHeading.write(content, self)
 
                 # Add it to the .nwd file.
@@ -442,12 +428,13 @@ class NwxFile(Novel):
                 chapterHeading.nwType = 'FILE'
                 chapterHeading.nwClass = 'NOVEL'
                 if self.chapters[chId].chType == 0:
-                    chapterHeading.nwActive = 'True'
+                    chapterHeading.nwActive = True
                     chapterHeading.nwLayout = 'DOCUMENT'
                 else:
-                    chapterHeading.nwActive = 'False'
+                    chapterHeading.nwActive = False
                     chapterHeading.nwLayout = 'NOTE'
                 chapterHeading.nwStatus = 'None'
+                chapterHeading.nwImportance = 'None'
                 chapterHeading.write(content, self)
 
                 # Add it to the .nwd file.
@@ -479,10 +466,11 @@ class NwxFile(Novel):
                         scene.nwStatus = self._sceneStatus[self.scenes[scId].status]
                     except IndexError:
                         scene.nwStatus = self._sceneStatus[-1]
+                scene.nwImportance = 'None'
                 if self.scenes[scId].isUnused:
-                    scene.nwActive = 'False'
+                    scene.nwActive = False
                 else:
-                    scene.nwActive = 'True'
+                    scene.nwActive = True
                 if self.scenes[scId].isNotesScene or self.scenes[scId].isTodoScene:
                     scene.nwLayout = 'NOTE'
                 else:
@@ -515,6 +503,7 @@ class NwxFile(Novel):
         characterFolder.nwType = 'ROOT'
         characterFolder.nwClass = 'CHARACTER'
         characterFolder.nwStatus = 'None'
+        characterFolder.nwImportance = 'None'
         characterFolder.nwExpanded = 'True'
         characterFolder.write(content, self)
         attrCount += 1
@@ -538,11 +527,12 @@ class NwxFile(Novel):
                 character.nwName = f'Character {order[-1] + 1}'
             character.nwType = 'FILE'
             character.nwClass = 'CHARACTER'
+            character.nwStatus = 'None'
             if self.characters[crId].isMajor:
-                character.nwStatus = 'Major'
+                character.nwImportance = 'Major'
             else:
-                character.nwStatus = 'Minor'
-            character.nwActive = 'True'
+                character.nwImportance = 'Minor'
+            character.nwActive = True
             character.nwLayout = 'NOTE'
             character.write(content, self)
 
@@ -567,6 +557,7 @@ class NwxFile(Novel):
         worldFolder.nwType = 'ROOT'
         worldFolder.nwClass = 'WORLD'
         worldFolder.nwStatus = 'None'
+        worldFolder.nwImportance = 'None'
         worldFolder.nwExpanded = 'True'
         worldFolder.write(content, self)
         attrCount += 1
@@ -590,8 +581,10 @@ class NwxFile(Novel):
             location.nwName = title
             location.nwType = 'FILE'
             location.nwClass = 'WORLD'
-            location.nwActive = 'True'
+            location.nwActive = True
             location.nwLayout = 'NOTE'
+            location.nwStatus = 'None'
+            location.nwImportance = 'None'
             location.write(content, self)
 
             # Add it to the .nwd file.
@@ -614,6 +607,7 @@ class NwxFile(Novel):
         objectFolder.nwType = 'ROOT'
         objectFolder.nwClass = 'OBJECT'
         objectFolder.nwStatus = 'None'
+        objectFolder.nwImportance = 'None'
         objectFolder.nwExpanded = 'True'
         objectFolder.write(content, self)
         attrCount += 1
@@ -637,8 +631,10 @@ class NwxFile(Novel):
             item.nwName = title
             item.nwType = 'FILE'
             item.nwClass = 'OBJECT'
-            item.nwActive = 'True'
+            item.nwActive = True
             item.nwLayout = 'NOTE'
+            item.nwStatus = 'None'
+            item.nwImportance = 'None'
             item.write(content, self)
 
             # Add it to the .nwd file.

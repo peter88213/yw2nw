@@ -77,10 +77,10 @@ class NwdNovelFile(NwdFile):
         if quick:
             # Just clean up a one-liner without sophisticated formatting.
             if text is None:
-                return ''           
+                return ''
             else:
                 return text
-        
+
         # Convert italics, bold, and strikethrough.
         MD_REPLACEMENTS = [
             ('[i] ', ' [i]'),
@@ -124,11 +124,11 @@ class NwdNovelFile(NwdFile):
 
         # Text alignment in yWriter is more complicated than it seems
         # at first glance, so don't support it for now.
-        #text = re.sub('\>\>(.+?)\<\<\n', '[c]\\1\n[/c]', text)
-        #text = re.sub('\>\>(.+?)\<\<', '[c]\\1', text)
-        #text = re.sub('\>\>(.+?)\n', '[r]\\1\n[/r]', text)
-        #text = re.sub('\>\>(.+?)', '[r]\\1', text)
-        #text = text.replace('<<', '')
+        # text = re.sub('\>\>(.+?)\<\<\n', '[c]\\1\n[/c]', text)
+        # text = re.sub('\>\>(.+?)\<\<', '[c]\\1', text)
+        # text = re.sub('\>\>(.+?)\n', '[r]\\1\n[/r]', text)
+        # text = re.sub('\>\>(.+?)', '[r]\\1', text)
+        # text = text.replace('<<', '')
 
         MD_REPLACEMENTS = []
         if self.doubleLinebreaks:
@@ -177,7 +177,7 @@ class NwdNovelFile(NwdFile):
             isNotesScene = True
         else:
             isUnused = True
-        if not self._nwItem.nwActive == 'True':
+        if not self._nwItem.nwActive:
             isUnused = True
         if self._nwItem.nwStatus in self._outlineStatus:
             status = 1

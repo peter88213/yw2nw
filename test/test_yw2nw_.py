@@ -25,10 +25,8 @@ TEST_EXEC_PATH = f'{TEST_PATH}/yw7/'
 # Test data
 YW7_GENERATED = 'generated.yw7'
 YW7_EDITED = 'edited.yw7'
-NW_NORMAL_V1_3 = 'normal_v1_3.nw'
-NW_EDITED_V1_3 = 'edited_v1_3.nw'
-YW7_EDITED_V1_5 = 'edited_v1_5.yw7'
-NW_NORMAL_V1_5 = 'normal_v1_5.nw'
+NW_NORMAL = 'normal.nw'
+NW_EDITED = 'edited.nw'
 PROJECT = 'Sample Project'
 
 
@@ -43,7 +41,7 @@ def read_file(inputFile):
 
 
 def adjust_timestamp(text):
-    return re.sub('timeStamp=".*?"', 'timeStamp="2022-02-21 10:50:41"', text)
+    return re.sub('timeStamp=".*?"', 'timeStamp="2022-12-12 11:42:14"', text)
 
 
 def remove_all_testfiles():
@@ -71,16 +69,8 @@ class NormalOperation(unittest.TestCase):
             pass
         remove_all_testfiles()
 
-    def test_nw_to_yw7_v1_3(self):
-        copytree(f'{TEST_DATA_PATH}{NW_NORMAL_V1_3}',
-                 f'{TEST_EXEC_PATH}{PROJECT}.nw')
-        os.chdir(TEST_EXEC_PATH)
-        yw2nw_.run(f'{TEST_EXEC_PATH}{PROJECT}.nw/nwProject.nwx', doubleLinebreaks=True)
-        self.assertEqual(read_file(f'{TEST_EXEC_PATH}{PROJECT}.yw7'),
-                         read_file(f'{TEST_DATA_PATH}{YW7_GENERATED}'))
-
-    def test_nw_to_yw7_v1_5(self):
-        copytree(f'{TEST_DATA_PATH}{NW_NORMAL_V1_5}',
+    def test_nw_to_yw7(self):
+        copytree(f'{TEST_DATA_PATH}{NW_NORMAL}',
                  f'{TEST_EXEC_PATH}{PROJECT}.nw')
         os.chdir(TEST_EXEC_PATH)
         yw2nw_.run(f'{TEST_EXEC_PATH}{PROJECT}.nw/nwProject.nwx', doubleLinebreaks=True)
@@ -92,11 +82,11 @@ class NormalOperation(unittest.TestCase):
         os.chdir(TEST_EXEC_PATH)
         yw2nw_.run(f'{TEST_EXEC_PATH}{PROJECT}.yw7', doubleLinebreaks=True)
         self.assertEqual(adjust_timestamp(read_file(f'{TEST_EXEC_PATH}{PROJECT}.nw/nwProject.nwx')),
-                                            read_file(f'{TEST_DATA_PATH}{NW_EDITED_V1_3}/nwProject.nwx'))
+                                            read_file(f'{TEST_DATA_PATH}{NW_EDITED}/nwProject.nwx'))
         contentFiles = os.listdir(f'{TEST_EXEC_PATH}{PROJECT}.nw/content')
         for contentFile in contentFiles:
             self.assertEqual(read_file(f'{TEST_EXEC_PATH}{PROJECT}.nw/content/{contentFile}'), read_file(
-                                        f'{TEST_DATA_PATH}{NW_EDITED_V1_3}/content/{contentFile}'))
+                                        f'{TEST_DATA_PATH}{NW_EDITED}/content/{contentFile}'))
 
     def tearDown(self):
         remove_all_testfiles()
