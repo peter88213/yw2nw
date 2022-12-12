@@ -189,6 +189,8 @@ class NwdNovelFile(NwdFile):
             status = 4
         elif self._nwItem.nwStatus in self._doneStatus:
             status = 5
+        else:
+            status = 1
         characters = []
         locations = []
         items = []
@@ -357,4 +359,5 @@ class NwdNovelFile(NwdFile):
 
         # Set yWriter chapter description.
         if chapter.desc:
-            self._lines.append(f'\n% {self._SYNOPSIS_KEYWORD} {chapter.desc}\n')
+            synopsis = chapter.desc.replace('\n', '\t')
+            self._lines.append(f'\n% {self._SYNOPSIS_KEYWORD} {synopsis}\n')

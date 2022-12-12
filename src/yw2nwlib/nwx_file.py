@@ -170,7 +170,9 @@ class NwxFile(Novel):
             self.title = prj.find('name').text
         authors = []
         for author in prj.iter('author'):
-            authors.append(author.text)
+            if author is not None:
+                if author.text:
+                    authors.append(author.text)
         self.authorName = ', '.join(authors)
 
         #--- Read project content from the xml element tree.

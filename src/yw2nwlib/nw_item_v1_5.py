@@ -31,8 +31,12 @@ class NwItemV15(NwItem):
         if node.find('name') is not None:
             nameNode = node.find('name')
             self.nwName = nameNode.text
-            self.nwStatus = master.statusLookup[nameNode.attrib.get('status')]
-            self.nwImportance = master.importanceLookup[nameNode.attrib.get('import')]
+            status = nameNode.attrib.get('status')
+            if status is not None:
+                self.nwStatus = master.statusLookup[status]
+            importance = nameNode.attrib.get('import')
+            if importance is not None:
+                self.nwImportance = master.importanceLookup[importance]
             isActive = nameNode.attrib.get('active')
             if isActive in ('yes', 'true', 'on'):
                 self.nwActive = True

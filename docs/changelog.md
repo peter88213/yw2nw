@@ -4,6 +4,15 @@
 
 ## Changelog
 
+### v0.10.3
+
+- Fix a bug where conversion fails if the novelWriter project has no author.
+- Fix a bug where conversion fails if status or importance attributes are missing.
+- Replace linebreaks with tabs when converting chapter descriptions to synopses.
+- Make "Outline" the default status for new scenes.
+
+Based on Pywriter v6.0.0
+
 ### v0.10.2
 
 - Replace linebreaks with tabs when converting scene descriptions to synopses.
