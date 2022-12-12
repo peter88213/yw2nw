@@ -177,7 +177,7 @@ class NwdNovelFile(NwdFile):
             isNotesScene = True
         else:
             isUnused = True
-        if not self._nwItem.nwExported == 'True':
+        if not self._nwItem.nwActive == 'True':
             isUnused = True
         if self._nwItem.nwStatus in self._outlineStatus:
             status = 1

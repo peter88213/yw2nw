@@ -73,6 +73,23 @@ class NwxFile(Novel):
         'NOVEL':NwdNovelFile
         }
     _TRAILER = ('ARCHIVE', 'TRASH')
+    STATUS_IDS = {
+            'None': 's000001',
+            'Outline': 's000002',
+            'Draft': 's000003',
+            '1st Edit': 's000004',
+            '2nd Edit': 's000005',
+            'Done': 's000006',
+            'Major': 's000007',
+            'Minor': 's000008',
+            }
+
+    IMPORTANCE_IDS = {
+            'None': 'i000001',
+            'Minor': 'i000002',
+            'Major': 'i000003',
+            }
+    WRITE_NEW_FORMAT = False
 
     def __init__(self, filePath, **kwargs):
         """Initialize instance variables.
@@ -263,17 +280,24 @@ class NwxFile(Novel):
         Override the superclass method.
         """
 
-        def write_entry(parent, entry, red, green, blue):
+        def write_entry(parent, entry, red, green, blue, map):
             """Write an XML entry with RGB values as attributes.
             """
-            attrib = {
-                'blue': str(blue),
-                'green': str(green),
-                'red': str(red)
-            }
+            attrib = {}
+            if self.WRITE_NEW_FORMAT:
+                attrib['key'] = map[entry]
+                attrib['count'] = '0'
+            attrib['blue'] = str(blue)
+            attrib['green'] = str(green)
+            attrib['red'] = str(red)
             ET.SubElement(parent, 'entry', attrib).text = entry
 
-        root = ET.Element(self._NWX_TAG, self._NWX_ATTR_V1_3)
+        if self.WRITE_NEW_FORMAT:
+            root = ET.Element(self._NWX_TAG, self._NWX_ATTR_V1_5)
+            NwItem = NwItemV15
+        else:
+            root = ET.Element(self._NWX_TAG, self._NWX_ATTR_V1_3)
+            NwItem = NwItemV13
 
         #--- Write project metadata.
         xmlPrj = ET.SubElement(root, 'project')
@@ -294,18 +318,18 @@ class NwxFile(Novel):
         settings = ET.SubElement(root, 'settings')
         status = ET.SubElement(settings, 'status')
         try:
-            write_entry(status, self._sceneStatus[0], 230, 230, 230)
-            write_entry(status, self._sceneStatus[1], 0, 0, 0)
-            write_entry(status, self._sceneStatus[2], 170, 40, 0)
-            write_entry(status, self._sceneStatus[3], 240, 140, 0)
-            write_entry(status, self._sceneStatus[4], 250, 190, 90)
-            write_entry(status, self._sceneStatus[5], 58, 180, 58)
+            write_entry(status, self._sceneStatus[0], 230, 230, 230, self.STATUS_IDS)
+            write_entry(status, self._sceneStatus[1], 0, 0, 0, self.STATUS_IDS)
+            write_entry(status, self._sceneStatus[2], 170, 40, 0, self.STATUS_IDS)
+            write_entry(status, self._sceneStatus[3], 240, 140, 0, self.STATUS_IDS)
+            write_entry(status, self._sceneStatus[4], 250, 190, 90, self.STATUS_IDS)
+            write_entry(status, self._sceneStatus[5], 58, 180, 58, self.STATUS_IDS)
         except IndexError:
             pass
         importance = ET.SubElement(settings, 'importance')
-        write_entry(importance, 'None', 220, 220, 220)
-        write_entry(importance, 'Minor', 0, 122, 188)
-        write_entry(importance, 'Major', 21, 0, 180)
+        write_entry(importance, 'None', 220, 220, 220, self.IMPORTANCE_IDS)
+        write_entry(importance, 'Minor', 0, 122, 188, self.IMPORTANCE_IDS)
+        write_entry(importance, 'Major', 21, 0, 180, self.IMPORTANCE_IDS)
 
         #--- Write content.
         content = ET.SubElement(root, 'content')
@@ -315,7 +339,7 @@ class NwxFile(Novel):
 
         #--- Write novel folder.
         novelFolderHandle = self.nwHandles.create_member('novelFolderHandle')
-        novelFolder = NwItemV13()
+        novelFolder = NwItem()
         novelFolder.nwHandle = novelFolderHandle
         novelFolder.nwOrder = order[-1]
         novelFolder.nwParent = 'None'
@@ -323,7 +347,7 @@ class NwxFile(Novel):
         novelFolder.nwType = 'ROOT'
         novelFolder.nwClass = 'NOVEL'
         novelFolder.nwExpanded = 'True'
-        novelFolder.write(content)
+        novelFolder.write(content, self)
         attrCount += 1
         order[-1] += 1
         # content level
@@ -341,7 +365,7 @@ class NwxFile(Novel):
 
                 #--- Write a new folder for this part.
                 partFolderHandle = self.nwHandles.create_member(f'{chId + self.chapters[chId].title}Folder')
-                partFolder = NwItemV13()
+                partFolder = NwItem()
                 partFolder.nwHandle = partFolderHandle
                 partFolder.nwOrder = order[-1]
                 partFolder.nwParent = novelFolderHandle
@@ -349,7 +373,7 @@ class NwxFile(Novel):
                 partFolder.nwType = 'FOLDER'
                 partFolder.nwClass = 'NOVEL'
                 partFolder.expanded = 'True'
-                partFolder.write(content)
+                partFolder.write(content, self)
                 attrCount += 1
                 order[-1] += 1
                 # novel level
@@ -358,22 +382,22 @@ class NwxFile(Novel):
 
                 # Put the heading into the part folder.
                 partHeadingHandle = self.nwHandles.create_member(f'{chId + self.chapters[chId].title}')
-                partHeading = NwItemV13()
+                partHeading = NwItem()
                 partHeading.nwHandle = partHeadingHandle
                 partHeading.nwOrder = order[-1]
                 partHeading.nwParent = partFolderHandle
                 partHeading.nwName = self.chapters[chId].title
                 partHeading.nwType = 'FILE'
                 partHeading.nwClass = 'NOVEL'
-                partHeading.nwExported = 'True'
+                partHeading.nwActive = 'True'
                 if self.chapters[chId].chType == 0:
-                    partHeading.nwExported = 'True'
+                    partHeading.nwActive = 'True'
                     partHeading.nwLayout = 'DOCUMENT'
                 else:
-                    partHeading.nwExported = 'False'
+                    partHeading.nwActive = 'False'
                     partHeading.nwLayout = 'NOTE'
                 partHeading.nwStatus = 'None'
-                partHeading.write(content)
+                partHeading.write(content, self)
 
                 # Add it to the .nwd file.
                 nwdFile = NwdNovelFile(self, partHeading)
@@ -391,7 +415,7 @@ class NwxFile(Novel):
 
                 #--- Write a new folder for this chapter.
                 chapterFolderHandle = self.nwHandles.create_member(f'{chId}{self.chapters[chId].title}Folder')
-                chapterFolder = NwItemV13()
+                chapterFolder = NwItem()
                 chapterFolder.nwHandle = chapterFolderHandle
                 chapterFolder.nwOrder = order[-1]
                 if hasPartLevel:
@@ -401,7 +425,7 @@ class NwxFile(Novel):
                 chapterFolder.nwName = self.chapters[chId].title
                 chapterFolder.nwType = 'FOLDER'
                 chapterFolder.expanded = 'True'
-                chapterFolder.write(content)
+                chapterFolder.write(content, self)
                 attrCount += 1
                 order[-1] += 1
                 # part or novel level
@@ -410,7 +434,7 @@ class NwxFile(Novel):
 
                 # Put the heading into the folder.
                 chapterHeadingHandle = self.nwHandles.create_member(f'{chId}{self.chapters[chId].title}')
-                chapterHeading = NwItemV13()
+                chapterHeading = NwItem()
                 chapterHeading.nwHandle = chapterHeadingHandle
                 chapterHeading.nwOrder = order[-1]
                 chapterHeading.nwParent = chapterFolderHandle
@@ -418,13 +442,13 @@ class NwxFile(Novel):
                 chapterHeading.nwType = 'FILE'
                 chapterHeading.nwClass = 'NOVEL'
                 if self.chapters[chId].chType == 0:
-                    chapterHeading.nwExported = 'True'
+                    chapterHeading.nwActive = 'True'
                     chapterHeading.nwLayout = 'DOCUMENT'
                 else:
-                    chapterHeading.nwExported = 'False'
+                    chapterHeading.nwActive = 'False'
                     chapterHeading.nwLayout = 'NOTE'
                 chapterHeading.nwStatus = 'None'
-                chapterHeading.write(content)
+                chapterHeading.write(content, self)
 
                 # Add it to the .nwd file.
                 nwdFile = NwdNovelFile(self, chapterHeading)
@@ -436,7 +460,7 @@ class NwxFile(Novel):
             for scId in self.chapters[chId].srtScenes:
                 #--- Put a scene into the folder.
                 sceneHandle = self.nwHandles.create_member(f'{scId}{self.scenes[scId].title}')
-                scene = NwItemV13()
+                scene = NwItem()
                 scene.nwHandle = sceneHandle
                 scene.nwOrder = order[-1]
                 if isInChapter:
@@ -456,9 +480,9 @@ class NwxFile(Novel):
                     except IndexError:
                         scene.nwStatus = self._sceneStatus[-1]
                 if self.scenes[scId].isUnused:
-                    scene.nwExported = 'False'
+                    scene.nwActive = 'False'
                 else:
-                    scene.nwExported = 'True'
+                    scene.nwActive = 'True'
                 if self.scenes[scId].isNotesScene or self.scenes[scId].isTodoScene:
                     scene.nwLayout = 'NOTE'
                 else:
@@ -467,7 +491,7 @@ class NwxFile(Novel):
                     scene.nwWordCount = str(self.scenes[scId].wordCount)
                 if self.scenes[scId].letterCount:
                     scene.nwCharCount = str(self.scenes[scId].letterCount)
-                scene.write(content)
+                scene.write(content, self)
 
                 # Add it to the .nwd file.
                 nwdFile = NwdNovelFile(self, scene)
@@ -483,7 +507,7 @@ class NwxFile(Novel):
 
         #--- Write character folder.
         characterFolderHandle = self.nwHandles.create_member('characterFolderHandle')
-        characterFolder = NwItemV13()
+        characterFolder = NwItem()
         characterFolder.nwHandle = characterFolderHandle
         characterFolder.nwOrder = order[-1]
         characterFolder.nwParent = 'None'
@@ -492,7 +516,7 @@ class NwxFile(Novel):
         characterFolder.nwClass = 'CHARACTER'
         characterFolder.nwStatus = 'None'
         characterFolder.nwExpanded = 'True'
-        characterFolder.write(content)
+        characterFolder.write(content, self)
         attrCount += 1
         order[-1] += 1
 
@@ -502,7 +526,7 @@ class NwxFile(Novel):
         for crId in self.srtCharacters:
             #--- Put a character into the folder.
             characterHandle = self.nwHandles.create_member(f'{crId}{self.characters[crId].title}')
-            character = NwItemV13()
+            character = NwItem()
             character.nwHandle = characterHandle
             character.nwOrder = order[-1]
             character.nwParent = characterFolderHandle
@@ -518,9 +542,9 @@ class NwxFile(Novel):
                 character.nwStatus = 'Major'
             else:
                 character.nwStatus = 'Minor'
-            character.nwExported = 'True'
+            character.nwActive = 'True'
             character.nwLayout = 'NOTE'
-            character.write(content)
+            character.write(content, self)
 
             # Add it to the .nwd file.
             nwdFile = NwdCharacterFile(self, character)
@@ -535,7 +559,7 @@ class NwxFile(Novel):
 
         #--- Write world folder.
         worldFolderHandle = self.nwHandles.create_member('worldFolderHandle')
-        worldFolder = NwItemV13()
+        worldFolder = NwItem()
         worldFolder.nwHandle = worldFolderHandle
         worldFolder.nwOrder = order[-1]
         worldFolder.nwParent = 'None'
@@ -544,7 +568,7 @@ class NwxFile(Novel):
         worldFolder.nwClass = 'WORLD'
         worldFolder.nwStatus = 'None'
         worldFolder.nwExpanded = 'True'
-        worldFolder.write(content)
+        worldFolder.write(content, self)
         attrCount += 1
         order[-1] += 1
         # content level
@@ -555,7 +579,7 @@ class NwxFile(Novel):
         for lcId in self.srtLocations:
             #--- Put a location into the folder.
             locationHandle = self.nwHandles.create_member(f'{lcId}{self.locations[lcId].title}')
-            location = NwItemV13()
+            location = NwItem()
             location.nwHandle = locationHandle
             location.nwOrder = order[-1]
             location.nwParent = worldFolderHandle
@@ -566,9 +590,9 @@ class NwxFile(Novel):
             location.nwName = title
             location.nwType = 'FILE'
             location.nwClass = 'WORLD'
-            location.nwExported = 'True'
+            location.nwActive = 'True'
             location.nwLayout = 'NOTE'
-            location.write(content)
+            location.write(content, self)
 
             # Add it to the .nwd file.
             nwdFile = NwdWorldFile(self, location)
@@ -582,7 +606,7 @@ class NwxFile(Novel):
 
         #--- Write object folder.
         objectFolderHandle = self.nwHandles.create_member('objectFolderHandle')
-        objectFolder = NwItemV13()
+        objectFolder = NwItem()
         objectFolder.nwHandle = objectFolderHandle
         objectFolder.nwOrder = order[-1]
         objectFolder.nwParent = 'None'
@@ -591,7 +615,7 @@ class NwxFile(Novel):
         objectFolder.nwClass = 'OBJECT'
         objectFolder.nwStatus = 'None'
         objectFolder.nwExpanded = 'True'
-        objectFolder.write(content)
+        objectFolder.write(content, self)
         attrCount += 1
         order[-1] += 1
         # content level
@@ -602,7 +626,7 @@ class NwxFile(Novel):
         for itId in self.srtItems:
             #--- Put a item into the folder.
             itemHandle = self.nwHandles.create_member(f'{itId}{self.items[itId].title}')
-            item = NwItemV13()
+            item = NwItem()
             item.nwHandle = itemHandle
             item.nwOrder = order[-1]
             item.nwParent = objectFolderHandle
@@ -613,9 +637,9 @@ class NwxFile(Novel):
             item.nwName = title
             item.nwType = 'FILE'
             item.nwClass = 'OBJECT'
-            item.nwExported = 'True'
+            item.nwActive = 'True'
             item.nwLayout = 'NOTE'
-            item.write(content)
+            item.write(content, self)
 
             # Add it to the .nwd file.
             nwdFile = NwdObjectFile(self, item)

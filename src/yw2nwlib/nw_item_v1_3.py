@@ -36,12 +36,12 @@ class NwItemV13(NwItem):
             self.nwStatus = node.find('status').text
             self.nwImportance = self.nwStatus
         if node.find('exported') is not None:
-            self.nwExported = node.find('exported').text
+            self.nwActive = node.find('exported').text
         if node.find('layout') is not None:
             self.nwLayout = node.find('layout').text
         return self.nwHandle
 
-    def write(self, parentNode):
+    def write(self, parentNode, master):
         """Write a novelWriter item entry to the XML project tree.
         
         Positional arguments: 
@@ -63,8 +63,8 @@ class NwItemV13(NwItem):
             ET.SubElement(node, 'class').text = self.nwClass
         if self.nwStatus is not None:
             ET.SubElement(node, 'status').text = self.nwStatus
-        if self.nwExported is not None:
-            ET.SubElement(node, 'exported').text = self.nwExported
+        if self.nwActive is not None:
+            ET.SubElement(node, 'exported').text = self.nwActive
         if self.nwLayout is not None:
             ET.SubElement(node, 'layout').text = self.nwLayout
         if self.nwCharCount is not None:

@@ -13,8 +13,9 @@ class NwItem:
         nwName -- str: name or title.
         nwType -- str: type (ROOT/FOLDER/FILE).
         nwClass -- str: class (NOVEL/CHARACTER/WORLD/OBJECT).
-        nwStatus -- str: status (may be scene editing status, or major/minor character).
-        nwExported -- bool: if True, the item is exported by the application.
+        nwStatus -- str: Scene editing status.
+        nwImportance -- str: Character importance (major/minor).
+        nwActive -- bool: if True, the item is exported by the application.
         nwLayout -- str: layout (DOCUMENT/NOTE).
         nwCharCount -- int: character count.
         nwWordCount -- int: word count.
@@ -33,7 +34,7 @@ class NwItem:
         self.nwClass = None
         self.nwStatus = None
         self.nwImportance = None
-        self.nwExported = None
+        self.nwActive = None
         self.nwLayout = None
         self.nwCharCount = None
         self.nwWordCount = None

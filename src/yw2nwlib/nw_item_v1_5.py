@@ -13,7 +13,7 @@ class NwItemV15(NwItem):
     
     Strategy class for file format version 1.5.
     """
-    _BOOL_MAP = dict(yes='True', no='False')
+    _BOOL_READ = dict(yes='True', no='False')
     # maps the way Booleans are represented in v1.5 files to the v1.3 specification
 
     def read(self, node, master):
@@ -35,10 +35,10 @@ class NwItemV15(NwItem):
             self.nwName = nameNode.text
             self.nwStatus = master.statusLookup[nameNode.attrib.get('status')]
             self.nwImportance = master.importanceLookup[nameNode.attrib.get('import')]
-            self.nwExported = self._BOOL_MAP.get(nameNode.attrib.get('active'), 'False')
+            self.nwActive = self._BOOL_READ.get(nameNode.attrib.get('active'), 'False')
         return self.nwHandle
 
-    def write(self, parentNode):
+    def write(self, parentNode, master):
         """Write a novelWriter item entry to the XML project tree.
         
         Positional arguments: 
@@ -56,9 +56,14 @@ class NwItemV15(NwItem):
         if self.nwName is not None:
             nameNode.text = self.nwName
         if self.nwStatus is not None:
-            nameNode.set('status', self.nwStatus)
-        if self.nwExported is not None:
-            nameNode.set('exported', self.nwExported)
+            nameNode.set('status', master.STATUS_IDS[self.nwStatus])
+        if self.nwImportance is not None:
+            nameNode.set('import', master.IMPORTANCE_IDS[self.nwImportance])
+        if self.nwActive is not None:
+            if self.nwActive == 'True':
+                nameNode.set('active', 'yes')
+            else:
+                nameNode.set('active', 'no')
         if self.nwType is not None:
             node.set('type', self.nwType)
         if self.nwClass is not None:
