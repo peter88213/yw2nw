@@ -4,6 +4,12 @@
 
 ## Changelog
 
+### v0.10.1
+
+- Modify "shebang" line to make the script run with Python 3.11 under Windows.
+
+Based on Pywriter v6.0.0
+
 ### v0.10.0
 
 - Full file format 1.5 support (read and write). 
