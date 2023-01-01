@@ -4,6 +4,12 @@
 
 ## Changelog
 
+### v10.0.4
+
+- Make it run with old Windows versions.
+
+Based on PyWriter v6.0.2
+
 ### v0.10.3
 
 - Fix a bug where conversion fails if the novelWriter project has no author.
