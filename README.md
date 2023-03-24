@@ -9,14 +9,17 @@ Please note that the program has not yet been extensively tested. To me, it's ac
 
 ### Conventions
 
-- Minimum Python version is 3.6. 
-- The Python **source code formatting** follows widely the [PEP 8](https://www.python.org/dev/peps/pep-0008/) style guide, except the maximum line length, which is 120 characters here.
+See https://github.com/peter88213/PyWriter/blob/main/docs/conventions.md
+
+Exceptions:
+- No localization is required.
+- The directory structure is modified to minimize dependencies.
 
 ### Development tools
 
 - [Python](https://python.org) version 3.9
 - [Eclipse IDE](https://eclipse.org) with [PyDev](https://pydev.org) and [EGit](https://www.eclipse.org/egit/)
-- [Apache Ant](https://ant.apache.org/) for building the application script
+- Apache Ant for building the application script
 
 ## Credits
 
