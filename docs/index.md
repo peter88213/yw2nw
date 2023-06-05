@@ -1,9 +1,15 @@
-The *yw2nw* Python script converts [yWriter 7](http://spacejock.com/yWriter7.html) projects to new [novelWriter](https://novelwriter.io/) projects and vice versa.
+The *yw2nw* Python script converts [yWriter 7](http://spacejock.com/yWriter7.html) 
+projects to new [novelWriter](https://novelwriter.io/) projects and vice versa.
 
 ![Screenshot: Example](Screenshots/ywriter01.png)
 ![Screenshot: Example](Screenshots/novelwriter01.png)
 
-## Requirements
+Using [other yw7 file converters](https://peter88213.github.io/) you can build 
+your own toolchain for importing an outline or a work in progress into NovelWriter.
+
+ ![A part of the yw7 ecosystem](scap/yw7_ecosystem.png)
+
+### Requirements
 
 - [Python](https://www.python.org/) version 3.6+.
 

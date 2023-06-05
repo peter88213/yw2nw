@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<ScappleDocument ID="07522C29-60F6-4E76-8D8D-5BFA52447EEF" Version="1.1">
+   <Notes>
+      <Note Width="65.5029" FontSize="12" ID="0" Position="622.7,344.9">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.898329 0.817472 0.865339</Fill>
+            <Border Weight="3">0.690303 0.407263 0.550912</Border>
+         </Appearance>
+         <String>project.yw7</String>
+         <ConnectedNoteIDs>1, 3, 5, 7, 11, 13-14, 20, 22, 31</ConnectedNoteIDs>
+         <PointsToNoteIDs>22</PointsToNoteIDs>
+      </Note>
+      <Note Width="54.0527" FontSize="12" ID="1" Position="621.1,209.0">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.844068 0.869596 0.923064</Fill>
+            <Border Weight="1">0.485893 0.568933 0.756207</Border>
+         </Appearance>
+         <String>yWriter 7</String>
+         <ConnectedNoteIDs>0, 17, 42</ConnectedNoteIDs>
+         <PointsToNoteIDs>0</PointsToNoteIDs>
+      </Note>
+      <Note Width="92.6758" FontSize="12" ID="3" Position="825.0,303.5">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.808835 0.872419 0.801343</Fill>
+            <Border Weight="1">0.399100 0.583322 0.354864</Border>
+         </Appearance>
+         <String>yw-cnv extension</String>
+         <ConnectedNoteIDs>0, 4, 9</ConnectedNoteIDs>
+         <PointsToNoteIDs>0</PointsToNoteIDs>
+      </Note>
+      <Note Width="130.419" FontSize="12" ID="4" Position="813.3,101.2">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.898329 0.817472 0.865339</Fill>
+            <Border Weight="1">0.690303 0.407263 0.550912</Border>
+         </Appearance>
+         <String>project.odt (work in progress or outline)</String>
+         <ConnectedNoteIDs>3, 5, 9, 11, 16</ConnectedNoteIDs>
+         <PointsToNoteIDs>3, 5, 11</PointsToNoteIDs>
+      </Note>
+      <Note Width="47.4976" FontSize="12" ID="5" Position="945.4,357.4">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.808835 0.872419 0.801343</Fill>
+            <Border Weight="1">0.399100 0.583322 0.354864</Border>
+         </Appearance>
+         <String>yW2OO</String>
+         <ConnectedNoteIDs>0, 4</ConnectedNoteIDs>
+         <PointsToNoteIDs>0</PointsToNoteIDs>
+      </Note>
+      <Note Width="107.75" FontSize="12" ID="6" Position="357.9,103.5">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.898329 0.817472 0.865339</Fill>
+            <Border Weight="1">0.690303 0.407263 0.550912</Border>
+         </Appearance>
+         <String>project.aeonzip (outline)</String>
+         <ConnectedNoteIDs>7-8</ConnectedNoteIDs>
+         <PointsToNoteIDs>7</PointsToNoteIDs>
+      </Note>
+      <Note Width="52.5391" FontSize="12" ID="7" Position="388.3,192.6">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.808835 0.872419 0.801343</Fill>
+            <Border Weight="1">0.399100 0.583322 0.354864</Border>
+         </Appearance>
+         <String>aeon2yw</String>
+         <ConnectedNoteIDs>0, 6</ConnectedNoteIDs>
+         <PointsToNoteIDs>0</PointsToNoteIDs>
+      </Note>
+      <Note Width="88.5132" FontSize="12" ID="8" Position="368.7,40.3">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.844068 0.869596 0.923064</Fill>
+            <Border Weight="1">0.485893 0.568933 0.756207</Border>
+         </Appearance>
+         <String>Aeon Timeline 2</String>
+         <ConnectedNoteIDs>6</ConnectedNoteIDs>
+         <PointsToNoteIDs>6</PointsToNoteIDs>
+      </Note>
+      <Note Width="96.8872" FontSize="12" ID="9" Position="759.3,252.0">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.844068 0.869596 0.923064</Fill>
+            <Border Weight="1">0.485893 0.568933 0.756207</Border>
+         </Appearance>
+         <String>LibreOffice Writer</String>
+         <ConnectedNoteIDs>3-4, 11</ConnectedNoteIDs>
+         <PointsToNoteIDs>4</PointsToNoteIDs>
+      </Note>
+      <Note Width="87.7563" FontSize="12" ID="11" Position="733.6,190.3">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.808835 0.872419 0.801343</Fill>
+            <Border Weight="1">0.399100 0.583322 0.354864</Border>
+         </Appearance>
+         <String>lo2yw extension</String>
+         <ConnectedNoteIDs>0, 4, 9</ConnectedNoteIDs>
+         <PointsToNoteIDs>0</PointsToNoteIDs>
+      </Note>
+      <Note Width="90.6063" FontSize="12" ID="12" Position="244.6,102.0">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.898329 0.817472 0.865339</Fill>
+            <Border Weight="1">0.690303 0.407263 0.550912</Border>
+         </Appearance>
+         <String>project.scap (outline)</String>
+         <ConnectedNoteIDs>2, 13</ConnectedNoteIDs>
+         <PointsToNoteIDs>13</PointsToNoteIDs>
+      </Note>
+      <Note Width="46.9971" FontSize="12" ID="13" Position="263.3,207.4">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.808835 0.872419 0.801343</Fill>
+            <Border Weight="1">0.399100 0.583322 0.354864</Border>
+         </Appearance>
+         <String>scappex</String>
+         <ConnectedNoteIDs>0, 12</ConnectedNoteIDs>
+         <PointsToNoteIDs>0</PointsToNoteIDs>
+      </Note>
+      <Note Width="43.9575" FontSize="12" ID="14" Position="141.4,256.6">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.808835 0.872419 0.801343</Fill>
+            <Border Weight="1">0.399100 0.583322 0.354864</Border>
+         </Appearance>
+         <String>yw2md</String>
+         <ConnectedNoteIDs>0, 15</ConnectedNoteIDs>
+         <PointsToNoteIDs>0</PointsToNoteIDs>
+      </Note>
+      <Note Width="111.414" FontSize="12" ID="15" Position="111.7,101.9">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.898329 0.817472 0.865339</Fill>
+            <Border Weight="1">0.690303 0.407263 0.550912</Border>
+         </Appearance>
+         <String>project.md (work in progress or outline)</String>
+         <ConnectedNoteIDs>14, 18</ConnectedNoteIDs>
+         <PointsToNoteIDs>14</PointsToNoteIDs>
+      </Note>
+      <Note Width="57.1167" FontSize="12" ID="17" Position="711.7,106.6">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.898329 0.817472 0.865339</Fill>
+            <Border Weight="1">0.690303 0.407263 0.550912</Border>
+         </Appearance>
+         <String>outline.rtf</String>
+         <ConnectedNoteIDs>1, 10</ConnectedNoteIDs>
+         <PointsToNoteIDs>1</PointsToNoteIDs>
+      </Note>
+      <Note Width="42.8589" FontSize="12" ID="22" Position="637.6,411.8">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.808835 0.872419 0.801343</Fill>
+            <Border Weight="1">0.399100 0.583322 0.354864</Border>
+         </Appearance>
+         <String>yw2nw</String>
+         <ConnectedNoteIDs>0, 23</ConnectedNoteIDs>
+         <PointsToNoteIDs>23</PointsToNoteIDs>
+      </Note>
+      <Note Width="116.907" FontSize="12" ID="23" Position="601.6,470.4">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.898329 0.817472 0.865339</Fill>
+            <Border Weight="1">0.690303 0.407263 0.550912</Border>
+         </Appearance>
+         <String>project.nw (Directory)</String>
+         <ConnectedNoteIDs>22, 24</ConnectedNoteIDs>
+         <PointsToNoteIDs>24</PointsToNoteIDs>
+      </Note>
+      <Note Width="68.5669" FontSize="12" ID="24" Position="627.3,529.7">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.844068 0.869596 0.923064</Fill>
+            <Border Weight="1">0.485893 0.568933 0.756207</Border>
+         </Appearance>
+         <String>NovelWriter</String>
+         <ConnectedNoteIDs>23</ConnectedNoteIDs>
+      </Note>
+      <Note Width="97.7125" FontSize="12" ID="30" Position="476.5,100.7">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.898329 0.817472 0.865339</Fill>
+            <Border Weight="1">0.690303 0.407263 0.550912</Border>
+         </Appearance>
+         <String>project.timeline (outline)</String>
+         <ConnectedNoteIDs>31-32</ConnectedNoteIDs>
+         <PointsToNoteIDs>31</PointsToNoteIDs>
+      </Note>
+      <Note Width="65.7349" FontSize="12" ID="31" Position="493.1,183.6">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.808835 0.872419 0.801343</Fill>
+            <Border Weight="1">0.399100 0.583322 0.354864</Border>
+         </Appearance>
+         <String>yw-timeline</String>
+         <ConnectedNoteIDs>0, 30</ConnectedNoteIDs>
+         <PointsToNoteIDs>0</PointsToNoteIDs>
+      </Note>
+      <Note Width="50.4517" FontSize="12" ID="32" Position="502.4,40.6">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.844068 0.869596 0.923064</Fill>
+            <Border Weight="1">0.485893 0.568933 0.756207</Border>
+         </Appearance>
+         <String>Timeline</String>
+         <ConnectedNoteIDs>30</ConnectedNoteIDs>
+         <PointsToNoteIDs>30</PointsToNoteIDs>
+      </Note>
+      <Note Width="103.882" FontSize="12" ID="42" Position="596.2,104.3">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.898329 0.817472 0.865339</Fill>
+            <Border Weight="1">0.690303 0.407263 0.550912</Border>
+         </Appearance>
+         <String>work in progress.rtf</String>
+         <ConnectedNoteIDs>1, 10</ConnectedNoteIDs>
+         <PointsToNoteIDs>1</PointsToNoteIDs>
+      </Note>
+      <Note Width="46.0205" FontSize="12" ID="2" Position="268.8,41.8">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.844068 0.869596 0.923064</Fill>
+            <Border Weight="1">0.485893 0.568933 0.756207</Border>
+         </Appearance>
+         <String>Scapple</String>
+         <ConnectedNoteIDs>12</ConnectedNoteIDs>
+         <PointsToNoteIDs>12</PointsToNoteIDs>
+      </Note>
+      <Note Width="104.126" FontSize="12" ID="10" Position="632.0,38.7">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.844068 0.869596 0.923064</Fill>
+            <Border Weight="1">0.485893 0.568933 0.756207</Border>
+         </Appearance>
+         <String>any word processor</String>
+         <ConnectedNoteIDs>17, 42</ConnectedNoteIDs>
+         <PointsToNoteIDs>17, 42</PointsToNoteIDs>
+      </Note>
+      <Note Width="119.525" FontSize="12" ID="16" Position="813.3,38.7">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.844068 0.869596 0.923064</Fill>
+            <Border Weight="1">0.485893 0.568933 0.756207</Border>
+         </Appearance>
+         <String>GoogleDocs, OpenOffice Writer</String>
+         <ConnectedNoteIDs>4</ConnectedNoteIDs>
+         <PointsToNoteIDs>4</PointsToNoteIDs>
+      </Note>
+      <Note Width="79.4678" FontSize="12" ID="18" Position="127.3,44.1">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.844068 0.869596 0.923064</Fill>
+            <Border Weight="1">0.485893 0.568933 0.756207</Border>
+         </Appearance>
+         <String>any text editor</String>
+         <ConnectedNoteIDs>15</ConnectedNoteIDs>
+         <PointsToNoteIDs>15</PointsToNoteIDs>
+      </Note>
+      <Note Width="66.4062" FontSize="12" ID="19" Position="23.4,102.0">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.898329 0.817472 0.865339</Fill>
+            <Border Weight="1">0.690303 0.407263 0.550912</Border>
+         </Appearance>
+         <String>project.mm (outline)</String>
+         <ConnectedNoteIDs>20-21</ConnectedNoteIDs>
+         <PointsToNoteIDs>20</PointsToNoteIDs>
+      </Note>
+      <Note Width="53.4424" FontSize="12" ID="20" Position="29.7,296.5">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.808835 0.872419 0.801343</Fill>
+            <Border Weight="1">0.399100 0.583322 0.354864</Border>
+         </Appearance>
+         <String>mm2yw7</String>
+         <ConnectedNoteIDs>0, 19</ConnectedNoteIDs>
+         <PointsToNoteIDs>0</PointsToNoteIDs>
+      </Note>
+      <Note Width="75.7812" FontSize="12" ID="21" Position="16.4,34.0">
+         <Appearance>
+            <Alignment>Left</Alignment>
+            <Fill>0.844068 0.869596 0.923064</Fill>
+            <Border Weight="1">0.485893 0.568933 0.756207</Border>
+         </Appearance>
+         <String>FreeMind, Freeplane</String>
+         <ConnectedNoteIDs>19</ConnectedNoteIDs>
+         <PointsToNoteIDs>19</PointsToNoteIDs>
+      </Note>
+   </Notes>
+   <BackgroundShapes/>
+   <NoteStyles>
+      <Style AffectFontStyle="No" AffectAlignment="No" Name="Blue Bubble" ID="8F851FEE-38FC-42BE-818F-3A802712A9DA" AffectTextColor="No" AffectNoteBody="Yes" AffectSticky="No" AffectSize="No" AffectFade="No">
+         <BorderThickness>1</BorderThickness>
+         <BorderColor>0.485893 0.568933 0.756207</BorderColor>
+         <FillColor>0.844068 0.869596 0.923064</FillColor>
+      </Style>
+      <Style AffectFontStyle="Yes" AffectAlignment="Yes" Name="Title Text" ID="5519AEAE-504B-4E8A-96F7-0195A66E5624" AffectTextColor="No" AffectNoteBody="No" AffectSticky="No" AffectSize="No" AffectFade="No">
+         <IsBold>Yes</IsBold>
+         <FontSize>12.0</FontSize>
+      </Style>
+      <Style AffectFontStyle="No" AffectAlignment="No" Name="Red Text" ID="77BBF361-A24E-4208-9177-3A6E3EFB2764" AffectTextColor="Yes" AffectNoteBody="No" AffectSticky="No" AffectSize="No" AffectFade="No">
+         <TextColor>1.0 0.0 0.0</TextColor>
+      </Style>
+      <Style AffectFontStyle="No" AffectAlignment="No" Name="Pink Bubble" ID="D29821FF-A219-46AF-AB82-276D573FE98E" AffectTextColor="No" AffectNoteBody="Yes" AffectSticky="No" AffectSize="No" AffectFade="No">
+         <BorderThickness>1</BorderThickness>
+         <BorderColor>0.690303 0.407263 0.550912</BorderColor>
+         <FillColor>0.898329 0.817472 0.865339</FillColor>
+      </Style>
+      <Style AffectFontStyle="No" AffectAlignment="No" Name="Green Bubble" ID="90489E2C-CCB3-4130-9C0E-068565C8F69F" AffectTextColor="No" AffectNoteBody="Yes" AffectSticky="No" AffectSize="No" AffectFade="No">
+         <BorderThickness>1</BorderThickness>
+         <BorderColor>0.399100 0.583322 0.354864</BorderColor>
+         <FillColor>0.808835 0.872419 0.801343</FillColor>
+      </Style>
+      <Style AffectFontStyle="No" AffectAlignment="No" Name="Yellow Bubble" ID="2AC7628D-51AB-47E6-A1FB-A67135384FF0" AffectTextColor="No" AffectNoteBody="Yes" AffectSticky="No" AffectSize="No" AffectFade="No">
+         <BorderThickness>1</BorderThickness>
+         <BorderColor>0.769436 0.762219 0.390143</BorderColor>
+         <FillColor>0.912963 0.894118 0.644541</FillColor>
+      </Style>
+      <Style AffectFontStyle="No" AffectAlignment="No" Name="Brown Bubble" ID="44E1C77F-6E22-40C3-A61D-D98E34EA74FF" AffectTextColor="No" AffectNoteBody="Yes" AffectSticky="No" AffectSize="No" AffectFade="No">
+         <BorderThickness>1</BorderThickness>
+         <BorderColor>0.269490 0.164034 0.186694</BorderColor>
+         <FillColor>0.934157 0.888319 0.785290</FillColor>
+      </Style>
+   </NoteStyles>
+   <UISettings>
+      <BackgroundColor>1.0 0.988006 0.945006</BackgroundColor>
+      <DefaultFont>Calibri</DefaultFont>
+      <DefaultTextColor>0.0 0.0 0.0</DefaultTextColor>
+      <LeftToRight>Yes</LeftToRight>
+   </UISettings>
+   <PrintSettings VerticalPagination="Auto" HorizontalPagination="Clip" Orientation="Portrait" RightMargin="12.000000" BottomMargin="12.000000" HorizontallyCentered="Yes" ScaleFactor="1.000000" PagesAcross="1" PaperType="iso-a4" PagesDown="1" TopMargin="12.000000" Collates="Yes" PaperSize="-1.000000,-1.000000" LeftMargin="12.000000" VerticallyCentered="Yes"/>
+</ScappleDocument>
