@@ -4,6 +4,12 @@
 
 ## Changelog
 
+### v1.0.1
+
+- Remove language markup, if any.
+
+Based on PyWriter v12.12.0
+
 ### v1.0.0
 
 - Notes are generally assumed "active".

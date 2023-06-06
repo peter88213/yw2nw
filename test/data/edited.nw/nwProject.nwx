@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<novelWriterXML appVersion="2.0.2" hexVersion="0x020002f0" fileVersion="1.5" timeStamp="2023-06-06 14:44:49">
+<novelWriterXML appVersion="2.0.2" hexVersion="0x020002f0" fileVersion="1.5" timeStamp="2023-06-06 22:10:14">
   <project>
     <name>Sample Project</name>
     <title>Sample Project</title>
@@ -95,7 +95,7 @@
     </item>
     <item handle="ff58bbcc59cb0" parent="919379a2a061b" order="1" type="FILE" class="NOVEL" layout="DOCUMENT">
       <name status="s000002" import="i000001" active="yes">Scene 10</name>
-      <meta charCount="608" wordCount="100" />
+      <meta charCount="605" wordCount="100" />
     </item>
     <item handle="cbf77ec70fa04" parent="53ca4659fb3c2" order="3" type="FOLDER" class="NOVEL">
       <name>A Note on Structure</name>
@@ -149,15 +149,15 @@
       <name>Where has John Gone?</name>
       <meta />
     </item>
-    <item handle="b3485a9116f73" parent="b08e3be2497b7" order="0" type="FILE" class="NOVEL" layout="DOCUMENT">
+    <item handle="b3485a9116f73" parent="b08e3be2497b7" order="0" type="FILE" class="NOVEL" layout="NOTE">
       <name status="s000001" import="i000001" active="yes">Where has John Gone?</name>
       <meta />
     </item>
-    <item handle="797d4ad1b1785" parent="b08e3be2497b7" order="1" type="FILE" class="NOVEL" layout="DOCUMENT">
+    <item handle="797d4ad1b1785" parent="b08e3be2497b7" order="1" type="FILE" class="NOVEL" layout="NOTE">
       <name status="s000003" import="i000001" active="yes">Jane Cannot Find John</name>
       <meta charCount="104" wordCount="22" />
     </item>
-    <item handle="c061f0f8a5bb7" parent="b08e3be2497b7" order="2" type="FILE" class="NOVEL" layout="DOCUMENT">
+    <item handle="c061f0f8a5bb7" parent="b08e3be2497b7" order="2" type="FILE" class="NOVEL" layout="NOTE">
       <name status="s000003" import="i000001" active="yes">We Found John!</name>
       <meta charCount="824" wordCount="141" />
     </item>

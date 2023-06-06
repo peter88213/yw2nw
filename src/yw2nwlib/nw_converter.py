@@ -8,6 +8,8 @@ import os
 from pywriter.pywriter_globals import *
 from pywriter.converter.yw_cnv_ui import YwCnvUi
 from pywriter.yw.yw7_file import Yw7File
+from pywriter.model.novel import Novel
+from pywriter.yw.yw7_purge import remove_language_tags
 from yw2nwlib.nwx_file import NwxFile
 
 
@@ -17,6 +19,42 @@ class NwConverter(YwCnvUi):
     Public methods:
         run(sourcePath, **kwargs) -- Create source and target objects and run conversion.
     """
+
+    def export_from_yw(self, source, target):
+        """Convert from yWriter project to other file format.
+
+        Positional arguments:
+            source -- YwFile subclass instance.
+            target -- Any Novel subclass instance.
+
+        Operation:
+        1. Send specific information about the conversion to the UI.
+        2. Convert source into target.
+        3. Pass the message to the UI.
+        4. Save the new file pathname.
+
+        Error handling:
+        - If the conversion fails, newFile is set to None.
+        
+        Overrides the superclass method.
+        """
+        self.ui.set_info_what(
+            _('Input: {0} "{1}"\nOutput: {2} "{3}"').format(source.DESCRIPTION, norm_path(source.filePath), target.DESCRIPTION, norm_path(target.filePath)))
+        try:
+            self.check(source, target)
+            source.novel = Novel()
+            source.read()
+            remove_language_tags(source.novel)
+            target.novel = source.novel
+            target.write()
+        except Error as ex:
+            message = f'!{str(ex)}'
+            self.newFile = None
+        else:
+            message = f'{_("File written")}: "{norm_path(target.filePath)}".'
+            self.newFile = target.filePath
+        finally:
+            self.ui.set_info_how(message)
 
     def run(self, sourcePath, **kwargs):
         """Create source and target objects and run conversion.

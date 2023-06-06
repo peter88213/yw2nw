@@ -10,7 +10,7 @@
 		<FieldTitle2><![CDATA[]]></FieldTitle2>
 		<FieldTitle3><![CDATA[]]></FieldTitle3>
 		<FieldTitle4><![CDATA[]]></FieldTitle4>
-		<LastFullBackup>2022-02-21</LastFullBackup>
+		<LastFullBackup>2023-06-06</LastFullBackup>
 		<WordTarget>0</WordTarget>
 		<WordTargetStartDate>0001-01-01</WordTargetStartDate>
 		<WordTargetEndDate>0001-01-01</WordTargetEndDate>
@@ -27,7 +27,7 @@
 		<LaTeXHeaderFile><![CDATA[]]></LaTeXHeaderFile>
 		<MRUSpecificDate>0001-01-01</MRUSpecificDate>
 		<MRUSpecificTime>00:00:00</MRUSpecificTime>
-		<LastViewedScID>16</LastViewedScID>
+		<LastViewedScID>4</LastViewedScID>
 		<DeadlineDate1>0001-01-01</DeadlineDate1>
 		<DeadlineDate2>0001-01-01</DeadlineDate2>
 		<DeadlineDate3>0001-01-01</DeadlineDate3>
@@ -97,6 +97,34 @@ Wearing sunglasses even by night. ]]></Desc>
 	<PROJECTNOTES>
 	</PROJECTNOTES>
 	<PROJECTVARS>
+	<PROJECTVAR>
+		<ID>1</ID>
+		<Title><![CDATA[Language]]></Title>
+		<Desc><![CDATA[de]]></Desc>
+		<Tags><![CDATA[0]]></Tags>
+	</PROJECTVAR>
+
+	<PROJECTVAR>
+		<ID>2</ID>
+		<Title><![CDATA[Country]]></Title>
+		<Desc><![CDATA[DE]]></Desc>
+		<Tags><![CDATA[0]]></Tags>
+	</PROJECTVAR>
+
+	<PROJECTVAR>
+		<ID>3</ID>
+		<Title><![CDATA[lang=zxx]]></Title>
+		<Desc><![CDATA[<HTM <SPAN LANG="zxx"> /HTM>]]></Desc>
+		<Tags><![CDATA[0]]></Tags>
+	</PROJECTVAR>
+
+	<PROJECTVAR>
+		<ID>4</ID>
+		<Title><![CDATA[/lang=zxx]]></Title>
+		<Desc><![CDATA[<HTM </SPAN> /HTM>]]></Desc>
+		<Tags><![CDATA[0]]></Tags>
+	</PROJECTVAR>
+
 	</PROJECTVARS>
 	<PROJECTEXPS>
 	</PROJECTEXPS>
@@ -118,7 +146,7 @@ Wearing sunglasses even by night. ]]></Desc>
 		</Locations>
 		<Items>
 		</Items>
-		<SceneContent><![CDATA[>> [b]By Jane Doh[/b] <<
+		<SceneContent><![CDATA[>> [b]By [lang=zxx]Jane Doh[/lang=zxx][/b] <<
 >> This is the title page. <<
 >> It should be the first document of the project. <<]]></SceneContent>
 	</SCENE>
@@ -169,6 +197,10 @@ Wearing sunglasses even by night. ]]></Desc>
 		<ID>4</ID>
 		<Title><![CDATA[Making a Scene]]></Title>
 		<Desc><![CDATA[this is about making scenes.]]></Desc>
+		<Fields>
+			<Field_UseExporterTags>0</Field_UseExporterTags>
+		</Fields>
+
 		<BelongsToChID>3</BelongsToChID>
 		<Field1>1</Field1>
 		<Field2>1</Field2>
@@ -176,7 +208,7 @@ Wearing sunglasses even by night. ]]></Desc>
 		<Field4>1</Field4>
 		<Status>2</Status>
 		<WordCount>241</WordCount>
-		<LetterCount>1380</LetterCount>
+		<LetterCount>1385</LetterCount>
 		<Characters>
 			<CharID>2</CharID>
 			<CharID>1</CharID>
@@ -187,11 +219,12 @@ Wearing sunglasses even by night. ]]></Desc>
 		<Items>
 		</Items>
 		<SceneContent><![CDATA[A scene is defined by a level three heading, like the one at the top of this page. The scene will be assigned to the chapter preceding it in the project tree.
-Each paragraph in the scene is separated by a blank line. The text supports minimal formatting, like [b]bold[/b], [i]italic[/i] and [b][i]bold italic[/i][/b]. You can also [s]strike through[/s] text. There is [b]some support for [i]nested[/i] emphasis[/b], but there are some known limitations. If the syntax highlighter doesn’t show it correctly, the export tool will not either.
+Each paragraph in the scene is separated by a blank line. The text supports minimal formatting, like [b]bold[/b], [i]italic[/i] and [b][i]bold italic[/b][/i]. You can also [s]strike through[/s] text. There is [b]some support for [i]nested[/i] emphasis[/b], but there are some known limitations. If the syntax highlighter doesn’t show it correctly, the export tool will not either.
 In addition, the editor supports automatic formatting of “quotes”, both double and ‘single’. Depending on the syntax highlighter, these can be in different colours. “You can of course use [b]bold[/b] and [i]italic[/i] text inside of quotes too.”
 If you have the need for it, you can also add text that can be automatically replaced by other text when you generate a preview or export the project. Now, let’s auto-replace this A with <A>, and this C with <C>. While <E> is just <E>. Press Ctrl+R to see what this looks like in the view pane.
-The editor also supports non breaking spaces, and the spell checker accepts long dashes—like this—as valid word separators. Regular dashes are also supported – and can be automatically inserted when typing two hyphens.
-Thin spaces and thin non-breaking spaces are also supported from the Insert menu, and can be used to separate numbers from their units, like: 25 kg.]]></SceneContent>
+The editor also supports non breaking spaces, and the spell checker accepts long dashes—like this—as valid word separators. Regular dashes are also supported – and can be automatically inserted when typing two hyphens.
+Thin spaces and thin non-breaking spaces are also supported from the Insert menu, and can be used to separate numbers from their units, like: 25 kg.
+]]></SceneContent>
 	</SCENE>
 
 	<SCENE>
@@ -253,7 +286,7 @@ This text is left-aligned. <<
 		<Field4>1</Field4>
 		<AppendToPrev>-1</AppendToPrev>
 		<Status>2</Status>
-		<WordCount>48</WordCount>
+		<WordCount>47</WordCount>
 		<LetterCount>244</LetterCount>
 		<Characters>
 		</Characters>
@@ -320,7 +353,7 @@ In fact, if you wish, you can add all the scenes in the chapter file too. All no
 		<Field4>1</Field4>
 		<Status>1</Status>
 		<WordCount>100</WordCount>
-		<LetterCount>608</LetterCount>
+		<LetterCount>605</LetterCount>
 		<Characters>
 		</Characters>
 		<Locations>
@@ -335,9 +368,9 @@ I'm very well acquainted, too, with matters mathematical
 I understand equations, both the simple and quadratical
 About binomial theorem I'm teeming with a lot o’ news
 With many cheerful facts about the square of the hypotenuse
-	With many cheerful facts about the square of the hypotenuse
-	With many cheerful facts about the square of the hypotenuse
-	With many cheerful facts about the square of the hypotepotenuse]]></SceneContent>
+With many cheerful facts about the square of the hypotenuse
+With many cheerful facts about the square of the hypotenuse
+With many cheerful facts about the square of the hypotepotenuse]]></SceneContent>
 	</SCENE>
 
 	<SCENE>
@@ -445,6 +478,11 @@ If you want to see the content of the file the reference points to, you can clic
 	<SCENE>
 		<ID>15</ID>
 		<Title><![CDATA[Jane Cannot Find John]]></Title>
+		<Unused>-1</Unused>
+		<Fields>
+			<Field_SceneType>1</Field_SceneType>
+		</Fields>
+
 		<BelongsToChID>9</BelongsToChID>
 		<Field1>1</Field1>
 		<Field2>1</Field2>
@@ -463,15 +501,16 @@ If you want to see the content of the file the reference points to, you can clic
 		</Items>
 		<SceneContent><![CDATA[Jane has been looking all over for John. He’s nowhere to be found on Earth, so Jane goes to space.
 <<P
-ölk
-]]></SceneContent>
+ölk]]></SceneContent>
 	</SCENE>
 
 	<SCENE>
 		<ID>16</ID>
 		<Title><![CDATA[We Found John!]]></Title>
+		<Unused>-1</Unused>
 		<Fields>
 			<Field_UseExporterTags>0</Field_UseExporterTags>
+			<Field_SceneType>1</Field_SceneType>
 		</Fields>
 
 		<BelongsToChID>9</BelongsToChID>
@@ -481,7 +520,7 @@ If you want to see the content of the file the reference points to, you can clic
 		<Field4>1</Field4>
 		<Status>2</Status>
 		<WordCount>141</WordCount>
-		<LetterCount>826</LetterCount>
+		<LetterCount>824</LetterCount>
 		<Characters>
 			<CharID>1</CharID>
 		</Characters>
@@ -492,8 +531,7 @@ If you want to see the content of the file the reference points to, you can clic
 		</Items>
 		<SceneContent><![CDATA[Jane has been searching for a while, and she finally found John on Mars. He was indeed in space! What was he doing on Mars anyway? Well, it turns out, he was farming potatoes.
 Lorem ipsum dolor sit amet, dicat repudiare no eum. Te modo falli doming has, ius alienum mandamus an. At vel utamur prodesset. Eos et veniam virtute, scaevola tacimates an vix, autem accusamus vel ei. Albucius scaevola deserunt his an, mea sint meis aeterno an. Ea vis vero vidit alterum. Vim nisl viris ex, tritani placerat invenire vel id, quo habeo facer an.
-Ex est gubergren disputationi. Eos corpora omittam et, ex pro postea nemore appareat, eam no purto zril facete. Omnis apeirian constituto sed an. Recusabo electram nec at, vis ea solum denique corpora, tollit fierent reprehendunt mei ut. Erat rationibus et nam, eu libris maiestatis pri.
-]]></SceneContent>
+Ex est gubergren disputationi. Eos corpora omittam et, ex pro postea nemore appareat, eam no purto zril facete. Omnis apeirian constituto sed an. Recusabo electram nec at, vis ea solum denique corpora, tollit fierent reprehendunt mei ut. Erat rationibus et nam, eu libris maiestatis pri.]]></SceneContent>
 	</SCENE>
 
 	</SCENES>
@@ -603,9 +641,10 @@ Ex est gubergren disputationi. Eos corpora omittam et, ex pro postea nemore appa
 	<CHAPTER>
 		<ID>9</ID>
 		<Title><![CDATA[Where has John Gone?]]></Title>
+		<Unused>-1</Unused>
 		<SortOrder>9</SortOrder>
-		<Type>0</Type>
-		<ChapterType>0</ChapterType>
+		<Type>1</Type>
+		<ChapterType>1</ChapterType>
 		<Scenes>
 			<ScID>15</ScID>
 			<ScID>16</ScID>
@@ -618,6 +657,12 @@ Ex est gubergren disputationi. Eos corpora omittam et, ex pro postea nemore appa
 		<Date>2022-02-21</Date>
 		<Count>819</Count>
 		<TotalCount>1116</TotalCount>
+	</WC>
+
+	<WC>
+		<Date>2023-06-06</Date>
+		<Count>655</Count>
+		<TotalCount>1115</TotalCount>
 	</WC>
 
 	</WCLog>
