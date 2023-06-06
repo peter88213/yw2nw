@@ -47,20 +47,20 @@ class NwConverter(YwCnvUi):
                 return
 
             try:
-                os.makedirs(prjDir + NwxFile.CONTENT_DIR)
+                os.makedirs(f'{prjDir}{NwxFile.CONTENT_DIR}')
             except FileExistsError:
                 extension = '.bak'
                 i = 0
-                while os.path.isdir(prjDir + extension):
+                while os.path.isdir(f'{prjDir}{extension}'):
                     extension = f'.bk{i:03}'
                     i += 1
                     if i > 999:
                         self.ui.set_info_how(f'!Unable to back up the project.')
                         return
 
-                os.replace(prjDir, prjDir + extension)
+                os.replace(prjDir, f'{prjDir}{extension}')
                 self.ui.set_info_what(f'Backup folder "{norm_path(prjDir)}{extension}" saved.')
-                os.makedirs(prjDir + NwxFile.CONTENT_DIR)
+                os.makedirs(f'{prjDir}{NwxFile.CONTENT_DIR}')
             targetFile = NwxFile(f'{prjDir}/nwProject.nwx', **kwargs)
             self.export_from_yw(sourceFile, targetFile)
         elif fileExtension == NwxFile.EXTENSION:
