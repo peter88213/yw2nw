@@ -54,14 +54,12 @@
       <ID>1</ID>
       <Title><![CDATA[Scene 1]]></Title>
       <BelongsToChID>1</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[>> [b]By Jane Doh[/b] <<
 >> This is the title page. <<
 >> It should be the first document of the project. <<]]></SceneContent>
       <WordCount>23</WordCount>
       <LetterCount>99</LetterCount>
       <Status>2</Status>
-      <Tags />
       <Characters />
       <Locations />
       <Items />
@@ -70,12 +68,10 @@
       <ID>2</ID>
       <Title><![CDATA[Scene 2]]></Title>
       <BelongsToChID>2</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[>> In the beginning … <<]]></SceneContent>
-      <WordCount>5</WordCount>
+      <WordCount>6</WordCount>
       <LetterCount>24</LetterCount>
       <Status>1</Status>
-      <Tags />
       <Characters />
       <Locations />
       <Items />
@@ -84,12 +80,10 @@
       <ID>3</ID>
       <Title><![CDATA[Scene 3]]></Title>
       <BelongsToChID>3</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[A chapter can also contain leading text before the first scene.]]></SceneContent>
       <WordCount>11</WordCount>
       <LetterCount>63</LetterCount>
       <Status>1</Status>
-      <Tags />
       <Characters>
         <CharID>2</CharID>
       </Characters>
@@ -102,7 +96,6 @@
       <ID>4</ID>
       <Title><![CDATA[Making a Scene]]></Title>
       <BelongsToChID>3</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[A scene is defined by a level three heading, like the one at the top of this page. The scene will be assigned to the chapter preceding it in the project tree.
 Each paragraph in the scene is separated by a blank line. The text supports minimal formatting, like [b]bold[/b], [i]italic[/i] and [b][i]bold italic[/i][/b]. You can also [s]strike through[/s] text. There is [b]some support for [i]nested[/i] emphasis[/b], but there are some known limitations. If the syntax highlighter doesn’t show it correctly, the export tool will not either.
 In addition, the editor supports automatic formatting of “quotes”, both double and ‘single’. Depending on the syntax highlighter, these can be in different colours. “You can of course use [b]bold[/b] and [i]italic[/i] text inside of quotes too.”
@@ -112,7 +105,6 @@ Thin spaces and thin non-breaking spaces are also supported from the Insert menu
       <WordCount>242</WordCount>
       <LetterCount>1380</LetterCount>
       <Status>2</Status>
-      <Tags />
       <Characters>
         <CharID>2</CharID>
         <CharID>1</CharID>
@@ -126,13 +118,11 @@ Thin spaces and thin non-breaking spaces are also supported from the Insert menu
       <ID>5</ID>
       <Title><![CDATA[Some Section Here]]></Title>
       <BelongsToChID>3</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[If you need to split a scene file up into further pieces, you can do so with the level four heading, like the one above this paragraph. This is referred to as a “section” in the documentation.
 Both scene and section titles can be left out of the final exported document. The formatting of titles can be selected from the Build Novel Project dialog. You can also have them replaced with scene separators like “* * *”.]]></SceneContent>
       <WordCount>77</WordCount>
       <LetterCount>415</LetterCount>
       <Status>2</Status>
-      <Tags />
       <AppendToPrev>-1</AppendToPrev>
       <Characters />
       <Locations />
@@ -142,7 +132,6 @@ Both scene and section titles can be left out of the final exported document. Th
       <ID>6</ID>
       <Title><![CDATA[Text Alignment]]></Title>
       <BelongsToChID>3</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[The text by default will have the left or justified alignment in the main text files in your project. You can also specify alignment for a specific paragraph by “pushing” it away from an edge with a set of ‘>>’ or ‘<<’ symbols, like so:
 This text is left-aligned. <<
 >> This text is right-aligned.
@@ -150,7 +139,6 @@ This text is left-aligned. <<
       <WordCount>61</WordCount>
       <LetterCount>322</LetterCount>
       <Status>2</Status>
-      <Tags />
       <AppendToPrev>-1</AppendToPrev>
       <Characters />
       <Locations />
@@ -160,13 +148,11 @@ This text is left-aligned. <<
       <ID>7</ID>
       <Title><![CDATA[Text Indent]]></Title>
       <BelongsToChID>3</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[You can indent a paragraph from both the left and right margin with ‘>’ and ‘<’ symbols.
 > This paragraph is indented from both the left margin and the right margin. This is useful for when you want to quote a large chunk of text for instance. <]]></SceneContent>
-      <WordCount>48</WordCount>
+      <WordCount>47</WordCount>
       <LetterCount>244</LetterCount>
       <Status>2</Status>
-      <Tags />
       <AppendToPrev>-1</AppendToPrev>
       <Characters />
       <Locations />
@@ -176,13 +162,11 @@ This text is left-aligned. <<
       <ID>8</ID>
       <Title><![CDATA[Another Scene]]></Title>
       <BelongsToChID>3</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[Adding more scenes to a chapter is as easy as adding more scene files, with a level three heading, or just adding another level three heading in the same file if that works for the way you want to structure your files.
 In fact, if you wish, you can add all the scenes in the chapter file too. All novelWriter cares about is the level of the headings.]]></SceneContent>
       <WordCount>68</WordCount>
       <LetterCount>349</LetterCount>
       <Status>2</Status>
-      <Tags />
       <Characters>
         <CharID>1</CharID>
       </Characters>
@@ -195,12 +179,10 @@ In fact, if you wish, you can add all the scenes in the chapter file too. All no
       <ID>9</ID>
       <Title><![CDATA[More Scenes]]></Title>
       <BelongsToChID>3</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[This is a second scene in the same file as the previous scene. You can always split the files up later.]]></SceneContent>
       <WordCount>21</WordCount>
       <LetterCount>103</LetterCount>
       <Status>2</Status>
-      <Tags />
       <Characters>
         <CharID>2</CharID>
       </Characters>
@@ -213,7 +195,6 @@ In fact, if you wish, you can add all the scenes in the chapter file too. All no
       <ID>10</ID>
       <Title><![CDATA[Scene 10]]></Title>
       <BelongsToChID>4</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[I am the very model of a modern Major-General
 I've information vegetable, animal, and mineral
 I know the kings of England, and I quote the fights historical
@@ -228,7 +209,6 @@ With many cheerful facts about the square of the hypotenuse
       <WordCount>100</WordCount>
       <LetterCount>608</LetterCount>
       <Status>1</Status>
-      <Tags />
       <Characters />
       <Locations />
       <Items />
@@ -237,7 +217,6 @@ With many cheerful facts about the square of the hypotenuse
       <ID>11</ID>
       <Title><![CDATA[Scene 11]]></Title>
       <BelongsToChID>5</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[This file is just a note. You can save notes anywhere you like in the project tree. Notes can be filtered out when you export the project.
 In root folders that isn’t the Novel root folder, you can [i]only[/i] add notes. In the Novel root folder, you can choose between a number of layouts. Some of them are just to let yourself know what each file is for.]]></SceneContent>
       <WordCount>68</WordCount>
@@ -247,7 +226,6 @@ In root folders that isn’t the Novel root folder, you can [i]only[/i] add note
         <Field_SceneType>1</Field_SceneType>
       </Fields>
       <Status>3</Status>
-      <Tags />
       <Characters />
       <Locations />
       <Items />
@@ -256,7 +234,6 @@ In root folders that isn’t the Novel root folder, you can [i]only[/i] add note
       <ID>12</ID>
       <Title><![CDATA[Scene 12]]></Title>
       <BelongsToChID>6</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[Unlike in novel files, headers in notes have no particular meaning other than visual aids for you, and for correct formatting in the export or view pane.]]></SceneContent>
       <WordCount>27</WordCount>
       <LetterCount>153</LetterCount>
@@ -265,7 +242,6 @@ In root folders that isn’t the Novel root folder, you can [i]only[/i] add note
         <Field_SceneType>1</Field_SceneType>
       </Fields>
       <Status>3</Status>
-      <Tags />
       <Characters />
       <Locations />
       <Items />
@@ -274,7 +250,6 @@ In root folders that isn’t the Novel root folder, you can [i]only[/i] add note
       <ID>13</ID>
       <Title><![CDATA[Scene 13]]></Title>
       <BelongsToChID>7</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[The folders in the tree view have no structural meaning other than they’re a way for you to organise your files into groups in whatever way suits you. They are not intended to represent chapters, but you can of course use them for that. If you do, know that you still need to define chapter headers in your structure so novelWriter knows where you want them.]]></SceneContent>
       <WordCount>66</WordCount>
       <LetterCount>358</LetterCount>
@@ -283,7 +258,6 @@ In root folders that isn’t the Novel root folder, you can [i]only[/i] add note
         <Field_SceneType>1</Field_SceneType>
       </Fields>
       <Status>3</Status>
-      <Tags />
       <Characters />
       <Locations />
       <Items />
@@ -292,7 +266,6 @@ In root folders that isn’t the Novel root folder, you can [i]only[/i] add note
       <ID>14</ID>
       <Title><![CDATA[Scene 14]]></Title>
       <BelongsToChID>8</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[You can link files and notes together by assigning tags to them, and then reference them from other files. The file class of a file determines which reference keywords apply to each file. For instance a file in the Characters root folder can be referenced using either the @char keyword or the @pov keyword.
 If you want to see the content of the file the reference points to, you can click Ctrl+Enter with the cursor on top of the reference, and the view pane will show you the file. In the view pane, all references are clickable, so you can navigate further. At the bottom of the view pane, a list of files referencing the one your viewing will appear. This panel updates when you navigate, unless you make it sticky by clicking the sticky checkbox.]]></SceneContent>
       <WordCount>136</WordCount>
@@ -302,7 +275,6 @@ If you want to see the content of the file the reference points to, you can clic
         <Field_SceneType>1</Field_SceneType>
       </Fields>
       <Status>3</Status>
-      <Tags />
       <Characters />
       <Locations />
       <Items />
@@ -311,12 +283,10 @@ If you want to see the content of the file the reference points to, you can clic
       <ID>15</ID>
       <Title><![CDATA[Jane Cannot Find John]]></Title>
       <BelongsToChID>9</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[Jane has been looking all over for John. He’s nowhere to be found on Earth, so Jane goes to space.]]></SceneContent>
       <WordCount>20</WordCount>
       <LetterCount>98</LetterCount>
       <Status>2</Status>
-      <Tags />
       <Characters>
         <CharID>2</CharID>
       </Characters>
@@ -329,12 +299,10 @@ If you want to see the content of the file the reference points to, you can clic
       <ID>16</ID>
       <Title><![CDATA[We Found John!]]></Title>
       <BelongsToChID>9</BelongsToChID>
-      <Desc />
       <SceneContent><![CDATA[Jane has been searching for a while, and she finally found John on Mars. He was indeed in space! What was he doing on Mars anyway? Well, it turns out, he was farming potatoes.]]></SceneContent>
       <WordCount>34</WordCount>
       <LetterCount>175</LetterCount>
       <Status>2</Status>
-      <Tags />
       <Characters>
         <CharID>1</CharID>
       </Characters>
@@ -347,33 +315,33 @@ If you want to see the content of the file the reference points to, you can clic
   <CHAPTERS>
     <CHAPTER>
       <ID>1</ID>
-      <SortOrder>1</SortOrder>
       <Title><![CDATA[My Novel]]></Title>
+      <SortOrder>1</SortOrder>
       <SectionStart>-1</SectionStart>
-      <ChapterType>0</ChapterType>
       <Type>0</Type>
+      <ChapterType>0</ChapterType>
       <Scenes>
         <ScID>1</ScID>
       </Scenes>
     </CHAPTER>
     <CHAPTER>
       <ID>2</ID>
-      <SortOrder>2</SortOrder>
       <Title><![CDATA[Part One]]></Title>
+      <SortOrder>2</SortOrder>
       <SectionStart>-1</SectionStart>
-      <ChapterType>0</ChapterType>
       <Type>0</Type>
+      <ChapterType>0</ChapterType>
       <Scenes>
         <ScID>2</ScID>
       </Scenes>
     </CHAPTER>
     <CHAPTER>
       <ID>3</ID>
-      <SortOrder>3</SortOrder>
       <Title><![CDATA[So it Begins]]></Title>
       <Desc><![CDATA[We can add a chapter file, but keep the scene files separate. In the chapter file we can set the meta data that applies to the whole chapter if we wish to.]]></Desc>
-      <ChapterType>0</ChapterType>
+      <SortOrder>3</SortOrder>
       <Type>0</Type>
+      <ChapterType>0</ChapterType>
       <Scenes>
         <ScID>3</ScID>
         <ScID>4</ScID>
@@ -386,65 +354,65 @@ If you want to see the content of the file the reference points to, you can clic
     </CHAPTER>
     <CHAPTER>
       <ID>4</ID>
-      <SortOrder>4</SortOrder>
       <Title><![CDATA[Interlude]]></Title>
-      <ChapterType>0</ChapterType>
+      <SortOrder>4</SortOrder>
       <Type>0</Type>
+      <ChapterType>0</ChapterType>
       <Scenes>
         <ScID>10</ScID>
       </Scenes>
     </CHAPTER>
     <CHAPTER>
       <ID>5</ID>
-      <SortOrder>5</SortOrder>
       <Title><![CDATA[A Note on Structure]]></Title>
-      <SectionStart>-1</SectionStart>
-      <ChapterType>1</ChapterType>
-      <Type>1</Type>
       <Unused>-1</Unused>
+      <SortOrder>5</SortOrder>
+      <SectionStart>-1</SectionStart>
+      <Type>1</Type>
+      <ChapterType>1</ChapterType>
       <Scenes>
         <ScID>11</ScID>
       </Scenes>
     </CHAPTER>
     <CHAPTER>
       <ID>6</ID>
-      <SortOrder>6</SortOrder>
       <Title><![CDATA[Headers in Notes]]></Title>
-      <ChapterType>1</ChapterType>
-      <Type>1</Type>
       <Unused>-1</Unused>
+      <SortOrder>6</SortOrder>
+      <Type>1</Type>
+      <ChapterType>1</ChapterType>
       <Scenes>
         <ScID>12</ScID>
       </Scenes>
     </CHAPTER>
     <CHAPTER>
       <ID>7</ID>
-      <SortOrder>7</SortOrder>
       <Title><![CDATA[Folders in the Tree View]]></Title>
-      <ChapterType>1</ChapterType>
-      <Type>1</Type>
       <Unused>-1</Unused>
+      <SortOrder>7</SortOrder>
+      <Type>1</Type>
+      <ChapterType>1</ChapterType>
       <Scenes>
         <ScID>13</ScID>
       </Scenes>
     </CHAPTER>
     <CHAPTER>
       <ID>8</ID>
-      <SortOrder>8</SortOrder>
       <Title><![CDATA[Linking Files and Notes]]></Title>
-      <ChapterType>1</ChapterType>
-      <Type>1</Type>
       <Unused>-1</Unused>
+      <SortOrder>8</SortOrder>
+      <Type>1</Type>
+      <ChapterType>1</ChapterType>
       <Scenes>
         <ScID>14</ScID>
       </Scenes>
     </CHAPTER>
     <CHAPTER>
       <ID>9</ID>
-      <SortOrder>9</SortOrder>
       <Title><![CDATA[Where has John Gone?]]></Title>
-      <ChapterType>0</ChapterType>
+      <SortOrder>9</SortOrder>
       <Type>0</Type>
+      <ChapterType>0</ChapterType>
       <Scenes>
         <ScID>15</ScID>
         <ScID>16</ScID>

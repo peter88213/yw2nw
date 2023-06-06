@@ -1,14 +1,14 @@
 """Provide a class for novelWriter project file representation.
 
-Copyright (c) 2022 Peter Triesberger
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 import os
 import xml.etree.ElementTree as ET
 from datetime import datetime
-from pywriter.pywriter_globals import ERROR
-from pywriter.model.novel import Novel
+from pywriter.pywriter_globals import *
+from pywriter.file.file import File
 from pywriter.yw.xml_indent import indent
 from yw2nwlib.handles import Handles
 from yw2nwlib.nw_item_v1_5 import NwItemV15
@@ -20,7 +20,7 @@ from yw2nwlib.nwd_object_file import NwdObjectFile
 WRITE_NEW_FORMAT = True
 
 
-class NwxFile(Novel):
+class NwxFile(File):
     """novelWriter project representation.
     
     Public methods:
@@ -126,9 +126,7 @@ class NwxFile(Novel):
         try:
             self._tree = ET.parse(self.filePath)
         except:
-            return f'{ERROR}Can not process "{os.path.normpath(self.filePath)}".'
-
-        return 'novelWriter XML file read in.'
+            raise Error(f'Can not process "{norm_path(self.filePath)}".')
 
     def read(self):
         """Parse the novelWriter xml and md files and get the instance variables.
@@ -139,18 +137,15 @@ class NwxFile(Novel):
 
         #--- Read the XML file, if necessary.
         if self._tree is None:
-            message = self.read_xml_file()
-            if message.startswith(ERROR):
-                return message
-
+            self.read_xml_file()
         root = self._tree.getroot()
 
         #--- Check file type and version; apply strategy pattern for the NwItem class.
         if root.tag != self._NWX_TAG:
-            return f'{ERROR}This seems not to bee a novelWriter project file.'
+            raise Error(f'This seems not to bee a novelWriter project file.')
 
         if root.attrib.get('fileVersion') != self._NWX_ATTR_V1_5['fileVersion']:
-            return f'{ERROR}Wrong file version (must be {self._NWX_ATTR_V1_5["fileVersion"]}).'
+            raise Error(f'Wrong file version (must be {self._NWX_ATTR_V1_5["fileVersion"]}).')
 
         NwItem = NwItemV15
         self.statusLookup = {}
@@ -165,15 +160,15 @@ class NwxFile(Novel):
         #--- Read project metadata from the xml element _tree.
         prj = root.find('project')
         if prj.find('title') is not None:
-            self.title = prj.find('title').text
+            self.novel.title = prj.find('title').text
         elif prj.find('name') is not None:
-            self.title = prj.find('name').text
+            self.novel.title = prj.find('name').text
         authors = []
         for author in prj.iter('author'):
             if author is not None:
                 if author.text:
                     authors.append(author.text)
-        self.authorName = ', '.join(authors)
+        self.novel.authorName = ', '.join(authors)
 
         #--- Read project content from the xml element tree.
         # This is a simple variant that processes the flat XML structure
@@ -186,7 +181,7 @@ class NwxFile(Novel):
             nwItem = NwItem()
             handle = nwItem.read(node, self)
             if not self.nwHandles.add_member(handle):
-                return f'{ERROR}Invalid handle: {handle}'
+                raise Error(f'Invalid handle: {handle}')
 
             if nwItem.nwClass in self._TRAILER:
                 # Discard the rest of the scenes, if any.
@@ -196,74 +191,35 @@ class NwxFile(Novel):
                 continue
 
             nwdFile = self._NWD_CLASSES[nwItem.nwClass](self, nwItem)
-            message = nwdFile.read()
-            if message.startswith(ERROR):
-                return message
+            nwdFile.read()
 
         # Create reference lists.
         crIdsByTitle = {}
-        for crId in self.characters:
-            crIdsByTitle[self.characters[crId].title] = crId
+        for crId in self.novel.characters:
+            crIdsByTitle[self.novel.characters[crId].title] = crId
         lcIdsByTitle = {}
-        for lcId in self.locations:
-            lcIdsByTitle[self.locations[lcId].title] = lcId
+        for lcId in self.novel.locations:
+            lcIdsByTitle[self.novel.locations[lcId].title] = lcId
         itIdsByTitle = {}
-        for itId in self.items:
-            itIdsByTitle[self.items[itId].title] = itId
+        for itId in self.novel.items:
+            itIdsByTitle[self.novel.items[itId].title] = itId
 
         # Fix scene references, replacing titles by IDs.
-        for scId in self.scenes:
+        for scId in self.novel.scenes:
             characters = []
-            for crId in self.scenes[scId].characters:
+            for crId in self.novel.scenes[scId].characters:
                 characters.append(crIdsByTitle[crId])
-            self.scenes[scId].characters = characters
+            self.novel.scenes[scId].characters = characters
             locations = []
-            for lcId in self.scenes[scId].locations:
+            for lcId in self.novel.scenes[scId].locations:
                 locations.append(lcIdsByTitle[lcId])
-            self.scenes[scId].locations = locations
+            self.novel.scenes[scId].locations = locations
             items = []
-            for itId in self.scenes[scId].items:
+            for itId in self.novel.scenes[scId].items:
                 items.append(itIdsByTitle[itId])
-            self.scenes[scId].items = items
+            self.novel.scenes[scId].items = items
 
         return 'novelWriter data converted to novel structure.'
-
-    def merge(self, source):
-        """Copy the yWriter project parts that can be mapped to the novelWriter project.
-        
-        Positional arguments:
-            source -- Yw7File instance to merge.
-        
-        Return a message beginning with the ERROR constant in case of error.
-        Override the superclass method.
-        """
-        if source.title is not None:
-            self.title = source.title
-        else:
-            self.title = ''
-        if source.desc is not None:
-            self.desc = source.desc
-        else:
-            self.desc = ''
-        if source.authorName is not None:
-            self.authorName = source.authorName
-        else:
-            self.authorName = ''
-        if source.scenes is not None:
-            self.scenes = source.scenes
-        if source.srtChapters:
-            self.srtChapters = source.srtChapters
-            self.chapters = source.chapters
-        if source.srtCharacters:
-            self.srtCharacters = source.srtCharacters
-            self.characters = source.characters
-        if source.srtLocations:
-            self.srtLocations = source.srtLocations
-            self.locations = source.locations
-        if source.srtItems:
-            self.srtItems = source.srtItems
-            self.items = source.items
-        return 'Updated from novel.'
 
     def write(self):
         """Write instance variables to the novelWriter files.
@@ -288,14 +244,14 @@ class NwxFile(Novel):
 
         #--- Write project metadata.
         xmlPrj = ET.SubElement(root, 'project')
-        if self.title:
-            title = self.title
+        if self.novel.title:
+            title = self.novel.title
         else:
             title = 'New project'
         ET.SubElement(xmlPrj, 'name').text = title
         ET.SubElement(xmlPrj, 'title').text = title
-        if self.authorName:
-            authors = self.authorName.split(',')
+        if self.novel.authorName:
+            authors = self.novel.authorName.split(',')
         else:
             authors = ['']
         for author in authors:
@@ -344,19 +300,19 @@ class NwxFile(Novel):
         # Add novel items to the folder.
         order.append(0)
         # Level up from content to novel
-        for chId in self.srtChapters:
-            if self.chapters[chId].chLevel == 1:
+        for chId in self.novel.srtChapters:
+            if self.novel.chapters[chId].chLevel == 1:
                 # Begin with a new part.
                 hasPartLevel = True
                 isInChapter = False
 
                 #--- Write a new folder for this part.
-                partFolderHandle = self.nwHandles.create_member(f'{chId + self.chapters[chId].title}Folder')
+                partFolderHandle = self.nwHandles.create_member(f'{chId + self.novel.chapters[chId].title}Folder')
                 partFolder = NwItem()
                 partFolder.nwHandle = partFolderHandle
                 partFolder.nwOrder = order[-1]
                 partFolder.nwParent = novelFolderHandle
-                partFolder.nwName = self.chapters[chId].title
+                partFolder.nwName = self.novel.chapters[chId].title
                 partFolder.nwType = 'FOLDER'
                 partFolder.nwClass = 'NOVEL'
                 partFolder.expanded = 'True'
@@ -368,20 +324,19 @@ class NwxFile(Novel):
                 # Level up from novel to part
 
                 # Put the heading into the part folder.
-                partHeadingHandle = self.nwHandles.create_member(f'{chId + self.chapters[chId].title}')
+                partHeadingHandle = self.nwHandles.create_member(f'{chId + self.novel.chapters[chId].title}')
                 partHeading = NwItem()
                 partHeading.nwHandle = partHeadingHandle
                 partHeading.nwOrder = order[-1]
                 partHeading.nwParent = partFolderHandle
-                partHeading.nwName = self.chapters[chId].title
+                partHeading.nwName = self.novel.chapters[chId].title
                 partHeading.nwType = 'FILE'
                 partHeading.nwClass = 'NOVEL'
+                partHeading.nwLayout = 'DOCUMENT'
                 partHeading.nwActive = True
-                if self.chapters[chId].chType == 0:
-                    partHeading.nwActive = True
-                    partHeading.nwLayout = 'DOCUMENT'
-                else:
+                if self.novel.chapters[chId].chType == 3:
                     partHeading.nwActive = False
+                elif self.novel.chapters[chId].chType in (1, 2):
                     partHeading.nwLayout = 'NOTE'
                 partHeading.nwStatus = 'None'
                 partHeading.nwImportance = 'None'
@@ -402,7 +357,7 @@ class NwxFile(Novel):
                 isInChapter = True
 
                 #--- Write a new folder for this chapter.
-                chapterFolderHandle = self.nwHandles.create_member(f'{chId}{self.chapters[chId].title}Folder')
+                chapterFolderHandle = self.nwHandles.create_member(f'{chId}{self.novel.chapters[chId].title}Folder')
                 chapterFolder = NwItem()
                 chapterFolder.nwHandle = chapterFolderHandle
                 chapterFolder.nwOrder = order[-1]
@@ -410,7 +365,7 @@ class NwxFile(Novel):
                     chapterFolder.nwParent = partFolderHandle
                 else:
                     chapterFolder.nwParent = novelFolderHandle
-                chapterFolder.nwName = self.chapters[chId].title
+                chapterFolder.nwName = self.novel.chapters[chId].title
                 chapterFolder.nwType = 'FOLDER'
                 chapterFolder.expanded = 'True'
                 chapterFolder.write(content, self)
@@ -421,19 +376,19 @@ class NwxFile(Novel):
                 # Level up from part or novel to chapter
 
                 # Put the heading into the folder.
-                chapterHeadingHandle = self.nwHandles.create_member(f'{chId}{self.chapters[chId].title}')
+                chapterHeadingHandle = self.nwHandles.create_member(f'{chId}{self.novel.chapters[chId].title}')
                 chapterHeading = NwItem()
                 chapterHeading.nwHandle = chapterHeadingHandle
                 chapterHeading.nwOrder = order[-1]
                 chapterHeading.nwParent = chapterFolderHandle
-                chapterHeading.nwName = self.chapters[chId].title
+                chapterHeading.nwName = self.novel.chapters[chId].title
                 chapterHeading.nwType = 'FILE'
                 chapterHeading.nwClass = 'NOVEL'
-                if self.chapters[chId].chType == 0:
-                    chapterHeading.nwActive = True
-                    chapterHeading.nwLayout = 'DOCUMENT'
-                else:
+                chapterHeading.nwLayout = 'DOCUMENT'
+                chapterHeading.nwActive = True
+                if self.novel.chapters[chId].chType == 3:
                     chapterHeading.nwActive = False
+                elif self.novel.chapters[chId].chType in (1, 2):
                     chapterHeading.nwLayout = 'NOTE'
                 chapterHeading.nwStatus = 'None'
                 chapterHeading.nwImportance = 'None'
@@ -446,9 +401,9 @@ class NwxFile(Novel):
                 attrCount += 1
                 order[-1] += 1
                 # chapter level
-            for scId in self.chapters[chId].srtScenes:
+            for scId in self.novel.chapters[chId].srtScenes:
                 #--- Put a scene into the folder.
-                sceneHandle = self.nwHandles.create_member(f'{scId}{self.scenes[scId].title}')
+                sceneHandle = self.nwHandles.create_member(f'{scId}{self.novel.scenes[scId].title}')
                 scene = NwItem()
                 scene.nwHandle = sceneHandle
                 scene.nwOrder = order[-1]
@@ -456,31 +411,29 @@ class NwxFile(Novel):
                     scene.nwParent = chapterFolderHandle
                 else:
                     scene.nwParent = partFolderHandle
-                if self.scenes[scId].title:
-                    title = self.scenes[scId].title
+                if self.novel.scenes[scId].title:
+                    title = self.novel.scenes[scId].title
                 else:
                     title = f'Scene {order[-1] + 1}'
                 scene.nwName = title
                 scene.nwType = 'FILE'
                 scene.nwClass = 'NOVEL'
-                if self.scenes[scId].status is not None:
+                if self.novel.scenes[scId].status is not None:
                     try:
-                        scene.nwStatus = self._sceneStatus[self.scenes[scId].status]
+                        scene.nwStatus = self._sceneStatus[self.novel.scenes[scId].status]
                     except IndexError:
                         scene.nwStatus = self._sceneStatus[-1]
                 scene.nwImportance = 'None'
-                if self.scenes[scId].isUnused:
+                scene.nwLayout = 'DOCUMENT'
+                scene.nwActive = True
+                if self.novel.scenes[scId].scType == 3:
                     scene.nwActive = False
-                else:
-                    scene.nwActive = True
-                if self.scenes[scId].isNotesScene or self.scenes[scId].isTodoScene:
+                elif self.novel.scenes[scId].scType in (1, 2):
                     scene.nwLayout = 'NOTE'
-                else:
-                    scene.nwLayout = 'DOCUMENT'
-                if self.scenes[scId].wordCount:
-                    scene.nwWordCount = str(self.scenes[scId].wordCount)
-                if self.scenes[scId].letterCount:
-                    scene.nwCharCount = str(self.scenes[scId].letterCount)
+                if self.novel.scenes[scId].wordCount:
+                    scene.nwWordCount = str(self.novel.scenes[scId].wordCount)
+                if self.novel.scenes[scId].letterCount:
+                    scene.nwCharCount = str(self.novel.scenes[scId].letterCount)
                 scene.write(content, self)
 
                 # Add it to the .nwd file.
@@ -514,23 +467,23 @@ class NwxFile(Novel):
         # Add character items to the folder.
         order.append(0)
         # Level up from world to character
-        for crId in self.srtCharacters:
+        for crId in self.novel.srtCharacters:
             #--- Put a character into the folder.
-            characterHandle = self.nwHandles.create_member(f'{crId}{self.characters[crId].title}')
+            characterHandle = self.nwHandles.create_member(f'{crId}{self.novel.characters[crId].title}')
             character = NwItem()
             character.nwHandle = characterHandle
             character.nwOrder = order[-1]
             character.nwParent = characterFolderHandle
-            if self.characters[crId].fullName:
-                character.nwName = self.characters[crId].fullName
-            elif self.characters[crId].title:
-                character.nwName = self.characters[crId].title
+            if self.novel.characters[crId].fullName:
+                character.nwName = self.novel.characters[crId].fullName
+            elif self.novel.characters[crId].title:
+                character.nwName = self.novel.characters[crId].title
             else:
                 character.nwName = f'Character {order[-1] + 1}'
             character.nwType = 'FILE'
             character.nwClass = 'CHARACTER'
             character.nwStatus = 'None'
-            if self.characters[crId].isMajor:
+            if self.novel.characters[crId].isMajor:
                 character.nwImportance = 'Major'
             else:
                 character.nwImportance = 'Minor'
@@ -569,15 +522,15 @@ class NwxFile(Novel):
         # Add world items to the folder.
         order.append(0)
         # Level up from content to world
-        for lcId in self.srtLocations:
+        for lcId in self.novel.srtLocations:
             #--- Put a location into the folder.
-            locationHandle = self.nwHandles.create_member(f'{lcId}{self.locations[lcId].title}')
+            locationHandle = self.nwHandles.create_member(f'{lcId}{self.novel.locations[lcId].title}')
             location = NwItem()
             location.nwHandle = locationHandle
             location.nwOrder = order[-1]
             location.nwParent = worldFolderHandle
-            if self.locations[lcId].title:
-                title = self.locations[lcId].title
+            if self.novel.locations[lcId].title:
+                title = self.novel.locations[lcId].title
             else:
                 title = f'Place {order[-1] + 1}'
             location.nwName = title
@@ -619,15 +572,15 @@ class NwxFile(Novel):
         # Add object items to the folder.
         order.append(0)
         # Level up from content to object
-        for itId in self.srtItems:
+        for itId in self.novel.srtItems:
             #--- Put a item into the folder.
-            itemHandle = self.nwHandles.create_member(f'{itId}{self.items[itId].title}')
+            itemHandle = self.nwHandles.create_member(f'{itId}{self.novel.items[itId].title}')
             item = NwItem()
             item.nwHandle = itemHandle
             item.nwOrder = order[-1]
             item.nwParent = objectFolderHandle
-            if self.items[itId].title:
-                title = self.items[itId].title
+            if self.novel.items[itId].title:
+                title = self.novel.items[itId].title
             else:
                 title = f'Object {order[-1] + 1}'
             item.nwName = title
@@ -656,4 +609,4 @@ class NwxFile(Novel):
         indent(root)
         self._tree = ET.ElementTree(root)
         self._tree.write(self.filePath, xml_declaration=True, encoding='utf-8')
-        return f'"{os.path.normpath(self.filePath)}" written.'
+        return f'"{norm_path(self.filePath)}" written.'

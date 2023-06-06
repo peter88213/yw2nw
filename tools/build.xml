@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="yw2nw" basedir=".">
-	<property name="version" value="0.10.4" />
+	<property name="version" value="1.0.0" />
 	<property name="test-app" value="yw2nw" />
 	
 	<property name="source-path" location="../src" />
@@ -14,7 +14,7 @@
 	<target name="build" description="inline all library modules">
 		<delete file="${test-path}/${test-app}.py" />
 		<exec executable="python" failonerror="true">
-		    <arg value="${source-path}/build_${test-app}.py"/>
+		    <arg value="build_${test-app}.py"/>
 		</exec>
 	</target>
 

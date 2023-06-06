@@ -9,7 +9,7 @@ your own toolchain for importing an outline or a work in progress into NovelWrit
 
  ![A part of the yw7 ecosystem](scap/yw7_ecosystem.png)
 
-### Requirements
+## Requirements
 
 - [Python](https://www.python.org/) version 3.6+.
 
@@ -20,9 +20,9 @@ your own toolchain for importing an outline or a work in progress into NovelWrit
 
 ## Download and install
 
-[Download the latest release (version 0.10.4)](https://raw.githubusercontent.com/peter88213/yw2nw/main/dist/yw2nw_v0.10.4.zip)
+[Download the latest release (version 1.0.0)](https://raw.githubusercontent.com/peter88213/yw2nw/main/dist/yw2nw_v1.0.0.zip)
 
-- Unzip the downloaded zipfile "yw2nw_v0.10.4.zip" into a new folder.
+- Unzip the downloaded zipfile "yw2nw_v1.0.0.zip" into a new folder.
 - Move into this new folder and launch **setup.py** to install the script for the local user.
 - Create a shortcut on the desktop when asked.
 - Open "README.md" for usage instructions.

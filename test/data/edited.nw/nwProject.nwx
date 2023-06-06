@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<novelWriterXML appVersion="2.0.2" hexVersion="0x020002f0" fileVersion="1.5" timeStamp="2022-12-12 11:42:14">
+<novelWriterXML appVersion="2.0.2" hexVersion="0x020002f0" fileVersion="1.5" timeStamp="2023-06-06 14:44:49">
   <project>
     <name>Sample Project</name>
     <title>Sample Project</title>
@@ -47,7 +47,7 @@
     </item>
     <item handle="5e53aeef23a75" parent="6f03cca328f64" order="0" type="FILE" class="NOVEL" layout="DOCUMENT">
       <name status="s000002" import="i000001" active="yes">Scene 2</name>
-      <meta charCount="24" wordCount="5" />
+      <meta charCount="24" wordCount="6" />
     </item>
     <item handle="3f1fe89752aaf" parent="6f03cca328f64" order="1" type="FOLDER">
       <name>So it Begins</name>
@@ -75,7 +75,7 @@
     </item>
     <item handle="1da75bef72e70" parent="3f1fe89752aaf" order="5" type="FILE" class="NOVEL" layout="DOCUMENT">
       <name status="s000003" import="i000001" active="yes">Text Indent</name>
-      <meta charCount="244" wordCount="48" />
+      <meta charCount="244" wordCount="47" />
     </item>
     <item handle="f1150922e2bc4" parent="3f1fe89752aaf" order="6" type="FILE" class="NOVEL" layout="DOCUMENT">
       <name status="s000003" import="i000001" active="yes">Another Scene</name>
@@ -102,11 +102,11 @@
       <meta />
     </item>
     <item handle="01b3d9f8219d9" parent="cbf77ec70fa04" order="0" type="FILE" class="NOVEL" layout="NOTE">
-      <name status="s000001" import="i000001" active="no">A Note on Structure</name>
+      <name status="s000001" import="i000001" active="yes">A Note on Structure</name>
       <meta />
     </item>
     <item handle="24281d41132c3" parent="cbf77ec70fa04" order="0" type="FILE" class="NOVEL" layout="NOTE">
-      <name status="s000004" import="i000001" active="no">Scene 11</name>
+      <name status="s000004" import="i000001" active="yes">Scene 11</name>
       <meta charCount="347" wordCount="68" />
     </item>
     <item handle="83efeb7d63faf" parent="cbf77ec70fa04" order="1" type="FOLDER">
@@ -114,11 +114,11 @@
       <meta />
     </item>
     <item handle="e1f7a2c9f62ca" parent="83efeb7d63faf" order="0" type="FILE" class="NOVEL" layout="NOTE">
-      <name status="s000001" import="i000001" active="no">Headers in Notes</name>
+      <name status="s000001" import="i000001" active="yes">Headers in Notes</name>
       <meta />
     </item>
     <item handle="85b5ef16f31f1" parent="83efeb7d63faf" order="1" type="FILE" class="NOVEL" layout="NOTE">
-      <name status="s000004" import="i000001" active="no">Scene 12</name>
+      <name status="s000004" import="i000001" active="yes">Scene 12</name>
       <meta charCount="153" wordCount="27" />
     </item>
     <item handle="3f7c4f7c21af9" parent="cbf77ec70fa04" order="2" type="FOLDER">
@@ -126,11 +126,11 @@
       <meta />
     </item>
     <item handle="5129404076e62" parent="3f7c4f7c21af9" order="0" type="FILE" class="NOVEL" layout="NOTE">
-      <name status="s000001" import="i000001" active="no">Folders in the Tree View</name>
+      <name status="s000001" import="i000001" active="yes">Folders in the Tree View</name>
       <meta />
     </item>
     <item handle="07d536ac89211" parent="3f7c4f7c21af9" order="1" type="FILE" class="NOVEL" layout="NOTE">
-      <name status="s000004" import="i000001" active="no">Scene 13</name>
+      <name status="s000004" import="i000001" active="yes">Scene 13</name>
       <meta charCount="358" wordCount="66" />
     </item>
     <item handle="e447e5b9ec226" parent="cbf77ec70fa04" order="3" type="FOLDER">
@@ -138,11 +138,11 @@
       <meta />
     </item>
     <item handle="918be2f8ee2c2" parent="e447e5b9ec226" order="0" type="FILE" class="NOVEL" layout="NOTE">
-      <name status="s000001" import="i000001" active="no">Linking Files and Notes</name>
+      <name status="s000001" import="i000001" active="yes">Linking Files and Notes</name>
       <meta />
     </item>
     <item handle="6712d66560e47" parent="e447e5b9ec226" order="1" type="FILE" class="NOVEL" layout="NOTE">
-      <name status="s000004" import="i000001" active="no">Scene 14</name>
+      <name status="s000004" import="i000001" active="yes">Scene 14</name>
       <meta charCount="750" wordCount="136" />
     </item>
     <item handle="b08e3be2497b7" parent="cbf77ec70fa04" order="4" type="FOLDER">

@@ -1,11 +1,11 @@
 """Provide a class for novelWriter novel file representation.
 
-Copyright (c) 2022 Peter Triesberger
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 import re
-from pywriter.pywriter_globals import ERROR
+from pywriter.pywriter_globals import *
 from pywriter.model.scene import Scene
 from pywriter.model.chapter import Chapter
 from yw2nwlib.nwd_file import NwdFile
@@ -150,35 +150,29 @@ class NwdNovelFile(NwdFile):
         def set_scene_content(scId, contentLines, characters, locations, items, synopsis, tags):
             if scId is not None:
                 text = '\n'.join(contentLines)
-                self._prj.scenes[scId].sceneContent = self._convert_to_yw(text)
-                self._prj.scenes[scId].desc = '\n'.join(synopsis)
-                self._prj.scenes[scId].characters = characters
-                self._prj.scenes[scId].locations = locations
-                self._prj.scenes[scId].items = items
-                self._prj.scenes[scId].tags = tags
+                self._prj.novel.scenes[scId].sceneContent = self._convert_to_yw(text)
+                self._prj.novel.scenes[scId].desc = '\n'.join(synopsis)
+                self._prj.novel.scenes[scId].characters = characters
+                self._prj.novel.scenes[scId].locations = locations
+                self._prj.novel.scenes[scId].items = items
+                self._prj.novel.scenes[scId].tags = tags
 
         #--- Get chapters and scenes.
         scId = None
-        message = super().read()
-        if message.startswith(ERROR):
-            return message
+        super().read()
 
         # Determine the attibutes for all chapters and scenes included.
-        chType = None
-        isNotesScene = None
+        elementType = None
         status = None
-        isUnused = False
-        if self._nwItem.nwLayout == 'DOCUMENT':
-            chType = 0
+        if self._nwItem.nwLayout == 'DOCUMENT' and self._nwItem.nwActive:
+            elementType = 0
             # Normal
         elif self._nwItem.nwLayout == 'NOTE':
-            chType = 1
+            elementType = 1
             # Notes
-            isNotesScene = True
         else:
-            isUnused = True
-        if not self._nwItem.nwActive:
-            isUnused = True
+            elementType = 3
+            # Unused
         if self._nwItem.nwStatus in self._outlineStatus:
             status = 1
         elif self._nwItem.nwStatus in self._draftStatus:
@@ -246,15 +240,14 @@ class NwdNovelFile(NwdFile):
                 # Add a chapter.
                 self._prj.chCount += 1
                 self._prj.chId = str(self._prj.chCount)
-                self._prj.chapters[self._prj.chId] = Chapter()
-                self._prj.chapters[self._prj.chId].title = line.split(' ', maxsplit=1)[1]
-                self._prj.chapters[self._prj.chId].chType = chType
-                self._prj.chapters[self._prj.chId].isUnused = isUnused
-                self._prj.srtChapters.append(self._prj.chId)
+                self._prj.novel.chapters[self._prj.chId] = Chapter()
+                self._prj.novel.chapters[self._prj.chId].title = line.split(' ', maxsplit=1)[1]
+                self._prj.novel.chapters[self._prj.chId].chType = elementType
+                self._prj.novel.srtChapters.append(self._prj.chId)
                 if line.startswith('##'):
-                    self._prj.chapters[self._prj.chId].chLevel = 0
+                    self._prj.novel.chapters[self._prj.chId].chLevel = 0
                 else:
-                    self._prj.chapters[self._prj.chId].chLevel = 1
+                    self._prj.novel.chapters[self._prj.chId].chLevel = 1
 
                 # Prepare the next scene that may be appended without a heading.
                 scId = None
@@ -270,20 +263,19 @@ class NwdNovelFile(NwdFile):
             elif sceneTitle and scId is None:
                 # Write chapter synopsis.
                 if synopsis and not inScene:
-                    self._prj.chapters[self._prj.chId].desc = '\n'.join(synopsis)
+                    self._prj.novel.chapters[self._prj.chId].desc = '\n'.join(synopsis)
                     synopsis = []
                 inScene = True
 
                 # Add a scene.
                 self._prj.scCount += 1
                 scId = str(self._prj.scCount)
-                self._prj.scenes[scId] = Scene()
-                self._prj.scenes[scId].status = status
-                self._prj.scenes[scId].title = sceneTitle
-                self._prj.scenes[scId].isNotesScene = isNotesScene
-                self._prj.chapters[self._prj.chId].srtScenes.append(scId)
-                self._prj.scenes[scId].appendToPrev = appendToPrev
-                self._prj.scenes[scId].isUnused = isUnused
+                self._prj.novel.scenes[scId] = Scene()
+                self._prj.novel.scenes[scId].status = status
+                self._prj.novel.scenes[scId].title = sceneTitle
+                self._prj.novel.scenes[scId].scType = elementType
+                self._prj.novel.chapters[self._prj.chId].srtScenes.append(scId)
+                self._prj.novel.scenes[scId].appendToPrev = appendToPrev
                 contentLines = [line]
             elif scId is not None:
                 contentLines.append(line)
@@ -292,7 +284,7 @@ class NwdNovelFile(NwdFile):
         if scId is not None:
             set_scene_content(scId, contentLines, characters, locations, items, synopsis, tags)
         elif synopsis:
-            self._prj.chapters[self._prj.chId].desc = '\n'.join(synopsis)
+            self._prj.novel.chapters[self._prj.chId].desc = '\n'.join(synopsis)
         return 'Chapters and scenes read in.'
 
     def add_scene(self, scId):
@@ -301,7 +293,7 @@ class NwdNovelFile(NwdFile):
         Positional arguments:
             scId -- str: scene ID.
         """
-        scene = self._prj.scenes[scId]
+        scene = self._prj.novel.scenes[scId]
         if scene.appendToPrev:
             self._lines.append(f'#### {scene.title}\n')
         else:
@@ -312,20 +304,20 @@ class NwdNovelFile(NwdFile):
             isViewpoint = True
             for crId in scene.characters:
                 if isViewpoint:
-                    self._lines.append(self._POV_TAG + self._prj.characters[crId].title.replace(' ', '_'))
+                    self._lines.append(self._POV_TAG + self._prj.novel.characters[crId].title.replace(' ', '_'))
                     isViewpoint = False
                 else:
-                    self._lines.append(self._CHARACTER_TAG + self._prj.characters[crId].title.replace(' ', '_'))
+                    self._lines.append(self._CHARACTER_TAG + self._prj.novel.characters[crId].title.replace(' ', '_'))
 
         # Set locations.
         if scene.locations is not None:
             for lcId in scene.locations:
-                self._lines.append(self._LOCATION_TAG + self._prj.locations[lcId].title.replace(' ', '_'))
+                self._lines.append(self._LOCATION_TAG + self._prj.novel.locations[lcId].title.replace(' ', '_'))
 
         # Set items.
         if scene.items is not None:
             for itId in scene.items:
-                self._lines.append(self._ITEM_TAG + self._prj.items[itId].title.replace(' ', '_'))
+                self._lines.append(self._ITEM_TAG + self._prj.novel.items[itId].title.replace(' ', '_'))
 
         # Set yWriter tags.
         if scene.tags is not None:
@@ -351,7 +343,7 @@ class NwdNovelFile(NwdFile):
         Positional arguments:
             chId -- str: chapter ID.
         """
-        chapter = self._prj.chapters[chId]
+        chapter = self._prj.novel.chapters[chId]
         if chapter.chLevel == 0:
             self._lines.append(f'## {chapter.title}\n')
         else:

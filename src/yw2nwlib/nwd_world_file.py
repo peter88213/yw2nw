@@ -1,10 +1,10 @@
 """Provide a class for novelWriter world file representation.
 
-Copyright (c) 2022 Peter Triesberger
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
-from pywriter.pywriter_globals import ERROR
+from pywriter.pywriter_globals import *
 from pywriter.model.world_element import WorldElement
 from yw2nwlib.nwd_file import NwdFile
 
@@ -42,14 +42,11 @@ class NwdWorldFile(NwdFile):
         Return a message beginning with the ERROR constant in case of error.
         Extends the superclass method.
         """
-        message = super().read()
-        if message.startswith(ERROR):
-            return message
-
+        super().read()
         self._prj.lcCount += 1
         lcId = str(self._prj.lcCount)
-        self._prj.locations[lcId] = WorldElement()
-        self._prj.locations[lcId].title = self._nwItem.nwName
+        self._prj.novel.locations[lcId] = WorldElement()
+        self._prj.novel.locations[lcId].title = self._nwItem.nwName
         desc = []
         for line in self._lines:
             if not line:
@@ -63,24 +60,24 @@ class NwdWorldFile(NwdFile):
 
             elif line.startswith('%'):
                 if line.startswith(self._ywAkaKeyword):
-                    self._prj.locations[lcId].aka = line.split(':')[1].strip()
+                    self._prj.novel.locations[lcId].aka = line.split(':')[1].strip()
                 elif line.startswith(self._ywTagKeyword):
-                    if self._prj.locations[lcId].tags is None:
-                        self._prj.locations[lcId].tags = []
-                    self._prj.locations[lcId].tags.append(line.split(':')[1].strip())
+                    if self._prj.novel.locations[lcId].tags is None:
+                        self._prj.novel.locations[lcId].tags = []
+                    self._prj.novel.locations[lcId].tags.append(line.split(':')[1].strip())
                 else:
                     continue
 
             elif line.startswith('@'):
                 if line.startswith('@tag'):
-                    self._prj.locations[lcId].title = line.split(':')[1].strip().replace('_', ' ')
+                    self._prj.novel.locations[lcId].title = line.split(':')[1].strip().replace('_', ' ')
                 else:
                     continue
 
             else:
                 desc.append(line)
-        self._prj.locations[lcId].desc = '\n'.join(desc)
-        self._prj.srtLocations.append(lcId)
+        self._prj.novel.locations[lcId].desc = '\n'.join(desc)
+        self._prj.novel.srtLocations.append(lcId)
         return 'Location data read in.'
 
     def add_element(self, lcId):
@@ -89,7 +86,7 @@ class NwdWorldFile(NwdFile):
         Positional arguments:
             lcId -- str: location ID.
         """
-        location = self._prj.locations[lcId]
+        location = self._prj.novel.locations[lcId]
 
         # Set Heading.
         self._lines.append(f'# {location.title}\n')

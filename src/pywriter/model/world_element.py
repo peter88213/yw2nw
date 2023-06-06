@@ -1,44 +1,34 @@
 """Provide a generic class for yWriter story world element representation.
 
-Copyright (c) 2022 Peter Triesberger
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/PyWriter
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
+from pywriter.model.basic_element import BasicElement
 
 
-class WorldElement:
+class WorldElement(BasicElement):
     """Story world element representation (may be location or item).
     
     Public instance variables:
-        title -- str: title (name).
-        image -- str: image file path.
-        desc -- str: description.
+        image: str -- image file path.
         tags -- list of tags.
-        aka -- str: alternate name.
+        aka: str -- alternate name.
     """
 
     def __init__(self):
-        """Initialize instance variables."""
-        self.title = None
-        # str
-        # xml: <Title>
+        """Initialize instance variables.
+        
+        Extends the superclass constructor.
+        """
+        super().__init__()
 
-        self.image = None
-        # str
+        self.image: str = None
         # xml: <ImageFile>
 
-        self.desc = None
-        # str
-        # xml: <Desc>
-
-        self.tags = None
-        # list of str
+        self.tags: list[str] = None
         # xml: <Tags>
 
-        self.aka = None
-        # str
+        self.aka: str = None
         # xml: <AKA>
 
-        self.kwVar = {}
-        # dictionary
-        # Optional key/value instance variables for customization.

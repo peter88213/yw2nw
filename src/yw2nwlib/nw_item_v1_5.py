@@ -1,6 +1,6 @@
 """Provide a strategy class for novelWriter items (file format version 1.5).
 
-Copyright (c) 2022 Peter Triesberger
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """

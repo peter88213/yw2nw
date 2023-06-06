@@ -1,11 +1,11 @@
 """Provide a generic class for novelWriter item file representation.
 
-Copyright (c) 2022 Peter Triesberger
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
 import os
-from pywriter.pywriter_globals import ERROR
+from pywriter.pywriter_globals import *
 
 
 class NwdFile:
@@ -40,7 +40,7 @@ class NwdFile:
                 return 'Item data read in.'
 
         except:
-            return f'{ERROR}Can not read "{os.path.normpath(self._filePath)}".'
+            raise Error(f'Can not read "{norm_path(self._filePath)}".')
 
     def write(self):
         """Write a content file. 
@@ -59,4 +59,4 @@ class NwdFile:
                 return 'nwd file saved.'
 
         except:
-            return f'{ERROR}Can not write "{os.path.normpath(self._filePath)}".'
+            raise Error(f'Can not write "{norm_path(self._filePath)}".')

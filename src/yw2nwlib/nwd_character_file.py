@@ -1,10 +1,10 @@
 """Provide a class for novelWriter character file representation.
 
-Copyright (c) 2022 Peter Triesberger
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
-from pywriter.pywriter_globals import ERROR
+from pywriter.pywriter_globals import *
 from pywriter.model.character import Character
 from yw2nwlib.nwd_file import NwdFile
 
@@ -53,15 +53,12 @@ class NwdCharacterFile(NwdFile):
         Return a message beginning with the ERROR constant in case of error.
         Extends the superclass method.
         """
-        message = super().read()
-        if message.startswith(ERROR):
-            return message
-
+        super().read()
         self._prj.crCount += 1
         crId = str(self._prj.crCount)
-        self._prj.characters[crId] = Character()
-        self._prj.characters[crId].fullName = self._nwItem.nwName
-        self._prj.characters[crId].title = self._nwItem.nwName
+        self._prj.novel.characters[crId] = Character()
+        self._prj.novel.characters[crId].fullName = self._nwItem.nwName
+        self._prj.novel.characters[crId].title = self._nwItem.nwName
         desc = []
         bio = []
         goals = []
@@ -84,14 +81,14 @@ class NwdCharacterFile(NwdFile):
                     section = 'notes'
             elif line.startswith('@'):
                 if line.startswith('@tag'):
-                    self._prj.characters[crId].title = line.split(':')[1].strip().replace('_', ' ')
+                    self._prj.novel.characters[crId].title = line.split(':')[1].strip().replace('_', ' ')
             elif line.startswith('%'):
                 if line.startswith(self._ywAkaKeyword):
-                    self._prj.characters[crId].aka = line.split(':')[1].strip()
+                    self._prj.novel.characters[crId].aka = line.split(':')[1].strip()
                 elif line.startswith(self._ywTagKeyword):
-                    if self._prj.characters[crId].tags is None:
-                        self._prj.characters[crId].tags = []
-                    self._prj.characters[crId].tags.append(line.split(':')[1].strip())
+                    if self._prj.novel.characters[crId].tags is None:
+                        self._prj.novel.characters[crId].tags = []
+                    self._prj.novel.characters[crId].tags.append(line.split(':')[1].strip())
             elif section == 'desc':
                 desc.append(line)
             elif section == 'bio':
@@ -100,15 +97,15 @@ class NwdCharacterFile(NwdFile):
                 goals.append(line)
             elif section == 'notes':
                 notes.append(line)
-        self._prj.characters[crId].desc = '\n'.join(desc)
-        self._prj.characters[crId].bio = '\n'.join(bio)
-        self._prj.characters[crId].goals = '\n'.join(goals)
-        self._prj.characters[crId].notes = '\n'.join(notes)
+        self._prj.novel.characters[crId].desc = '\n'.join(desc)
+        self._prj.novel.characters[crId].bio = '\n'.join(bio)
+        self._prj.novel.characters[crId].goals = '\n'.join(goals)
+        self._prj.novel.characters[crId].notes = '\n'.join(notes)
         if self._nwItem.nwImportance in self._majorImportance:
-            self._prj.characters[crId].isMajor = True
+            self._prj.novel.characters[crId].isMajor = True
         else:
-            self._prj.characters[crId].isMajor = False
-        self._prj.srtCharacters.append(crId)
+            self._prj.novel.characters[crId].isMajor = False
+        self._prj.novel.srtCharacters.append(crId)
         return 'Character data read in.'
 
     def add_character(self, crId):
@@ -117,7 +114,7 @@ class NwdCharacterFile(NwdFile):
         Positional arguments:
             crId -- str: character ID.
         """
-        character = self._prj.characters[crId]
+        character = self._prj.novel.characters[crId]
 
         # Set Heading.
         if character.fullName:

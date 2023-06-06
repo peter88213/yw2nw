@@ -1,10 +1,10 @@
 """Provide a class for novelWriter object file representation.
 
-Copyright (c) 2022 Peter Triesberger
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
-from pywriter.pywriter_globals import ERROR
+from pywriter.pywriter_globals import *
 from pywriter.model.world_element import WorldElement
 from yw2nwlib.nwd_file import NwdFile
 
@@ -42,14 +42,11 @@ class NwdObjectFile(NwdFile):
         Return a message beginning with the ERROR constant in case of error.
         Extends the superclass method.
         """
-        message = super().read()
-        if message.startswith(ERROR):
-            return message
-
+        super().read()
         self._prj.lcCount += 1
         itId = str(self._prj.lcCount)
-        self._prj.items[itId] = WorldElement()
-        self._prj.items[itId].title = self._nwItem.nwName
+        self._prj.novel.items[itId] = WorldElement()
+        self._prj.novel.items[itId].title = self._nwItem.nwName
         desc = []
         for line in self._lines:
             if not line:
@@ -63,24 +60,24 @@ class NwdObjectFile(NwdFile):
 
             elif line.startswith('%'):
                 if line.startswith(self._ywAkaKeyword):
-                    self._prj.items[itId].aka = line.split(':')[1].strip()
+                    self._prj.novel.items[itId].aka = line.split(':')[1].strip()
                 elif line.startswith(self._ywTagKeyword):
-                    if self._prj.items[itId].tags is None:
-                        self._prj.items[itId].tags = []
-                    self._prj.items[itId].tags.append(line.split(':')[1].strip())
+                    if self._prj.novel.items[itId].tags is None:
+                        self._prj.novel.items[itId].tags = []
+                    self._prj.novel.items[itId].tags.append(line.split(':')[1].strip())
                 else:
                     continue
 
             elif line.startswith('@'):
                 if line.startswith('@tag'):
-                    self._prj.items[itId].title = line.split(':')[1].strip().replace('_', ' ')
+                    self._prj.novel.items[itId].title = line.split(':')[1].strip().replace('_', ' ')
                 else:
                     continue
 
             else:
                 desc.append(line)
-        self._prj.items[itId].desc = '\n'.join(desc)
-        self._prj.srtItems.append(itId)
+        self._prj.novel.items[itId].desc = '\n'.join(desc)
+        self._prj.novel.srtItems.append(itId)
         return 'Item data read in.'
 
     def add_element(self, itId):
@@ -89,7 +86,7 @@ class NwdObjectFile(NwdFile):
         Positional arguments:
             itId -- str: item ID.
        """
-        item = self._prj.items[itId]
+        item = self._prj.novel.items[itId]
 
         # Set Heading.
         self._lines.append(f'# {item.title}\n')

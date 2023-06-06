@@ -1,6 +1,6 @@
 """Provide a Configuration class for reading and writing INI files.
 
-Copyright (c) 2022 Peter Triesberger
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/PyWriter
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
@@ -15,8 +15,8 @@ class Configuration:
         <self._oLabel> - Boolean values
 
     Public methods:
-        set(settings={}, options={}) -- set the entire configuration without writing the INI file.
         read(iniFile) -- read a configuration file.
+        set(settings={}, options={}) -- set the entire configuration without writing the INI file.
         write(iniFile) -- save the configuration to iniFile.
 
     Public instance variables:    
@@ -37,23 +37,11 @@ class Configuration:
         self._oLabel = 'OPTIONS'
         self.set(settings, options)
 
-    def set(self, settings=None, options=None):
-        """Set the entire configuration without writing the INI file.
-
-        Optional arguments:
-            settings -- new settings (dictionary of strings)
-            options -- new options (dictionary of boolean values)
-        """
-        if settings is not None:
-            self.settings = settings.copy()
-        if options is not None:
-            self.options = options.copy()
-
     def read(self, iniFile):
         """Read a configuration file.
         
         Positional arguments:
-            iniFile -- str: path configuration file path.
+            iniFile: str -- path configuration file path.
             
         Settings and options that can not be read in, remain unchanged.
         """
@@ -70,11 +58,23 @@ class Configuration:
                 fallback = self.options[option]
                 self.options[option] = section.getboolean(option, fallback)
 
+    def set(self, settings=None, options=None):
+        """Set the entire configuration without writing the INI file.
+
+        Optional arguments:
+            settings -- new settings (dictionary of strings)
+            options -- new options (dictionary of boolean values)
+        """
+        if settings is not None:
+            self.settings = settings.copy()
+        if options is not None:
+            self.options = options.copy()
+
     def write(self, iniFile):
         """Save the configuration to iniFile.
 
         Positional arguments:
-            iniFile -- str: path configuration file path.
+            iniFile: str -- path configuration file path.
         """
         config = ConfigParser()
         if self.settings:

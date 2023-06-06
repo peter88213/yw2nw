@@ -4,7 +4,14 @@
 
 ## Changelog
 
-### v10.0.4
+### v1.0.0
+
+- Notes are generally assumed "active".
+- Library update.
+
+Based on PyWriter v12.12.0
+
+### v0.10.4
 
 - Make it run with old Windows versions.
 

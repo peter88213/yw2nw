@@ -15,7 +15,7 @@ nwd_character_file --  Provide a class for novelWriter character file representa
 nwd_world_file -- Provide a class for novelWriter world file representation.
 nwd_object_file -- Provide a class for novelWriter object file representation.
 
-Copyright (c) 2022 Peter Triesberger
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
