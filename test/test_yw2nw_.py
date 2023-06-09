@@ -17,7 +17,7 @@ import yw2nw_
 
 TEST_PATH = f'{os.getcwd()}/../test'
 TEST_DATA_PATH = f'{TEST_PATH}/data/'
-TEST_EXEC_PATH = f'{TEST_PATH}/yw7/'
+TEST_EXEC_PATH = f'{TEST_PATH}/'
 
 # To be placed in TEST_DATA_PATH:
 
