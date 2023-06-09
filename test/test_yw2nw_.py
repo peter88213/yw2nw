@@ -1,7 +1,6 @@
-""" Regression test for the yw2nw project.
+"""Regression test for the yw2nw project.
 
-Test suite for yw2nw.py.
-
+Copyright (c) 2023 Peter Triesberger
 For further information see https://github.com/peter88213/yw2nw
 Published under the MIT License (https://opensource.org/licenses/mit-license.php)
 """
