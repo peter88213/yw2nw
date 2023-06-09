@@ -1,4 +1,4 @@
-""" Python unit tests for the yw2nw project.
+""" Regression test for the yw2nw project.
 
 Test suite for yw2nw.py.
 
