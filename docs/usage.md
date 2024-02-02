@@ -6,16 +6,9 @@ The yw2nw Python script converts yWriter 7 projects to new novelWriter projects 
 
 ## Instructions for use
 
-### Intended usage
-
-After installation, create a shortcut on the desktop. 
-- If you drag a novelWriter project file named *nwProject.nwx* onto it and drop it, a new yWriter project is created one directory level below. Existing files are saved with the file extension *.bak*. 
-- If you drag a yWriter project file with extension *.yw7* and drop it on the icon, a new novelWriter project is generated in a directory named after the yWriter file. Existing novel writer project directories will be renamed as a whole and get the extension *.bak*. 
-If there is already such a directory, a new, numbered backup directory is created with the  extension *.bkxxxx*
-
 ### Command line usage
 
-Alternatively, you can
+You can either
 
 - launch the program on the command line passing the yWriter/novelWriter project file as an argument, or
 - launch the program via a batch file.
