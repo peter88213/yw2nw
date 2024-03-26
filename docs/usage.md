@@ -43,40 +43,40 @@ suppress error messages and the request to confirm overwriting
 | -------------------------- | ---------------------------------------------- | ----------------------------------------- |
 | **Novel 1st level**        |                                                |                                           |
 | "Part" (novelWriter)       | Chapter marked as beginning of a new section   | Text with a first level heading           |
-| Part synopsis              | Chapter description                            | Text prefixed by *% synopsis :*           |
+| Part synopsis              | Chapter description                            | Text prefixed by `% synopsis :`           |
 | **Novel 2nd level**        |                                                |                                           |
 | Chapter                    | Chapter                                        | Text with a second level heading          |
-| Chapter synopsis           | Chapter description                            | Text prefixed by *% synopsis :*           |
+| Chapter synopsis           | Chapter description                            | Text prefixed by `% synopsis :`           |
 | **Novel 3rd level**        |                                                |                                           |
 | Scene                      | Scene                                          | Text with a third level heading           |
-| Scene synopsis             | Scene description                              | Text prefixed by *% synopsis :*           |
+| Scene synopsis             | Scene description                              | Text prefixed by `% synopsis :`           |
 | **Novel 4th level**        |                                                |                                           |
 | "Section" (novelWriter)    | Scene appended to the previous without divider | Text with a fourth level heading          |
-| Section synopsis           | Scene description                              | Text prefixed by *% synopsis :*           |
+| Section synopsis           | Scene description                              | Text prefixed by `% synopsis :`           |
 | **State of completion**    | Scene status                                   | Status (max. 6 conv., sect./scenes only)  |
 | **Validity**               | Scene is used/unused                           | Scene is active/not active                |
 | **Characters**             |                                                |                                           |
 | Character				     | Character                                      | Character (tagged)                        |
 | Character full name        | Character full name                            | First level heading in the character file |
-| Character short name       | Character name                                 | Text prefixed by *@tag :*                 |
-| Character alternative name | Character aka                                  | Text prefixed by *%aka :*                 |
+| Character short name       | Character name                                 | Text prefixed by `@tag :`                 |
+| Character alternative name | Character aka                                  | Text prefixed by `%aka :`                 |
 | Character importance       | Major/minor character                          | Status (max. 2 converted, customizable)   |
-| Character	biography    	 | Character bio                                  | Text with a "## Bio" heading              |
-| Character	goals            | Character goals                                | Text with a "## Goals" heading            |
-| Notes about a Character    | Character notes                                | Text with a "## Notes" heading            |
-| Point of view	reference    | Scene viewpoint character                      | Text in scene prefixed by *@pov :*        |
-| Character reference 	     | Scene character                                | Text in scene prefixed by *@character :*  |
+| Character	biography    	 | Character bio                                  | Text with a `## Bio` heading              |
+| Character	goals            | Character goals                                | Text with a `## Goals` heading            |
+| Notes about a Character    | Character notes                                | Text with a `## Notes` heading            |
+| Point of view	reference    | Scene viewpoint character                      | Text in scene prefixed by `@pov :`        |
+| Character reference 	     | Scene character                                | Text in scene prefixed by `@character :`  |
 | **Story world**            |                                                |                                           |
 | Location				     | Location                                       | Location (tagged)                         |
-| Location name              | Location name                                  | Text prefixed by *@tag :*                 |
-| Location alternative name  | Location aka                                   | Text prefixed by *%aka :*                 |
+| Location name              | Location name                                  | Text prefixed by `@tag :`                 |
+| Location alternative name  | Location aka                                   | Text prefixed by `%aka :`                 |
 | Location description       | Location description                           | Text body below the first heading         |
-| Location reference         | Scene location entry                           | Text prefixed by *@location :*            |
+| Location reference         | Scene location entry                           | Text prefixed by `@location :`            |
 | Item 				         | Item                                           | Item (tagged)                             |
-| Item name                  | Item name                                      | Text prefixed by *@tag :*                 |
-| Item alternative name      | Item aka                                       | Text prefixed by *%aka :*                 |
+| Item name                  | Item name                                      | Text prefixed by `@tag :`                 |
+| Item alternative name      | Item aka                                       | Text prefixed by `%aka :`                 |
 | Item description           | Item description                               | Text body below the first heading         |
-| Item reference             | Scene item entry                               | Text prefixed by *@object :*              |
+| Item reference             | Scene item entry                               | Text prefixed by `@object :`              |
 | **Tools**                  |                                                |                                           |
 | Notes                      | "Notes" type scene                             | "Notes" file                              |
 
@@ -144,7 +144,7 @@ The yw2nw distribution comes with a sample configuration file located in the `sa
 
 This is the configuration explained: 
 
-```
+```ini
 [OPTIONS]
 double_linebreaks = Yes
 
